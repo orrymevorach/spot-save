@@ -1,0 +1,42 @@
+@import './mixins.module.scss';
+
+$darkGreen: #33421b;
+$white: #fff;
+$yellow: #f1ead7;
+$beige: #f1ead7;
+$mediumGreen: #83885c;
+$charcoal: #2f2f2f;
+
+$tablet: 1000px;
+$mobile: 850px;
+
+.row {
+  display: flex;
+}
+
+.center {
+  text-align: center;
+}
+
+@mixin wrapper {
+  padding: 0 100px;
+  @media screen and (max-width: $tablet) {
+    padding: 0 50px;
+  }
+  @media screen and (max-width: $mobile) {
+    padding: 0 25px;
+  }
+}
+
+.heading {
+  font-family: 'Tan Aesop';
+  color: $darkGreen;
+  font-size: 40px;
+  margin: 20px 0 10px;
+  @media (max-width: $tablet) {
+    font-size: 30px;
+  }
+  @media (max-width: $mobile) {
+    font-size: 24px;
+  }
+}

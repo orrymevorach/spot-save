@@ -1,0 +1,45 @@
+@import './fonts.css';
+
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background-color: #f1ead7;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  font-family: 'Neue Haas Medium';
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+}
+
+input[type='submit'],
+button {
+  cursor: pointer;
+}
