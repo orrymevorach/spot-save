@@ -3,7 +3,11 @@ import styles from './closeButton.module.scss';
 import clsx from 'clsx';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-export const CloseButton = ({ handleClick, dark = false, classNames = '' }) => {
+export default function CloseButton({
+  handleClick,
+  dark = false,
+  classNames = '',
+}) {
   return (
     <button
       onClick={handleClick}
@@ -16,4 +20,4 @@ export const CloseButton = ({ handleClick, dark = false, classNames = '' }) => {
       <FontAwesomeIcon icon={faTimes} size="xl" />
     </button>
   );
-};
+}

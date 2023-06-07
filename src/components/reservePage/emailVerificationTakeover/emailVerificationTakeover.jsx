@@ -2,47 +2,52 @@ import { useState } from 'react';
 import InputVerify from './inputVerify/inputVerify';
 import Button from '@/components/shared/button/button';
 import { getUserByEmail, reserveSpotInCabin } from '@/lib/airtable';
+import styles from './emailVerificationTakeover.module.scss';
+import { useCabinSelection } from '@/context/cabin-selection-context';
 
-export default function EmailVerificationTakeover({
-  bedQuantity,
-  selectedCabin,
-}) {
-  const quantityAsArray = Array.from(Array(bedQuantity));
-  const [numberOfVerifiedEmails, setNumberOfVerifiedEmails] = useState(0);
-  const [verifiedEmails, setVerifiedEmails] = useState([]);
+export default function EmailVerificationTakeover() {
+  const {
+    selectedCabin,
+    numberOfGuestsInReservation,
+    dispatch,
+    verifiedEmails,
+    actions,
+  } = useCabinSelection();
+
   const [isLoading, setIsLoading] = useState(false);
 
-  const reserveCabinForUser = async () => {
+  const quantityAsArray = Array.from(Array(numberOfGuestsInReservation));
+  const numberOfVerifiedEmails = verifiedEmails.length;
+
+  const reserveCabinForVerifiedUsers = async () => {
     setIsLoading(true);
-    let response;
-    for (let i = 0; i < verifiedEmails.length; i++) {
+    for (let i = 0; i < numberOfVerifiedEmails; i++) {
       const email = verifiedEmails[i];
       const userResponse = await getUserByEmail({ email });
-      response = await reserveSpotInCabin({
+      const response = await reserveSpotInCabin({
         cabinId: selectedCabin.id,
         attendeeId: userResponse.id,
       });
     }
-    if (response) setIsLoading(false);
+    setIsLoading(false);
   };
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className={styles.container}>
       {quantityAsArray.map((_, index) => {
-        return (
-          <InputVerify
-            key={`email-input-${index}`}
-            index={index}
-            setNumberOfVerifiedEmails={setNumberOfVerifiedEmails}
-            numberOfVerifiedEmails={numberOfVerifiedEmails}
-            verifiedEmails={verifiedEmails}
-            setVerifiedEmails={setVerifiedEmails}
-          />
-        );
+        return <InputVerify key={`email-input-${index}`} index={index} />;
       })}
-      {numberOfVerifiedEmails}/{bedQuantity} emails verified
-      {numberOfVerifiedEmails === bedQuantity && (
-        <Button isLoading={isLoading} handleClick={reserveCabinForUser}>
+      <Button
+        handleClick={() => dispatch({ type: actions.ADD_ADDITIONAL_GUEST })}
+      >
+        Add Guest +
+      </Button>
+      {numberOfVerifiedEmails}/{numberOfGuestsInReservation} emails verified
+      {numberOfVerifiedEmails === numberOfGuestsInReservation && (
+        <Button
+          isLoading={isLoading}
+          handleClick={reserveCabinForVerifiedUsers}
+        >
           Submit
         </Button>
       )}

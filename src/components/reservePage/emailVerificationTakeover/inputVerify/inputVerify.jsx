@@ -3,22 +3,14 @@ import { TextField } from '@mui/material';
 import { useState } from 'react';
 import styles from './inputVerify.module.scss';
 import Button from '@/components/shared/button/button';
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import clsx from 'clsx';
+import { useCabinSelection } from '@/context/cabin-selection-context';
 
-export default function InputVerify({
-  index,
-  setNumberOfVerifiedEmails,
-  numberOfVerifiedEmails,
-  verifiedEmails,
-  setVerifiedEmails,
-}) {
+export default function InputVerify({ index }) {
+  const [user, setUser] = useState(null);
   const [email, setEmail] = useState('');
-  const [isVerified, setIsVerified] = useState(false);
-  const [showVerificationIcon, setShowVerificationIcon] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { verifiedEmails, dispatch, actions } = useCabinSelection();
 
   const handleChange = e => {
     setEmail(e.target.value);
@@ -35,25 +27,27 @@ export default function InputVerify({
       setError(
         'This email has already been verified. Please enter a new email.'
       );
+    } else if (!hasUser) {
+      setError('No user found with this email.');
     } else if (hasUser && !isRepeatEmail) {
-      setIsVerified(true);
-      setNumberOfVerifiedEmails(numberOfVerifiedEmails + 1);
-      verifiedEmails.push(email);
-      setVerifiedEmails(verifiedEmails);
-    } else setIsVerified(false);
-    setShowVerificationIcon(true);
+      const updatedVerifiedEmails = [...verifiedEmails, email];
+      dispatch({
+        type: actions.VERIFY_GUEST,
+        verifiedEmails: updatedVerifiedEmails,
+      });
+      setUser(userResponse);
+    }
     setIsLoading(false);
   };
 
   const guestNumber = index + 1;
-  const icon = isVerified ? faCheck : faTimes;
 
   return (
     <form onSubmit={verifyEmail} className={styles.form}>
       <label htmlFor={`label-${index}`}>Guest {guestNumber}</label>
-      {error && <p>{error}</p>}
+      {error && <p className={styles.error}>{error}</p>}
       <div className={styles.row}>
-        {!isVerified ? (
+        {!user ? (
           <>
             <TextField
               name={`label-${index}`}
@@ -65,17 +59,7 @@ export default function InputVerify({
             <Button isLoading={isLoading}>Verify</Button>
           </>
         ) : (
-          <p>{email}</p>
-        )}
-
-        {showVerificationIcon && (
-          <FontAwesomeIcon
-            icon={icon}
-            className={clsx(
-              styles.icon,
-              isVerified ? styles.check : styles.close
-            )}
-          />
+          <p>{user.name}</p>
         )}
       </div>
     </form>

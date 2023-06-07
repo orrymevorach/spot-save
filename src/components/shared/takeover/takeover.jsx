@@ -1,21 +1,28 @@
 import React, { useState } from 'react';
 import style from './takeover.module.scss';
-import { CloseButton } from '../closeButton';
+import CloseButton from '../closeButton';
 
-export default function Takeover({ children, styles, disableOverlayClose }) {
-  const [isOpen, setIsOpen] = useState(true);
-  const handleClose = () => setIsOpen(false);
+export default function Takeover({
+  children,
+  styles,
+  disableOverlayClose,
+  handleClose,
+  showTakeover,
+}) {
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  const closeModal = handleClose ? handleClose : () => setIsModalOpen(false);
+  const isOpen = showTakeover ? showTakeover : isModalOpen;
   return (
     <>
       {isOpen && (
         <div className={style.takeover} style={styles}>
           <div
             className={style.overlay}
-            onClick={disableOverlayClose ? () => {} : handleClose}
+            onClick={disableOverlayClose ? () => {} : closeModal}
           ></div>
           <div className={style.modal}>
             {children}
-            <CloseButton handleClick={handleClose} />
+            <CloseButton handleClick={closeModal} />
           </div>
         </div>
       )}

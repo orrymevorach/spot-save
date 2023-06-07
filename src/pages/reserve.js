@@ -1,10 +1,13 @@
-import AvailabilityData from '@/components/reservePage/availabilityData';
+import ReservePageContainer from '@/components/reservePage/reservePageContainer';
+import { CabinSelectionProvider } from '@/context/cabin-selection-context';
 
 export default function Reserve() {
   return (
     <>
       <main>
-        <AvailabilityData />
+        <CabinSelectionProvider>
+          <ReservePageContainer />
+        </CabinSelectionProvider>
       </main>
     </>
   );
