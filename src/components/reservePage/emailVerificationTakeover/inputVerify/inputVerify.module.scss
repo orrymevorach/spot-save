@@ -1,0 +1,29 @@
+@use '@variables' as variables;
+
+.form {
+  margin-bottom: 30px;
+  width: 300px;
+  text-align: left;
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  &.check {
+    color: variables.$darkGreen;
+  }
+  &.close {
+    color: red;
+  }
+}
+
+.emailInput {
+  padding: 40px;
+}

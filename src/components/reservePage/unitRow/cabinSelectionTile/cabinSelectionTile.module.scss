@@ -26,7 +26,7 @@
 
 .button {
   padding: 6px;
-  border-radius: 3px;
+  border-radius: variables.$borderRadius;
   width: 80px;
   text-align: center;
   font-size: 14px;
@@ -35,11 +35,10 @@
   color: white;
   @include mixins.fontPrimaryLight;
   &:hover {
-    background-color: variables.$beige;
     color: variables.$charcoal;
   }
   &.full {
     background-color: rgb(220, 29, 29);
-    color: variables.$beige;
+    color: white;
   }
 }

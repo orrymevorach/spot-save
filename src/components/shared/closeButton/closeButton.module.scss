@@ -1,0 +1,45 @@
+@use '@variables' as variables;
+
+.icon {
+  box-sizing: initial;
+  width: 25px;
+  font-size: 25px;
+  background-color: variables.$primaryColor;
+  color: variables.$yellow;
+  text-align: center;
+  margin-bottom: 8px;
+  padding: 6px 6px 4px 6px;
+  border-radius: 50%;
+  transition: 0.3s;
+  cursor: pointer;
+  &:hover {
+    background-color: variables.$yellow;
+    color: variables.$primaryColor;
+  }
+}
+
+.closeButton {
+  background-color: white;
+  border: none;
+  color: variables.$primaryColor;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 10001;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    background-color: variables.$primaryColor;
+    color: white;
+    transition: 0.3s;
+  }
+  &.darkButton {
+    background-color: variables.$primaryColor;
+    color: white;
+    &:hover {
+      background-color: white;
+      color: variables.$primaryColor;
+      transition: 0.3s;
+    }
+  }
+}

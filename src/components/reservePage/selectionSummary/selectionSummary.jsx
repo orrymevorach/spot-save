@@ -4,8 +4,8 @@ import { useUser } from '@/context/user-context';
 export default function SelectionSummary() {
   const user = useUser();
   if (!user) return;
-  const cabinName = user.cabin[0]?.name;
-  const unit = user.cabin[0]?.unit;
+  const cabinName = user.cabins[0]?.name;
+  const unit = user.cabins[0]?.unit;
   return (
     <div className={styles.selectionContainer}>
       {cabinName ? (

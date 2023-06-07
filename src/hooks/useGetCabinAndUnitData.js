@@ -34,7 +34,9 @@ const sortCabinsIntoUnits = (cabinList, initialUnitsData) => {
 
 export default function useGetCabinAndUnitData() {
   const [units, setUnits] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
+    setIsLoading(true);
     const getData = async () => {
       const cabinResponse = await getCabins({});
       if (!units.length) {
@@ -44,6 +46,7 @@ export default function useGetCabinAndUnitData() {
         );
         setUnits(Object.entries(unitsWithAllCabins));
       }
+      setIsLoading(false);
     };
 
     getData();
@@ -51,5 +54,6 @@ export default function useGetCabinAndUnitData() {
 
   return {
     units,
+    isLoading,
   };
 }

@@ -4,18 +4,28 @@ import UnitRow from '../unitRow';
 import SelectionSummary from '../selectionSummary';
 import useGetCabinAndUnitData from '@/hooks/useGetCabinAndUnitData';
 import Dropdown from '@/components/shared/dropdown/dropdown';
+import Loader from '@/components/shared/loader/loader';
+
+import EmailVerificationTakeover from '../emailVerificationTakeover/emailVerificationTakeover';
 
 export default function AvailabilityData() {
   const [showTakeover, setShowTakeover] = useState(false);
-  const { units } = useGetCabinAndUnitData();
-  const [bedQuantity, setBedQuantity] = useState(0);
+  const { units, isLoading } = useGetCabinAndUnitData();
+  const [bedQuantity, setBedQuantity] = useState(1);
+  const [selectedCabin, setSelectedCabin] = useState('');
 
+  const handleSubmit = async selectedCabin => {
+    setShowTakeover(true);
+    setSelectedCabin(selectedCabin);
+  };
+
+  if (isLoading) return <Loader />;
   return (
     <div>
       <SelectionSummary />
       <Dropdown
         options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
-        label="How many beds are you reserving? (Maximium 12 beds in a cabin)"
+        label="Available Beds (Maximium 12 people per cabin)"
         currentValue={bedQuantity}
         handleChange={setBedQuantity}
       />
@@ -25,14 +35,17 @@ export default function AvailabilityData() {
           <UnitRow
             key={unitName}
             unitData={unitData}
-            handleSubmit={() => setShowTakeover(!showTakeover)}
+            handleSubmit={handleSubmit}
             bedQuantity={bedQuantity}
           />
         );
       })}
       {showTakeover && (
-        <Takeover>
-          <p>Thank you!</p>
+        <Takeover disableOverlayClose>
+          <EmailVerificationTakeover
+            bedQuantity={bedQuantity}
+            selectedCabin={selectedCabin}
+          />
         </Takeover>
       )}
     </div>
