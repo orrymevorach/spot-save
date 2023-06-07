@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { reserveSpotInCabin } from '@/lib/airtable';
 
-export default function UnitRow({ unitData, handleSubmit }) {
+export default function UnitRow({ unitData, handleSubmit, bedQuantity }) {
   const [showCabins, setShowCabins] = useState(true);
   const router = useRouter();
 
@@ -34,20 +34,34 @@ export default function UnitRow({ unitData, handleSubmit }) {
       >
         {unitName} <FontAwesomeIcon icon={icon} size="sm" />
       </button>
-      {showCabins && (
+      {showCabins && !hasCabinData ? (
+        <p>There are currently no cabins available in this unit</p>
+      ) : showCabins && hasCabinData ? (
         <ul>
-          {hasCabinData
-            ? cabins.map(cabin => {
-                return (
-                  <CabinSelectionTile
-                    cabin={cabin}
-                    key={`${cabin.unit}-${cabin.name}`}
-                    handleSelectCabin={handleSelectCabin}
-                  />
-                );
-              })
-            : 'There are currently no cabins available in this unit'}
+          {cabins
+            .filter(cabin => {
+              const openBeds = parseFloat(cabin.openBeds);
+              if (bedQuantity <= openBeds) return true;
+              return false;
+            })
+            .sort((a, b) => {
+              const aOpenBeds = parseFloat(a.openBeds);
+              const bOpenBeds = parseFloat(b.openBeds);
+              if (aOpenBeds > bOpenBeds) return -1;
+              return 1;
+            })
+            .map(cabin => {
+              return (
+                <CabinSelectionTile
+                  cabin={cabin}
+                  key={`${cabin.unit}-${cabin.name}`}
+                  handleSelectCabin={handleSelectCabin}
+                />
+              );
+            })}
         </ul>
+      ) : (
+        ''
       )}
     </div>
   );

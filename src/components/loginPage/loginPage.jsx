@@ -1,5 +1,5 @@
-import { getUser } from '@/lib/airtable';
-import { useState } from 'react';
+import { getUserByEmail } from '@/lib/airtable';
+import { useEffect, useState } from 'react';
 import styles from './loginPage.module.scss';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
@@ -21,9 +21,19 @@ const useLoginExistingUserOnPageLoad = () => {
   }, [router]);
 };
 
+const errors = {
+  USER_NOT_FOUND:
+    'We do not have a record of this email. Please buy a ticket, or contact info@highlandsmusicfestival.ca',
+  INCORRECT_PASSWORD:
+    'The order confirmation number does not match the one we have on file for this email. Please double check your spelling, or contact info@highlandsmusicfestival.ca',
+  GENERIC:
+    "We're sorry, an unknown error has occured. Please contact info@highlandsmusicfestival.ca.",
+};
+
 export default function Login() {
   const [email, setEmail] = useState('');
-  const [showError, setShowError] = useState(false);
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   useLoginExistingUserOnPageLoad();
@@ -31,9 +41,13 @@ export default function Login() {
   const handleSubmit = async e => {
     e.preventDefault();
     setIsLoading(true);
-    setShowError(false);
-    const user = await getUser({ email });
-    if (user?.id) {
+    const user = await getUserByEmail({ email });
+
+    const userNotFound = !user?.id;
+    const passwordDoesNotMatch = user?.id && user?.paymentIntent !== password;
+    const userExistsAndPasswordMatches =
+      user?.id && user?.paymentIntent === password;
+    if (userExistsAndPasswordMatches) {
       setIsLoading(false);
       Cookies.set(COOKIES.USER_RECORD, user.id);
       router.push({
@@ -42,10 +56,24 @@ export default function Login() {
           id: user.id,
         },
       });
+      return;
+    } else if (passwordDoesNotMatch) {
+      setIsLoading(false);
+      setError(errors.INCORRECT_PASSWORD);
+      return;
+    } else if (userNotFound) {
+      setError(errors.USER_NOT_FOUND);
+      setIsLoading(false);
+      return;
     } else {
       setIsLoading(false);
-      setShowError(true);
+      setError(errors.GENERIC);
     }
+  };
+
+  const handleChange = (e, setInput) => {
+    setError('');
+    setInput(e.target.value);
   };
 
   if (isLoading) return <Loader />;
@@ -53,17 +81,22 @@ export default function Login() {
   return (
     <form action="#" onSubmit={e => handleSubmit(e)} className={styles.login}>
       <label htmlFor="email">Please enter your email</label>
-      {showError && (
-        <p className={styles.error}>
-          We do not have a record of this email. Please buy a ticket or contact
-          info@highlandsmusicfestival.ca
-        </p>
-      )}
+      {error && <p className={styles.error}>{error}</p>}
       <input
         type="email"
         id="email"
         name="email"
-        onChange={e => setEmail(e.target.value)}
+        onChange={e => handleChange(e, setEmail)}
+        value={email}
+      />
+      <label htmlFor="password">
+        Please enter your order confirmation number
+      </label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        onChange={e => handleChange(e, setPassword)}
       />
       <input type="submit" />
     </form>

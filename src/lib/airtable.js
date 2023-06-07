@@ -1,6 +1,6 @@
 import {
   GET_CABINS,
-  GET_USER,
+  GET_USER_BY_EMAIL,
   RESERVE_SPOT_IN_CABIN,
   GET_USER_BY_ID,
 } from '@/graphql/queries';
@@ -26,19 +26,19 @@ export const reserveSpotInCabin = async ({ cabinId = '', attendeeId }) => {
         attendeeId,
       },
     });
-    return data.update_attendees;
+    return data.update_tickets;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getUser = async ({ email }) => {
+export const getUserByEmail = async ({ email }) => {
   try {
     const { data } = await client.query({
-      query: GET_USER,
+      query: GET_USER_BY_EMAIL,
       variables: { email },
     });
-    return data.attendees[0];
+    return data.tickets[0];
   } catch (error) {
     console.log(error);
   }
@@ -50,7 +50,7 @@ export const getUserByRecordId = async ({ id }) => {
       query: GET_USER_BY_ID,
       variables: { id },
     });
-    return data.attendees[0];
+    return data.tickets[0];
   } catch (error) {
     console.log(error);
   }

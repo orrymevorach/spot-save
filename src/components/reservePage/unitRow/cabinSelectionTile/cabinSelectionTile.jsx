@@ -3,7 +3,6 @@ import clsx from 'clsx';
 
 export default function CabinSelectionTile({ cabin, handleSelectCabin }) {
   const { name, status, openBeds, totalBeds, additionalInformation } = cabin;
-  const availability = status !== 'Full' ? 'Available' : 'Full';
   return (
     <li key={name} className={styles.cabinContainer}>
       <div className={styles.topRow}>
@@ -11,16 +10,15 @@ export default function CabinSelectionTile({ cabin, handleSelectCabin }) {
           Cabin Name: <span className={styles.name}>{name}</span>
         </p>
         <div className={styles.buttons}>
-          <p className={clsx(styles.status, styles[availability])}>
-            {availability}
-          </p>
-          {status !== 'Full' && (
+          {status !== 'Full' ? (
             <button
-              className={styles.reserveButton}
+              className={styles.button}
               onClick={() => handleSelectCabin(cabin)}
             >
-              Reserve
+              Select
             </button>
+          ) : (
+            <p className={clsx(styles.button, styles.full)}>Full</p>
           )}
         </div>
       </div>

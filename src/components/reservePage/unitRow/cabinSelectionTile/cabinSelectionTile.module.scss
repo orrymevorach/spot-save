@@ -24,32 +24,22 @@
   }
 }
 
-.reserveButton,
-.status {
+.button {
   padding: 6px;
   border-radius: 3px;
   width: 80px;
   text-align: center;
   font-size: 14px;
   border: none;
-  &.Available {
-    background-color: variables.$darkGreen;
-    color: variables.$beige;
-  }
-  &.Full {
-    background-color: rgb(220, 29, 29);
-    color: variables.$beige;
-  }
-}
-
-.reserveButton {
   background-color: variables.$charcoal;
   color: white;
-  margin-left: 10px;
-  border-radius: 3px;
   @include mixins.fontPrimaryLight;
   &:hover {
     background-color: variables.$beige;
     color: variables.$charcoal;
+  }
+  &.full {
+    background-color: rgb(220, 29, 29);
+    color: variables.$beige;
   }
 }

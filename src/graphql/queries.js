@@ -16,23 +16,24 @@ export const GET_CABINS = gql`
 
 export const RESERVE_SPOT_IN_CABIN = gql`
   mutation ReserveSpot($cabinId: String, $attendeeId: String) {
-    update_attendees(id: $attendeeId, cabin: [$cabinId]) {
+    update_tickets(id: $attendeeId, cabin: [$cabinId]) {
       id
     }
   }
 `;
 
-export const GET_USER = gql`
-  query GetUser($email: String) {
-    attendees(email: $email) {
+export const GET_USER_BY_EMAIL = gql`
+  query GetUserByEmail($email: String) {
+    tickets(emailAddress: $email) {
       id
+      paymentIntent
     }
   }
 `;
 
 export const GET_USER_BY_ID = gql`
   query GetUser($id: String) {
-    attendees(id: $id) {
+    tickets(id: $id) {
       id
       cabin {
         name
