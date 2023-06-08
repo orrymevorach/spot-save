@@ -6,7 +6,8 @@
       "@mixins": ["./src/styles/mixins.module.scss"],
       "context": ["./src/context/*"],
       "hooks": ["./src/hooks/"],
-      "utils": ["./src/utils/*"]
+      "utils": ["./src/utils/*"],
+      "public": ["./public/*"]
     }
   }
 }

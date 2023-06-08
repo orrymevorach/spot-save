@@ -3,6 +3,8 @@ import Button from '@/components/shared/button/button';
 import { reserveSpotInCabin } from '@/lib/airtable';
 import styles from './bottomRow.module.scss';
 import { useCabinSelection } from '@/context/cabin-selection-context';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function BottomRow() {
   const {
@@ -39,7 +41,7 @@ export default function BottomRow() {
           handleClick={() => dispatch({ type: actions.ADD_ADDITIONAL_GUEST })}
           classNames={styles.addGuest}
         >
-          Add Guest +
+          Add Guest <FontAwesomeIcon icon={faPlus} size="sm" />
         </Button>
       )}
       {numberOfGuestsInReservation > 1 && (
@@ -47,9 +49,8 @@ export default function BottomRow() {
           {numberOfVerifiedUsers}/{numberOfGuestsInReservation} emails verified
         </p>
       )}
-
       <Button isLoading={isLoading} handleClick={reserveCabinForVerifiedUsers}>
-        Submit
+        Reserve
       </Button>
     </div>
   );

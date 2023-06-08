@@ -26,19 +26,11 @@
 
 .button {
   padding: 6px;
-  border-radius: variables.$borderRadius;
-  width: 80px;
-  text-align: center;
-  font-size: 14px;
-  border: none;
-  background-color: variables.$charcoal;
-  color: white;
   @include mixins.fontPrimaryLight;
-  &:hover {
-    color: variables.$charcoal;
-  }
   &.full {
     background-color: rgb(220, 29, 29);
     color: white;
+    min-width: 100px;
+    text-align: center;
   }
 }

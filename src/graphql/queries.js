@@ -10,6 +10,7 @@ export const GET_CABINS = gql`
       totalBeds
       unit
       additionalInformation
+      images
     }
   }
 `;

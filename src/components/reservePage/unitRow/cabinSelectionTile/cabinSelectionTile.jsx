@@ -1,3 +1,4 @@
+import Button from '@/components/shared/button';
 import styles from './cabinSelectionTile.module.scss';
 import clsx from 'clsx';
 
@@ -11,12 +12,12 @@ export default function CabinSelectionTile({ cabin, handleSelectCabin }) {
         </p>
         <div className={styles.buttons}>
           {status !== 'Full' ? (
-            <button
-              className={styles.button}
-              onClick={() => handleSelectCabin(cabin)}
+            <Button
+              classNames={styles.button}
+              handleClick={() => handleSelectCabin(cabin)}
             >
               Select
-            </button>
+            </Button>
           ) : (
             <p className={clsx(styles.button, styles.full)}>Full</p>
           )}

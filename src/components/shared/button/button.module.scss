@@ -15,8 +15,8 @@
     animation: rotate 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   }
   &:hover {
-    background-color: white;
     color: variables.$primaryColor;
+    background-color: white;
     transition: 0.1s;
   }
 }
