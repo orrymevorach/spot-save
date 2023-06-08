@@ -36,6 +36,8 @@ export const GET_USER_BY_ID = gql`
   query GetUser($id: String) {
     tickets(id: $id) {
       id
+      name
+      emailAddress
       cabins {
         name
         unit

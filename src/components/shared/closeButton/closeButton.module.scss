@@ -32,6 +32,8 @@
     background-color: variables.$primaryColor;
     color: white;
     transition: 0.3s;
+    border-radius: 3px;
+    padding: 3px 6px;
   }
   &.darkButton {
     background-color: variables.$primaryColor;

@@ -3,11 +3,11 @@
 
 .form {
   margin-bottom: 30px;
-  width: 300px;
   text-align: left;
-  label {
+  .label {
     display: block;
     margin-bottom: 5px;
+    font-size: 18px;
   }
 }
 
@@ -32,4 +32,8 @@
 .error {
   color: red;
   @include mixins.fontPrimaryLight;
+}
+
+.button {
+  margin-left: 10px;
 }

@@ -1,0 +1,11 @@
+@use '@mixins' as mixins;
+
+.verifiedUser {
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.label {
+  @include mixins.fontPrimaryBold;
+  font-size: 18px;
+}

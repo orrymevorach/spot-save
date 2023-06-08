@@ -6,11 +6,11 @@ import Button from '@/components/shared/button/button';
 import { useCabinSelection } from '@/context/cabin-selection-context';
 
 export default function InputVerify({ index }) {
-  const [user, setUser] = useState(null);
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { verifiedEmails, dispatch, actions } = useCabinSelection();
+  const { verifiedEmails, verifiedUsers, dispatch, actions } =
+    useCabinSelection();
 
   const handleChange = e => {
     setEmail(e.target.value);
@@ -31,36 +31,41 @@ export default function InputVerify({ index }) {
       setError('No user found with this email.');
     } else if (hasUser && !isRepeatEmail) {
       const updatedVerifiedEmails = [...verifiedEmails, email];
+      const updatedVerifiedUsers = [...verifiedUsers, userResponse];
       dispatch({
         type: actions.VERIFY_GUEST,
         verifiedEmails: updatedVerifiedEmails,
+        verifiedUsers: updatedVerifiedUsers,
       });
-      setUser(userResponse);
     }
     setIsLoading(false);
   };
 
-  const guestNumber = index + 1;
+  const guestNumber = verifiedUsers.length + index + 1;
 
   return (
     <form onSubmit={verifyEmail} className={styles.form}>
-      <label htmlFor={`label-${index}`}>Guest {guestNumber}</label>
+      <label className={styles.label} htmlFor={`label-${index}`}>
+        Guest {guestNumber}
+      </label>
       {error && <p className={styles.error}>{error}</p>}
       <div className={styles.row}>
-        {!user ? (
-          <>
-            <TextField
-              name={`label-${index}`}
-              id={`label-${index}`}
-              onChange={handleChange}
-              value={email}
-              size="small"
-            />
-            <Button isLoading={isLoading}>Verify</Button>
-          </>
-        ) : (
-          <p>{user.name}</p>
-        )}
+        <TextField
+          name={`label-${index}`}
+          id={`label-${index}`}
+          onChange={handleChange}
+          value={email}
+          size="small"
+        />
+        <Button isLoading={isLoading} classNames={styles.button}>
+          Verify
+        </Button>
+        <Button
+          handleClick={() => dispatch({ type: actions.REMOVE_GUEST })}
+          classNames={styles.button}
+        >
+          Remove User
+        </Button>
       </div>
     </form>
   );
