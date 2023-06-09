@@ -1,38 +1,23 @@
-import InputVerify from './inputVerify/inputVerify';
 import styles from './emailVerificationTakeover.module.scss';
 import { useCabinSelection } from '@/context/cabin-selection-context';
-import VerifiedUserSummary from './verifiedUserSummary/verifiedUserSummary';
 import BottomRow from './bottomRow/bottomRow';
 import ImageCarousel from '@/components/shared/imageCarousel';
+import { CABIN_SELECTION_STAGES } from '@/hooks/useCabinSelection';
+import CabinSelection from './cabinSelection/cabinSelection';
 
 export default function EmailVerificationTakeover() {
-  const { numberOfGuestsInReservation, verifiedUsers, selectedCabin } =
-    useCabinSelection();
+  const { selectedCabin, currentStage } = useCabinSelection();
 
-  const numberOfVerifiedUsers = verifiedUsers.length;
-  const numberOfInputsToShow = Array.from(
-    Array(numberOfGuestsInReservation - numberOfVerifiedUsers)
-  );
+  const { CABIN_SELECTION, BED_SELECTION, ADD_GUESTS } = CABIN_SELECTION_STAGES;
 
   return (
     <div className={styles.container}>
-      <div className={styles.column}>
-        {selectedCabin.images && (
-          <ImageCarousel images={selectedCabin.images} />
-        )}
-      </div>
-      <div className={styles.column}>
-        {verifiedUsers.map((currentUser, index) => (
-          <VerifiedUserSummary
-            user={currentUser}
-            key={currentUser.name}
-            guestNumber={index + 1}
-          />
-        ))}
-        {numberOfInputsToShow.map((_, index) => {
-          return <InputVerify key={`email-input-${index}`} index={index} />;
-        })}
-      </div>
+      {currentStage === CABIN_SELECTION && (
+        <ImageCarousel images={selectedCabin.images} />
+      )}
+
+      {currentStage === ADD_GUESTS && <CabinSelection />}
+
       <BottomRow />
     </div>
   );

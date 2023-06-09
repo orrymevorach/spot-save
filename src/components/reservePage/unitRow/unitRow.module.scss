@@ -1,10 +1,12 @@
-.unit {
+@use '@variables' as variables;
+
+.showUnitButton {
   background: none;
   border: none;
   font-size: 26px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #000;
+  border-bottom: 2px solid #000;
   padding: 10px 20px;
   width: 100%;
   margin: 20px 0;
@@ -12,4 +14,21 @@
     margin-left: 10px;
     font-size: 14px;
   }
+}
+
+.unitContainer {
+  display: flex;
+}
+
+.unitImage {
+  width: 50%;
+  height: auto;
+  object-fit: contain;
+}
+
+.unitList {
+  height: 500px;
+  overflow-y: scroll;
+  padding-top: 30px;
+  border-radius: 3px;
 }

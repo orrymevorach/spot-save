@@ -5,11 +5,15 @@
   bottom: 0;
   left: 0;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   border-top: 3px solid variables.$primaryColor;
   width: 100%;
   padding: 30px 20px;
   z-index: 1000;
   background-color: white;
+}
+
+.nextButton {
+  margin-left: auto;
+  display: block;
 }

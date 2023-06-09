@@ -3,55 +3,73 @@ import Button from '@/components/shared/button/button';
 import { reserveSpotInCabin } from '@/lib/airtable';
 import styles from './bottomRow.module.scss';
 import { useCabinSelection } from '@/context/cabin-selection-context';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { CABIN_SELECTION_STAGES } from '@/hooks/useCabinSelection';
+import Loader from '@/components/shared/loader/loader';
 
 export default function BottomRow() {
-  const {
-    selectedCabin,
-    numberOfGuestsInReservation,
-    dispatch,
-    verifiedUsers,
-    actions,
-  } = useCabinSelection();
+  const { selectedCabin, verifiedUsers, dispatch, actions, currentStage } =
+    useCabinSelection();
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const numberOfVerifiedUsers = verifiedUsers.length;
-  const hasMaximumGuests = numberOfGuestsInReservation === 12;
+  // const reserveCabinForVerifiedUsers = async () => {
+  //   setIsLoading(true);
+  //   for (let i = 0; i < verifiedUsers.length; i++) {
+  //     const user = verifiedUsers[i];
+  //     const response = await reserveSpotInCabin({
+  //       cabinId: selectedCabin.id,
+  //       attendeeId: user.id,
+  //     });
+  //   }
+  //   setIsLoading(false);
+  // };
 
-  const reserveCabinForVerifiedUsers = async () => {
+  const goToStage = ({ stage }) => {
     setIsLoading(true);
-    for (let i = 0; i < verifiedUsers.length; i++) {
-      const user = verifiedUsers[i];
-      const response = await reserveSpotInCabin({
-        cabinId: selectedCabin.id,
-        attendeeId: user.id,
+    setTimeout(() => {
+      dispatch({
+        type: actions.SET_SELECTION_STAGE,
+        currentStage: stage,
       });
-    }
-    setIsLoading(false);
+      setIsLoading(false);
+    }, 500);
   };
+
+  const data = {
+    [CABIN_SELECTION_STAGES.CABIN_SELECTION]: {
+      backButtonText: null,
+      nextButtonText: 'Select Cabin',
+      nextStage: CABIN_SELECTION_STAGES.ADD_GUESTS,
+    },
+    [CABIN_SELECTION_STAGES.ADD_GUESTS]: {
+      backButtonText: 'Back to Cabin Selection',
+      nextButtonText: 'Continue to Checkout',
+      previousStage: CABIN_SELECTION_STAGES.CABIN_SELECTION,
+      nextStage: CABIN_SELECTION_STAGES.BED_SELECTION,
+    },
+  };
+
+  const { backButtonText, nextButtonText, previousStage, nextStage } =
+    data[currentStage];
+
+  if (isLoading) return <Loader isDotted />;
 
   return (
     <div className={styles.bottomRow}>
-      {hasMaximumGuests ? (
-        <p>Maximum 12 guests per cabin</p>
-      ) : (
-        <Button
-          handleClick={() => dispatch({ type: actions.ADD_ADDITIONAL_GUEST })}
-          classNames={styles.addGuest}
-        >
-          Add Guest <FontAwesomeIcon icon={faPlus} size="sm" />
+      {backButtonText && (
+        <Button handleClick={() => goToStage({ stage: previousStage })}>
+          {backButtonText}
         </Button>
       )}
-      {numberOfGuestsInReservation > 1 && (
-        <p>
-          {numberOfVerifiedUsers}/{numberOfGuestsInReservation} emails verified
-        </p>
+
+      {nextButtonText && (
+        <Button
+          handleClick={() => goToStage({ stage: nextStage })}
+          classNames={styles.nextButton}
+        >
+          {nextButtonText}
+        </Button>
       )}
-      <Button isLoading={isLoading} handleClick={reserveCabinForVerifiedUsers}>
-        Reserve
-      </Button>
     </div>
   );
 }

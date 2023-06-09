@@ -6,10 +6,3 @@
   overflow-y: scroll;
   display: flex;
 }
-
-.column {
-  width: 50%;
-  &:first-of-type {
-    margin-right: 30px;
-  }
-}

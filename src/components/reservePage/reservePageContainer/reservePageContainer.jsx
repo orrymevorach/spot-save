@@ -8,7 +8,7 @@ export default function ReservePageContainer() {
   const { showTakeover, dispatch, actions } = useCabinSelection();
   return (
     <div>
-      <SelectionSummary />
+      {/* <SelectionSummary /> */}
       <Units />
       {showTakeover && (
         <Takeover

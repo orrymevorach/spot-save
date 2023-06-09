@@ -10,23 +10,20 @@ export default function CabinSelectionTile({ cabin, handleSelectCabin }) {
         <p className={styles.nameContainer}>
           Cabin Name: <span className={styles.name}>{name}</span>
         </p>
-        <div className={styles.buttons}>
-          {status !== 'Full' ? (
-            <Button
-              classNames={styles.button}
-              handleClick={() => handleSelectCabin(cabin)}
-            >
-              Select
-            </Button>
-          ) : (
-            <p className={clsx(styles.button, styles.full)}>Full</p>
-          )}
-        </div>
+        <p>
+          Available Beds: {openBeds} of {totalBeds}
+        </p>
+        {status !== 'Full' ? (
+          <Button
+            classNames={styles.button}
+            handleClick={() => handleSelectCabin(cabin)}
+          >
+            Select
+          </Button>
+        ) : (
+          <p className={clsx(styles.button, styles.full)}>Full</p>
+        )}
       </div>
-
-      <p>
-        Available Beds: {openBeds} of {totalBeds}
-      </p>
       {/* {additionalInformation?.length ? (
         <ul>
           Additional Information:

@@ -2,19 +2,12 @@
 @use '@mixins' as mixins;
 
 .cabinContainer {
-  padding: 0 40px;
+  padding-left: 40px;
   margin-bottom: 40px;
   p {
     @include mixins.fontPrimaryLight;
   }
-}
-
-.topRow {
-  display: flex;
-}
-
-.buttons {
-  display: flex;
+  width: 300px;
 }
 
 .nameContainer {
@@ -25,12 +18,16 @@
 }
 
 .button {
-  padding: 6px;
+  padding: 4px 0;
+  min-width: 80px;
   @include mixins.fontPrimaryLight;
+  margin-top: 10px;
   &.full {
     background-color: rgb(220, 29, 29);
     color: white;
-    min-width: 100px;
+    min-width: 80px;
     text-align: center;
+    border-radius: 3px;
+    display: inline-block;
   }
 }
