@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from './unitRow.module.scss';
-import CabinSelectionTile from './cabinSelectionTile/cabinSelectionTile';
+import CabinSelectionTile from '../cabinSelectionTile/cabinSelectionTile';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { useCabinSelection } from '@/context/cabin-selection-context';

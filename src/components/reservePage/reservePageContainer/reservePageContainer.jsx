@@ -1,14 +1,18 @@
 import Takeover from '@/components/shared/takeover';
-import SelectionSummary from '../selectionSummary';
 import EmailVerificationTakeover from '../emailVerificationTakeover/emailVerificationTakeover';
 import Units from '../units/units';
 import { useCabinSelection } from '@/context/cabin-selection-context';
+import Filters from '../filters/filters';
+import Sidebar from '../sidebar/sidebar';
+import { useRef } from 'react';
 
 export default function ReservePageContainer() {
   const { showTakeover, dispatch, actions } = useCabinSelection();
+  const mainSectionRef = useRef();
   return (
     <div>
-      {/* <SelectionSummary /> */}
+      <Sidebar mainSectionRef={mainSectionRef} />
+      <Filters mainSectionRef={mainSectionRef} />
       <Units />
       {showTakeover && (
         <Takeover
