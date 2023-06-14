@@ -12,17 +12,17 @@ export default function BottomRow() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  // const reserveCabinForVerifiedUsers = async () => {
-  //   setIsLoading(true);
-  //   for (let i = 0; i < verifiedUsers.length; i++) {
-  //     const user = verifiedUsers[i];
-  //     const response = await reserveSpotInCabin({
-  //       cabinId: selectedCabin.id,
-  //       attendeeId: user.id,
-  //     });
-  //   }
-  //   setIsLoading(false);
-  // };
+  const reserveCabinForVerifiedUsers = async () => {
+    setIsLoading(true);
+    for (let i = 0; i < verifiedUsers.length; i++) {
+      const user = verifiedUsers[i];
+      const response = await reserveSpotInCabin({
+        cabinId: selectedCabin.id,
+        attendeeId: user.id,
+      });
+    }
+    setIsLoading(false);
+  };
 
   const goToStage = ({ stage }) => {
     setIsLoading(true);
@@ -37,37 +37,54 @@ export default function BottomRow() {
 
   const data = {
     [CABIN_SELECTION_STAGES.CABIN_SELECTION]: {
-      backButtonText: null,
-      nextButtonText: 'Select Cabin',
+      previousStage: null,
       nextStage: CABIN_SELECTION_STAGES.ADD_GUESTS,
     },
     [CABIN_SELECTION_STAGES.ADD_GUESTS]: {
-      backButtonText: 'Back to Cabin Selection',
-      nextButtonText: 'Continue to Checkout',
       previousStage: CABIN_SELECTION_STAGES.CABIN_SELECTION,
       nextStage: CABIN_SELECTION_STAGES.BED_SELECTION,
+      nextButtonText: 'Reserve',
+      handleClick: reserveCabinForVerifiedUsers,
+    },
+    [CABIN_SELECTION_STAGES.BED_SELECTION]: {
+      previousStage: CABIN_SELECTION_STAGES.ADD_GUESTS,
+      nextStage: CABIN_SELECTION_STAGES.CHECKOUT,
+    },
+    [CABIN_SELECTION_STAGES.CHECKOUT]: {
+      previousStage: CABIN_SELECTION_STAGES.BED_SELECTION,
+      nextStage: null,
     },
   };
 
-  const { backButtonText, nextButtonText, previousStage, nextStage } =
+  const { previousStage, nextStage, nextButtonText, handleClick } =
     data[currentStage];
 
-  if (isLoading) return <Loader isDotted />;
+  const handleClickNextStage = async () => {
+    handleClick ? await handleClick() : () => {};
+    goToStage({ stage: nextStage });
+  };
+
+  if (isLoading)
+    return (
+      <div className={styles.overlay}>
+        <Loader isDotted />
+      </div>
+    );
 
   return (
     <div className={styles.bottomRow}>
-      {backButtonText && (
+      {previousStage && (
         <Button handleClick={() => goToStage({ stage: previousStage })}>
-          {backButtonText}
+          Back
         </Button>
       )}
 
-      {nextButtonText && (
+      {nextStage && (
         <Button
-          handleClick={() => goToStage({ stage: nextStage })}
+          handleClick={handleClickNextStage}
           classNames={styles.nextButton}
         >
-          {nextButtonText}
+          {nextButtonText || 'Continue'}
         </Button>
       )}
     </div>

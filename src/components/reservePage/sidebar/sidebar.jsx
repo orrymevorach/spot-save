@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import styles from './sidebar.module.scss';
 import Filters from '../filters/filters';
-import UnitLinks from '../unitLinks/unitLinks';
 import Summary from './sidebarSummary';
 
 function useShowSidebar({ mainSectionRef, setIsSidebarShowing }) {
@@ -36,7 +35,6 @@ export default function Sidebar({ mainSectionRef }) {
               mainSectionRef={mainSectionRef}
               classNames={styles.filtersSidebar}
             />
-            <UnitLinks classNames={styles.unitLinksSidebar} />
           </div>
         </div>
       )}

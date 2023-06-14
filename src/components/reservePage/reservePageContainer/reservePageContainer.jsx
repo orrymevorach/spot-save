@@ -1,11 +1,11 @@
 import Takeover from '@/components/shared/takeover';
-import EmailVerificationTakeover from '../emailVerificationTakeover/emailVerificationTakeover';
-import Units from '../units/units';
+import ReservationTakeover from '../reservationTakeover';
+import Units from '../units';
 import { useCabinSelection } from '@/context/cabin-selection-context';
-import Sidebar from '../sidebar/sidebar';
+import Sidebar from '../sidebar';
 import { useRef } from 'react';
 import useGetCabinAndUnitData from '@/hooks/useGetCabinAndUnitData';
-import Header from '../header/header';
+import Header from '../header';
 
 export default function ReservePageContainer() {
   const { showTakeover, dispatch, actions } = useCabinSelection();
@@ -29,7 +29,7 @@ export default function ReservePageContainer() {
                 dispatch({ type: actions.CLOSE_CABIN_SELECTION })
               }
             >
-              <EmailVerificationTakeover />
+              <ReservationTakeover />
             </Takeover>
           )}
         </>

@@ -1,0 +1,26 @@
+@use '@mixins' as mixins;
+
+.summaryContainer {
+  width: 50%;
+  padding-left: 50px;
+  p {
+    @include mixins.fontPrimary;
+  }
+}
+
+p.name {
+  font-size: 40px;
+  text-align: center;
+  @include mixins.fontPrimaryBold;
+}
+
+.description {
+  margin: 30px 0;
+  .unit {
+    @include mixins.fontPrimaryBold;
+  }
+}
+
+.additionalInformationItem {
+  @include mixins.fontPrimary;
+}

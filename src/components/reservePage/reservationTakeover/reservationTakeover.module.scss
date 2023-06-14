@@ -1,0 +1,8 @@
+@use '@mixins' as mixins;
+@use '@variables' as variables;
+
+.container {
+  width: 80vw;
+  height: 80vh;
+  display: flex;
+}

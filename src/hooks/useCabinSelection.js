@@ -4,7 +4,6 @@ const { useReducer, useEffect } = require('react');
 const actions = {
   OPEN_CABIN_SELECTION: 'OPEN_CABIN_SELECTION',
   CLOSE_CABIN_SELECTION: 'CLOSE_CABIN_SELECTION',
-  ADD_ADDITIONAL_GUEST: 'ADD_ADDITIONAL_GUEST',
   REMOVE_GUEST: 'REMOVE_GUEST',
   VERIFY_GUEST: 'VERIFY_GUEST',
   SET_SELECTION_STAGE: 'SET_SELECTION_STAGE',
@@ -13,7 +12,6 @@ const actions = {
 const {
   OPEN_CABIN_SELECTION,
   CLOSE_CABIN_SELECTION,
-  ADD_ADDITIONAL_GUEST,
   VERIFY_GUEST,
   REMOVE_GUEST,
   SET_SELECTION_STAGE,
@@ -23,6 +21,7 @@ export const CABIN_SELECTION_STAGES = {
   CABIN_SELECTION: 'CABIN_SELECTION',
   ADD_GUESTS: 'ADD_GUESTS',
   BED_SELECTION: 'BED_SELECTION',
+  CHECKOUT: 'CHECKOUT',
 };
 
 const reducer = (state, action) => {
@@ -37,16 +36,13 @@ const reducer = (state, action) => {
       return {
         ...state,
         showTakeover: false,
-      };
-    case ADD_ADDITIONAL_GUEST:
-      return {
-        ...state,
-        numberOfGuestsInReservation: state.numberOfGuestsInReservation + 1,
+        currentStage: CABIN_SELECTION_STAGES.CABIN_SELECTION,
       };
     case REMOVE_GUEST:
       return {
         ...state,
-        numberOfGuestsInReservation: state.numberOfGuestsInReservation - 1,
+        verifiedEmails: action.verifiedEmails,
+        verifiedUsers: action.verifiedUsers,
       };
     case VERIFY_GUEST:
       return {
@@ -62,18 +58,16 @@ const reducer = (state, action) => {
   }
 };
 
-const getInitialState = ({ user }) => ({
+const initialState = {
   currentStage: CABIN_SELECTION_STAGES.CABIN_SELECTION,
   selectedCabin: null,
   showTakeover: false,
-  numberOfGuestsInReservation: 1,
   verifiedEmails: [], // used to verify users
   verifiedUsers: [], // used to display user names after verification
-});
+};
 
 export const useCabinSelectionReducer = () => {
   const user = useUser();
-  const initialState = getInitialState({ user });
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // Add current user on page load

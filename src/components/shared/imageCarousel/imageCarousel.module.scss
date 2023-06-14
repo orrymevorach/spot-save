@@ -72,3 +72,24 @@
     opacity: 1;
   }
 }
+
+.thumbnailsContainer {
+  display: flex;
+  margin-top: 3px;
+}
+
+.thumbnailButton {
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 0;
+}
+
+.thumbnailImage {
+  width: 150px;
+  height: 80px;
+}
+
+.activeThumbnail {
+  border: 3px solid white;
+}

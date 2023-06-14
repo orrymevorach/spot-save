@@ -17,7 +17,7 @@ export const GET_CABINS = gql`
 
 export const RESERVE_SPOT_IN_CABIN = gql`
   mutation ReserveSpot($cabinId: String, $attendeeId: String) {
-    update_tickets(id: $attendeeId, cabins: [$cabinId]) {
+    update_tickets(id: $attendeeId, cabin: [$cabinId]) {
       id
     }
   }
@@ -29,6 +29,7 @@ export const GET_USER_BY_EMAIL = gql`
       id
       paymentIntent
       name
+      emailAddress
     }
   }
 `;

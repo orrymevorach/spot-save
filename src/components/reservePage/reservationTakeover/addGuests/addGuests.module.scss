@@ -1,0 +1,58 @@
+@use '@mixins' as mixins;
+
+.cabinSelectionContainer {
+  display: flex;
+  width: 100%;
+}
+
+.column {
+  width: 50%;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-size: 28px;
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+
+.textContainer {
+  margin-bottom: 50px;
+  p {
+    @include mixins.fontPrimary;
+  }
+}
+
+.namesTitle {
+  font-size: 20px;
+  text-decoration: underline;
+  margin-bottom: 10px;
+}
+
+.right {
+  margin-left: 10px;
+}
+
+.number {
+  width: 27px;
+  display: inline-block;
+}
+
+.verifiedUserContainer {
+  display: flex;
+  align-items: center;
+}
+
+.verifiedUser {
+  min-width: 200px;
+}
+
+.remove {
+  margin-left: 10px;
+  background: none;
+  border: none;
+}

@@ -8,6 +8,34 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import styles from './imageCarousel.module.scss';
 
+const Thumbnails = ({ images = [], index, setIndex }) => {
+  return (
+    <div className={styles.thumbnailsContainer}>
+      {images.map(({ thumbnails }, thumbnailIndex) => {
+        const isActive = thumbnailIndex === index;
+        return (
+          <button
+            key={thumbnails.large.url}
+            className={styles.thumbnailButton}
+            onClick={() => setIndex(thumbnailIndex)}
+          >
+            <Image
+              src={thumbnails.large.url}
+              alt=""
+              width={thumbnails.large.width}
+              height={thumbnails.large.height}
+              className={clsx(
+                styles.thumbnailImage,
+                isActive && styles.activeThumbnail
+              )}
+            />
+          </button>
+        );
+      })}
+    </div>
+  );
+};
+
 export default function ImageCarousel({ images }) {
   const [index, setIndex] = useState(0);
   const currentImage = images[index];
@@ -43,6 +71,7 @@ export default function ImageCarousel({ images }) {
         className={styles.image}
         ref={imageRef}
       />
+      <Thumbnails images={images} index={index} setIndex={setIndex} />
       <button onClick={handleClickRight} className={styles.chevronRight}>
         <FontAwesomeIcon icon={faChevronRight} color="white" size="2xl" />
       </button>

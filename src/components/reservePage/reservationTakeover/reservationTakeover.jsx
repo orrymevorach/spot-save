@@ -1,19 +1,12 @@
-import styles from './emailVerificationTakeover.module.scss';
+import styles from './reservationTakeover.module.scss';
 import { useCabinSelection } from '@/context/cabin-selection-context';
-import BottomRow from './bottomRow/bottomRow';
+import BottomRow from './bottomRow';
 import ImageCarousel from '@/components/shared/imageCarousel';
 import { CABIN_SELECTION_STAGES } from '@/hooks/useCabinSelection';
-import CabinSelection from './cabinSelection/cabinSelection';
+import CabinSelection from './addGuests';
+import CabinSummary from './cabinSelection';
 
-const CabinSummary = ({ name }) => {
-  return (
-    <div className={styles.summaryContainer}>
-      <p className={styles.name}>Cabin {name}</p>
-    </div>
-  );
-};
-
-export default function EmailVerificationTakeover() {
+export default function ReservationTakeover() {
   const { selectedCabin, currentStage } = useCabinSelection();
 
   const { CABIN_SELECTION, BED_SELECTION, ADD_GUESTS } = CABIN_SELECTION_STAGES;
