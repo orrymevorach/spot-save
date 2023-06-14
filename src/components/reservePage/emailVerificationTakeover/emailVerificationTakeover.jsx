@@ -5,6 +5,14 @@ import ImageCarousel from '@/components/shared/imageCarousel';
 import { CABIN_SELECTION_STAGES } from '@/hooks/useCabinSelection';
 import CabinSelection from './cabinSelection/cabinSelection';
 
+const CabinSummary = ({ name }) => {
+  return (
+    <div className={styles.summaryContainer}>
+      <p className={styles.name}>Cabin {name}</p>
+    </div>
+  );
+};
+
 export default function EmailVerificationTakeover() {
   const { selectedCabin, currentStage } = useCabinSelection();
 
@@ -13,7 +21,10 @@ export default function EmailVerificationTakeover() {
   return (
     <div className={styles.container}>
       {currentStage === CABIN_SELECTION && (
-        <ImageCarousel images={selectedCabin.images} />
+        <>
+          <ImageCarousel images={selectedCabin.images} />
+          <CabinSummary {...selectedCabin} />
+        </>
       )}
 
       {currentStage === ADD_GUESTS && <CabinSelection />}

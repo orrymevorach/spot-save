@@ -4,19 +4,12 @@
 $sidePadding: 50px;
 
 .filters {
-  display: flex;
-  padding: 0px $sidePadding 50px;
+  padding-bottom: 50px;
   position: relative;
   z-index: 1;
+  margin: 0 auto;
   @media screen and (max-width: $mobile) {
     flex-direction: column;
     margin-top: 0;
   }
-}
-
-.image {
-  width: 400px;
-  height: auto;
-  display: block;
-  margin: 50px auto;
 }

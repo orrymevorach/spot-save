@@ -8,7 +8,6 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import styles from './imageCarousel.module.scss';
 
-FontAwesomeIcon;
 export default function ImageCarousel({ images }) {
   const [index, setIndex] = useState(0);
   const currentImage = images[index];
