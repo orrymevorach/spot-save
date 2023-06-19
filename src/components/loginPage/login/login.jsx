@@ -1,11 +1,11 @@
 import { getUserByEmail } from '@/lib/airtable';
 import { useEffect, useState } from 'react';
-import styles from './loginPage.module.scss';
+import styles from './login.module.scss';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import Loader from '../shared/loader/loader';
+import Loader from '../../shared/loader/loader';
 import { COOKIES, ROUTES } from '@/utils/constants';
-import Button from '../shared/button/button';
+import Button from '../../shared/button/button';
 import { TextField } from '@mui/material';
 
 const useLoginExistingUserOnPageLoad = () => {
@@ -15,9 +15,6 @@ const useLoginExistingUserOnPageLoad = () => {
     if (userRecordCookie) {
       router.push({
         pathname: ROUTES.RESERVE,
-        query: {
-          id: userRecordCookie,
-        },
       });
     }
   }, [router]);
@@ -50,13 +47,9 @@ export default function Login() {
     const userExistsAndPasswordMatches =
       user?.id && user?.paymentIntent === password;
     if (userExistsAndPasswordMatches) {
-      setIsLoading(false);
       Cookies.set(COOKIES.USER_RECORD, user.id);
       router.push({
         pathname: ROUTES.RESERVE,
-        query: {
-          id: user.id,
-        },
       });
       return;
     } else if (passwordDoesNotMatch) {
@@ -78,7 +71,7 @@ export default function Login() {
     setInput(e.target.value);
   };
 
-  if (isLoading) return <Loader isDotted />;
+  if (isLoading) return <Loader isDotted classNames={styles.loader} />;
 
   return (
     <form action="#" onSubmit={e => handleSubmit(e)} className={styles.login}>

@@ -25,3 +25,7 @@
   margin-bottom: 10px;
   @include mixins.fontPrimaryLight;
 }
+
+div.loader {
+  top: 100px;
+}

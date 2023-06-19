@@ -2,7 +2,7 @@ import useGetCabinAndUnitData from '@/hooks/useGetCabinAndUnitData';
 import UnitRow from './unitRow';
 
 export default function Units() {
-  const { units, isLoading } = useGetCabinAndUnitData();
+  const { units } = useGetCabinAndUnitData();
   return (
     <>
       {units.map(unitData => {

@@ -1,5 +1,6 @@
 import { getUserByRecordId } from '@/lib/airtable';
-import { useRouter } from 'next/router';
+import { COOKIES } from '@/utils/constants';
+import Cookies from 'js-cookie';
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const UserContext = createContext();
@@ -8,17 +9,16 @@ export const useUser = () => useContext(UserContext);
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const router = useRouter();
+  const userRecordCookie = Cookies.get(COOKIES.USER_RECORD);
 
   useEffect(() => {
     const loadUser = async () => {
-      const id = router.query.id;
-      const userData = await getUserByRecordId({ id });
+      const userData = await getUserByRecordId({ id: userRecordCookie });
       setUser(userData);
     };
-    if (router.query.id) {
+    if (userRecordCookie) {
       loadUser();
     }
-  }, [router]);
+  }, [userRecordCookie]);
   return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
 };

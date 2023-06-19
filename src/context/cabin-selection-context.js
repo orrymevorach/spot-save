@@ -1,5 +1,5 @@
 import { useCabinSelectionReducer } from '@/hooks/useCabinSelection';
-import { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext } from 'react';
 
 const CabinSelectionContext = createContext();
 
