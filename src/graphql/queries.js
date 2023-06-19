@@ -15,6 +15,17 @@ export const GET_CABINS = gql`
   }
 `;
 
+export const GET_CABIN = gql`
+  query GetCabin($cabinId: String) {
+    cabins(id: $cabinId) {
+      name
+      unit
+      images
+      additionalInformation
+    }
+  }
+`;
+
 export const RESERVE_SPOT_IN_CABIN = gql`
   mutation ReserveSpot($cabinId: String, $attendeeId: String) {
     update_tickets(id: $attendeeId, cabin: [$cabinId]) {
@@ -41,8 +52,10 @@ export const GET_USER_BY_ID = gql`
       name
       emailAddress
       cabin {
+        id
         name
         unit
+        additionalInformation
       }
     }
   }

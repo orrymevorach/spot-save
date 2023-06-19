@@ -35,23 +35,26 @@ export default function BottomRow() {
     }, 500);
   };
 
+  const { CABIN_SELECTION, ADD_GUESTS, BED_SELECTION, CONFIRMATION } =
+    CABIN_SELECTION_STAGES;
+
   const data = {
-    [CABIN_SELECTION_STAGES.CABIN_SELECTION]: {
+    [CABIN_SELECTION]: {
       previousStage: null,
-      nextStage: CABIN_SELECTION_STAGES.ADD_GUESTS,
+      nextStage: ADD_GUESTS,
     },
-    [CABIN_SELECTION_STAGES.ADD_GUESTS]: {
-      previousStage: CABIN_SELECTION_STAGES.CABIN_SELECTION,
-      nextStage: CABIN_SELECTION_STAGES.BED_SELECTION,
+    [ADD_GUESTS]: {
+      previousStage: CABIN_SELECTION,
+      nextStage: CONFIRMATION,
       nextButtonText: 'Reserve',
       handleClick: reserveCabinForVerifiedUsers,
     },
-    [CABIN_SELECTION_STAGES.BED_SELECTION]: {
-      previousStage: CABIN_SELECTION_STAGES.ADD_GUESTS,
-      nextStage: CABIN_SELECTION_STAGES.CHECKOUT,
+    [BED_SELECTION]: {
+      // previousStage: ADD_GUESTS,
+      nextStage: CONFIRMATION,
     },
-    [CABIN_SELECTION_STAGES.CHECKOUT]: {
-      previousStage: CABIN_SELECTION_STAGES.BED_SELECTION,
+    [CONFIRMATION]: {
+      previousStage: null,
       nextStage: null,
     },
   };

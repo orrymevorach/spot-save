@@ -1,8 +1,22 @@
 import styles from './unitRow.module.scss';
 import CabinSelectionTile from '../cabinSelectionTile/cabinSelectionTile';
 import { useCabinSelection } from '@/context/cabin-selection-context';
-import colors from 'public/colors.jpg';
 import Image from 'next/image';
+import Colors from 'public/colors.jpg';
+import Comics from 'public/comics.jpg';
+import Zodiacs from 'public/zodiacs.jpg';
+import Seekers from 'public/seekers.jpg';
+import CITS from 'public/cits.jpg';
+import lteam from 'public/l-team.jpg';
+
+const unitImages = {
+  Colors,
+  Comics,
+  Zodiacs,
+  Seekers,
+  CITS,
+  ['L-Team']: lteam,
+};
 
 export default function UnitRow({ unitData }) {
   const { dispatch, actions } = useCabinSelection();
@@ -16,7 +30,7 @@ export default function UnitRow({ unitData }) {
       cabin: selectedCabin,
     });
   };
-
+  const unitImage = unitImages[unitName];
   return (
     <div id={unitName}>
       <p className={styles.showUnitButton}>Unit: {unitName}</p>
@@ -44,7 +58,7 @@ export default function UnitRow({ unitData }) {
           </ul>
         )}
         <Image
-          src={colors}
+          src={unitImage}
           alt={`${unitName} unit`}
           className={styles.unitImage}
         />

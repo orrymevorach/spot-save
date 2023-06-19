@@ -5,6 +5,8 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import Loader from '../shared/loader/loader';
 import { COOKIES, ROUTES } from '@/utils/constants';
+import Button from '../shared/button/button';
+import { TextField } from '@mui/material';
 
 const useLoginExistingUserOnPageLoad = () => {
   const router = useRouter();
@@ -76,29 +78,31 @@ export default function Login() {
     setInput(e.target.value);
   };
 
-  if (isLoading) return <Loader />;
+  if (isLoading) return <Loader isDotted />;
 
   return (
     <form action="#" onSubmit={e => handleSubmit(e)} className={styles.login}>
-      <label htmlFor="email">Please enter your email</label>
+      <label htmlFor="email">Email</label>
       {error && <p className={styles.error}>{error}</p>}
-      <input
+      <TextField
         type="email"
         id="email"
         name="email"
         onChange={e => handleChange(e, setEmail)}
         value={email}
+        className={styles.input}
+        size="small"
       />
-      <label htmlFor="password">
-        Please enter your order confirmation number
-      </label>
-      <input
+      <label htmlFor="password">Order Confirmation Number</label>
+      <TextField
         type="password"
         id="password"
         name="password"
         onChange={e => handleChange(e, setPassword)}
+        className={styles.input}
+        size="small"
       />
-      <input type="submit" />
+      <Button classNames={styles.submit}>Log in</Button>
     </form>
   );
 }

@@ -1,0 +1,26 @@
+@use '@variables' as variables;
+@use '@mixins' as mixins;
+
+.outerContainer {
+  // padding-bottom: 20px;
+  // border-bottom: 1px solid variables.$charcoal;
+}
+
+.headerContainer {
+  // display: block;
+  // margin: 0 auto;
+}
+
+.image {
+  width: 400px;
+  height: auto;
+  display: block;
+  margin: 50px auto 20px;
+}
+
+.heading {
+  @include mixins.fontSecondary;
+  font-size: 40px;
+  text-align: center;
+  color: variables.$darkGreen;
+}

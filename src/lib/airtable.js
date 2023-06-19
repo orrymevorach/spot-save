@@ -3,6 +3,7 @@ import {
   GET_USER_BY_EMAIL,
   RESERVE_SPOT_IN_CABIN,
   GET_USER_BY_ID,
+  GET_CABIN,
 } from '@/graphql/queries';
 import { client } from '@/graphql/apollo-config';
 
@@ -12,6 +13,20 @@ export const getCabins = async () => {
       query: GET_CABINS,
     });
     return data.cabins;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getCabin = async ({ cabinId }) => {
+  try {
+    const { data } = await client.query({
+      query: GET_CABIN,
+      variables: {
+        cabinId,
+      },
+    });
+    return data.cabins[0];
   } catch (error) {
     console.log(error);
   }

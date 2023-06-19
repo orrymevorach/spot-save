@@ -70,6 +70,7 @@ export default function ImageCarousel({ images }) {
         alt=""
         className={styles.image}
         ref={imageRef}
+        quality={50}
       />
       <Thumbnails images={images} index={index} setIndex={setIndex} />
       <button onClick={handleClickRight} className={styles.chevronRight}>

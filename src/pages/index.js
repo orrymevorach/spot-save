@@ -1,11 +1,5 @@
-import Login from '@/components/loginPage';
+import LoginPageContainer from '@/components/loginPage/loginPageContainer';
 
 export default function Home() {
-  return (
-    <>
-      <main>
-        <Login />
-      </main>
-    </>
-  );
+  return <LoginPageContainer />;
 }
