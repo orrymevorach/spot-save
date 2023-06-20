@@ -18,12 +18,12 @@ export const getCabins = async () => {
   }
 };
 
-export const getCabin = async ({ cabinId }) => {
+export const getCabin = async ({ cabinName }) => {
   try {
     const { data } = await client.query({
       query: GET_CABIN,
       variables: {
-        cabinId,
+        cabinName,
       },
     });
     return data.cabins[0];

@@ -3,5 +3,6 @@ export const COOKIES = {
 };
 
 export const ROUTES = {
+  CABIN_SELECTION: '/cabin-selection',
   RESERVE: '/reserve',
 };

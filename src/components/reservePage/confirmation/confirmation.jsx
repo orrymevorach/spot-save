@@ -6,18 +6,18 @@ import { getCabin } from '@/lib/airtable';
 export default function Confirmation() {
   const [cabin, setCabin] = useState(null);
   const user = useUser();
-  const cabinId = user.cabin[0].id;
+  const cabinName = user.cabin[0].name;
 
   useEffect(() => {
     const getCabinData = async () => {
-      const data = await getCabin({ cabinId });
+      const data = await getCabin({ cabinName });
       setCabin(data);
       return;
     };
-    if (cabinId) {
+    if (cabinName) {
       getCabinData();
     }
-  }, [cabinId]);
+  }, [cabinName]);
 
   return (
     <div>

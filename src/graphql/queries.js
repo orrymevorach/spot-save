@@ -16,8 +16,8 @@ export const GET_CABINS = gql`
 `;
 
 export const GET_CABIN = gql`
-  query GetCabin($cabinId: String) {
-    cabins(id: $cabinId) {
+  query GetCabin($cabinName: String) {
+    cabins(name: $cabinName) {
       name
       unit
       images

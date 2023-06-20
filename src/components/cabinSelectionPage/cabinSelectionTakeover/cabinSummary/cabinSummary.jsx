@@ -1,4 +1,4 @@
-import styles from './cabinSelection.module.scss';
+import styles from './cabinSummary.module.scss';
 
 export default function CabinSelection({
   name,

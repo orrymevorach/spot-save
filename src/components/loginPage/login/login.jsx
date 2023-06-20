@@ -14,7 +14,7 @@ const useLoginExistingUserOnPageLoad = () => {
     const userRecordCookie = Cookies.get(COOKIES.USER_RECORD);
     if (userRecordCookie) {
       router.push({
-        pathname: ROUTES.RESERVE,
+        pathname: ROUTES.CABIN_SELECTION,
       });
     }
   }, [router]);
@@ -49,7 +49,7 @@ export default function Login() {
     if (userExistsAndPasswordMatches) {
       Cookies.set(COOKIES.USER_RECORD, user.id);
       router.push({
-        pathname: ROUTES.RESERVE,
+        pathname: ROUTES.CABIN_SELECTION,
       });
       return;
     } else if (passwordDoesNotMatch) {

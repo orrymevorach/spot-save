@@ -1,15 +1,14 @@
-import Takeover from '@/components/shared/takeover';
-import ReservationTakeover from '../reservationTakeover';
+import CabinSelectionTakeover from '../cabinSelectionTakeover';
 import Units from '../units';
 import { useCabinSelection } from '@/context/cabin-selection-context';
 import useGetCabinAndUnitData from '@/hooks/useGetCabinAndUnitData';
 import Filters from '../filters/filters';
 import UnitLinks from '../unitLinks/unitLinks';
-import styles from './reservePageContainer.module.scss';
+import styles from './cabinSelectionContainer.module.scss';
 import Loader from '@/components/shared/loader/loader';
 
-export default function ReservePageContainer() {
-  const { showTakeover, dispatch, actions } = useCabinSelection();
+export default function CabinSelectionContainer() {
+  const { showTakeover } = useCabinSelection();
   const { isLoading, units } = useGetCabinAndUnitData();
   if (isLoading || !units.length) return <Loader isDotted />;
 
@@ -22,15 +21,7 @@ export default function ReservePageContainer() {
         </div>
       </div>
       <Units />
-      {showTakeover && (
-        <Takeover
-          disableOverlayClose
-          showTakeover={showTakeover}
-          handleClose={() => dispatch({ type: actions.CLOSE_CABIN_SELECTION })}
-        >
-          <ReservationTakeover />
-        </Takeover>
-      )}
+      {showTakeover && <CabinSelectionTakeover />}
     </>
   );
 }

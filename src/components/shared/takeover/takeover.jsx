@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import style from './takeover.module.scss';
-import CloseButton from '../closeButton';
+import CloseButton from '@/components/shared/closeButton';
 
 export default function Takeover({
   children,
