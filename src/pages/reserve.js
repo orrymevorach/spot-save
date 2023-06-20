@@ -1,5 +1,5 @@
-import Confirmation from '@/components/reservePage/reservationTakeover/confirmation/confirmation';
+import ReservePage from '@/components/reservePage/reservePage';
 
 export default function Reserve() {
-  return <Confirmation />;
+  return <ReservePage />;
 }

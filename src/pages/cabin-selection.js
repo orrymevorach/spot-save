@@ -1,15 +1,15 @@
 import { FiltersProvider } from '@/components/cabinSelectionPage/filters/filters-context';
 import CabinSelectionContainer from '@/components/cabinSelectionPage/cabinSelectionContainer';
-import { CabinSelectionProvider } from '@/context/cabin-selection-context';
+import Layout from '@/components/shared/layout/layout';
 
 export default function CabinSelection() {
   return (
-    <CabinSelectionProvider>
-      <FiltersProvider>
+    <FiltersProvider>
+      <Layout>
         <main>
           <CabinSelectionContainer />
         </main>
-      </FiltersProvider>
-    </CabinSelectionProvider>
+      </Layout>
+    </FiltersProvider>
   );
 }

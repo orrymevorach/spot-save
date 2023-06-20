@@ -19,6 +19,12 @@
     background-color: white;
     transition: 0.1s;
   }
+  &.light {
+    background-color: white;
+    color: variables.$primaryColor;
+    padding: 10px 0;
+    min-width: 0;
+  }
 }
 
 @keyframes rotate {

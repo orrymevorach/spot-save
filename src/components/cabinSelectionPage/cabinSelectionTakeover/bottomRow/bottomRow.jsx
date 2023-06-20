@@ -29,7 +29,7 @@ export default function BottomRow() {
     setTimeout(() => {
       router.push({
         pathname: ROUTES.RESERVE,
-        query: selectedCabin.name,
+        query: { cabin: selectedCabin.name },
       });
     }, 500);
   };

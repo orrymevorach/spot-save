@@ -23,10 +23,13 @@ export default function Button({
   href = null,
   handleClick = null,
   classNames = '',
+  isLight = false,
 }) {
+  const classnames = clsx(styles.button, classNames, isLight && styles.light);
+
   if (href) {
     return (
-      <Link href={href} className={clsx(styles.button, classNames)}>
+      <Link href={href} className={classnames}>
         {children}
       </Link>
     );
@@ -34,7 +37,7 @@ export default function Button({
   if (handleClick) {
     return (
       <button
-        className={clsx(styles.button, classNames)}
+        className={classnames}
         disabled={isDisabled}
         onClick={handleClick}
       >
@@ -43,11 +46,7 @@ export default function Button({
     );
   }
   return (
-    <button
-      className={clsx(styles.button, classNames)}
-      type="submit"
-      disabled={isDisabled}
-    >
+    <button className={classnames} type="submit" disabled={isDisabled}>
       <ButtonContents isLoading={isLoading}>{children}</ButtonContents>
     </button>
   );

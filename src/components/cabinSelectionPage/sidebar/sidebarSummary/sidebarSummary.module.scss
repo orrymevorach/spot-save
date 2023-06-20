@@ -1,3 +1,17 @@
+@use '@mixins' as mixins;
+@use '@variables' as variables;
+
 .summaryContainer {
-  margin-top: 50px;
+  margin: 50px 0;
+}
+
+.title {
+  font-size: 24px;
+  @include mixins.fontSecondary;
+  color: variables.$darkGreen;
+  margin-bottom: 20px;
+}
+
+.cabin {
+  width: 60px;
 }

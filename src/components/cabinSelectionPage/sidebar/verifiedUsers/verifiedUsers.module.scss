@@ -1,0 +1,27 @@
+@use '@mixins' as mixins;
+
+.title {
+  font-size: 20px;
+  text-decoration: underline;
+  margin-bottom: 10px;
+}
+
+.verifiedUserContainer {
+  display: flex;
+  align-items: center;
+}
+
+.number {
+  width: 27px;
+  display: inline-block;
+}
+
+.verifiedUser {
+  min-width: 200px;
+}
+
+.remove {
+  margin-left: 10px;
+  background: none;
+  border: none;
+}

@@ -1,21 +1,15 @@
 @use '@mixins' as mixins;
 
-.cabinSelectionContainer {
-  display: flex;
-  width: 100%;
+.container {
+  margin-top: 50px;
 }
 
 .column {
-  width: 50%;
-}
-
-.titleContainer {
-  display: flex;
-  align-items: center;
+  width: 700px;
 }
 
 .title {
-  font-size: 28px;
+  font-size: 24px;
   text-decoration: underline;
   margin-bottom: 20px;
 }
@@ -27,32 +21,6 @@
   }
 }
 
-.namesTitle {
-  font-size: 20px;
-  text-decoration: underline;
-  margin-bottom: 10px;
-}
-
-.right {
-  margin-left: 10px;
-}
-
-.number {
-  width: 27px;
-  display: inline-block;
-}
-
-.verifiedUserContainer {
-  display: flex;
-  align-items: center;
-}
-
-.verifiedUser {
-  min-width: 200px;
-}
-
-.remove {
-  margin-left: 10px;
-  background: none;
-  border: none;
+.continueButton {
+  margin-top: 50px;
 }
