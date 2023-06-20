@@ -11,7 +11,7 @@ export default function Filters({ classNames = '' }) {
   const unitNames = units.map(([unitName]) => unitName);
   return (
     <div className={clsx(styles.filters, classNames)}>
-      <p>Filter by:</p>
+      <p className={styles.title}>Filter by:</p>
       <Dropdown
         options={numberOfGuests}
         label="Number of guests"

@@ -48,7 +48,12 @@ export default function InputVerify() {
     <form onSubmit={verifyEmail} className={styles.form}>
       {error && <p className={styles.error}>{error}</p>}
       <div className={styles.row}>
-        <TextField onChange={handleChange} value={email} size="small" />
+        <TextField
+          onChange={handleChange}
+          value={email}
+          size="small"
+          placeholder="Email address"
+        />
         <Button isLoading={isLoading} classNames={styles.button}>
           Add Guest <FontAwesomeIcon icon={faPlus} size="sm" />
         </Button>
