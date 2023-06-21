@@ -10,7 +10,6 @@
 
 p.name {
   font-size: 40px;
-  text-align: center;
   @include mixins.fontPrimaryBold;
 }
 
@@ -19,6 +18,15 @@ p.name {
   .unit {
     @include mixins.fontPrimaryBold;
   }
+}
+
+.additionalInformationTitle {
+  margin-bottom: 5px;
+}
+
+ul.additionalInformationList {
+  list-style: disc;
+  margin-left: 15px;
 }
 
 .additionalInformationItem {

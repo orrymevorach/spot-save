@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { ROUTES } from '@/utils/constants';
 
 export default function BottomRow() {
-  const { selectedCabin } = useCabinSelection();
+  const { selectedCabin, dispatch, actions } = useCabinSelection();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -37,16 +37,19 @@ export default function BottomRow() {
   if (isLoading) {
     return (
       <div className={styles.overlay}>
-        <Loader isDotted />
+        <Loader isDotted classNames={styles.loader} />
       </div>
     );
   }
 
   return (
     <div className={styles.bottomRow}>
-      <Button handleClick={handleClick} classNames={styles.nextButton}>
-        Continue
+      <Button
+        handleClick={() => dispatch({ type: actions.CLOSE_CABIN_SELECTION })}
+      >
+        Back
       </Button>
+      <Button handleClick={handleClick}>Continue</Button>
     </div>
   );
 }

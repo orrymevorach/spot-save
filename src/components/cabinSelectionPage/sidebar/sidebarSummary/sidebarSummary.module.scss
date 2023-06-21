@@ -12,6 +12,14 @@
   margin-bottom: 20px;
 }
 
-.cabin {
+.left {
+  display: inline-block;
   width: 60px;
+}
+.right {
+  @include mixins.fontPrimary;
+}
+
+.images {
+  margin-top: 40px;
 }

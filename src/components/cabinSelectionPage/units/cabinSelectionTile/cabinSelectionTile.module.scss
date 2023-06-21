@@ -2,7 +2,6 @@
 @use '@mixins' as mixins;
 
 .cabinContainer {
-  padding-left: 40px;
   margin-bottom: 40px;
   p {
     @include mixins.fontPrimaryLight;

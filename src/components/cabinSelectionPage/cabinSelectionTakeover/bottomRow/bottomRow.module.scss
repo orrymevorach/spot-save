@@ -1,21 +1,9 @@
 @use '@variables' as variables;
 
 .bottomRow {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  margin-top: 50px;
   display: flex;
-  align-items: center;
-  border-top: 3px solid variables.$primaryColor;
-  width: 100%;
-  padding: 30px 20px;
-  z-index: 1000;
-  background-color: white;
-}
-
-.nextButton {
-  margin-left: auto;
-  display: block;
+  justify-content: space-between;
 }
 
 .overlay {
@@ -26,4 +14,11 @@
   height: 100%;
   width: 100%;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader {
+  top: auto;
 }

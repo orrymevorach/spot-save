@@ -15,12 +15,14 @@ export default function CabinSelection({
       </p>
       {hasAdditionalInformation && (
         <div className={styles.additionalInformationContainer}>
-          <p>Additonal details:</p>
-          <ul>
+          <p className={styles.additionalInformationTitle}>
+            Additonal details:
+          </p>
+          <ul className={styles.additionalInformationList}>
             {additionalInformation.map(info => {
               return (
                 <li key={info} className={styles.additionalInformationItem}>
-                  - {info}
+                  {info}
                 </li>
               );
             })}

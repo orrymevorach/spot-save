@@ -11,24 +11,26 @@ import { useEffect, useRef, useState } from 'react';
 
 function useShowOnScroll({ ref, setIsShowing }) {
   useEffect(() => {
-    const bottomOfMainSection = ref?.current?.clientHeight;
     const handleScroll = () => {
+      const bottomOfMainSection = ref?.current?.clientHeight;
       const hasScrolledPassedMainSection =
         window.scrollY > bottomOfMainSection - 1;
-      if (!bottomOfMainSection || hasScrolledPassedMainSection) {
+      if (hasScrolledPassedMainSection) {
         setIsShowing(true);
       } else {
         setIsShowing(false);
       }
     };
-    handleScroll();
+    if (ref) {
+      handleScroll();
+    }
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [ref, setIsShowing]);
 }
 
 export default function CabinSelectionContainer() {
-  const [showBackToTopButton, setShowBackToTopButton] = useState();
+  const [showBackToTopButton, setShowBackToTopButton] = useState(false);
   const { showTakeover } = useCabinSelection();
   const { isLoading, units } = useGetCabinAndUnitData();
   const headerRef = useRef();

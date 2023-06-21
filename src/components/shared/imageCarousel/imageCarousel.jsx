@@ -36,7 +36,11 @@ const Thumbnails = ({ images = [], index, setIndex }) => {
   );
 };
 
-export default function ImageCarousel({ images }) {
+export default function ImageCarousel({
+  images,
+  hideThumbnails = false,
+  classNames = '',
+}) {
   const [index, setIndex] = useState(0);
   const currentImage = images[index];
 
@@ -59,34 +63,38 @@ export default function ImageCarousel({ images }) {
   }, [index]);
 
   return (
-    <div className={styles.carouselContainer}>
-      <button onClick={handleClickLeft} className={styles.chevronLeft}>
-        <FontAwesomeIcon icon={faChevronLeft} color="white" size="2xl" />
-      </button>
-      <Image
-        src={currentImage.url}
-        height={currentImage.height}
-        width={currentImage.width}
-        alt=""
-        className={styles.image}
-        ref={imageRef}
-        quality={50}
-      />
-      <Thumbnails images={images} index={index} setIndex={setIndex} />
-      <button onClick={handleClickRight} className={styles.chevronRight}>
-        <FontAwesomeIcon icon={faChevronRight} color="white" size="2xl" />
-      </button>
-      <div className={styles.dotContainer}>
-        {images.map((_, dotIndex) => {
-          const isActive = dotIndex === index;
-          return (
-            <div
-              className={clsx(styles.dot, isActive && styles.active)}
-              key={`dot-${dotIndex}`}
-            ></div>
-          );
-        })}
+    <div className={classNames}>
+      <div className={styles.carouselContainer}>
+        <button onClick={handleClickLeft} className={styles.chevronLeft}>
+          <FontAwesomeIcon icon={faChevronLeft} color="white" size="2xl" />
+        </button>
+        <Image
+          src={currentImage.url}
+          height={currentImage.height}
+          width={currentImage.width}
+          alt=""
+          className={styles.image}
+          ref={imageRef}
+          quality={50}
+        />
+        <button onClick={handleClickRight} className={styles.chevronRight}>
+          <FontAwesomeIcon icon={faChevronRight} color="white" size="2xl" />
+        </button>
+        <div className={styles.dotContainer}>
+          {images.map((_, dotIndex) => {
+            const isActive = dotIndex === index;
+            return (
+              <div
+                className={clsx(styles.dot, isActive && styles.active)}
+                key={`dot-${dotIndex}`}
+              ></div>
+            );
+          })}
+        </div>
       </div>
+      {!hideThumbnails && (
+        <Thumbnails images={images} index={index} setIndex={setIndex} />
+      )}
     </div>
   );
 }

@@ -32,36 +32,38 @@ export default function UnitRow({ unitData }) {
   };
   const unitImage = unitImages[unitName];
   return (
-    <div id={unitName}>
-      <p className={styles.showUnitButton}>Unit: {unitName}</p>
-      <div className={styles.unitContainer}>
-        {!hasCabinData ? (
-          <p>There are currently no cabins available in this unit</p>
-        ) : (
-          <ul className={styles.unitList}>
-            {cabins
-              .sort((a, b) => {
-                const aOpenBeds = parseFloat(a.openBeds);
-                const bOpenBeds = parseFloat(b.openBeds);
-                if (aOpenBeds > bOpenBeds) return -1;
-                return 1;
-              })
-              .map(cabin => {
-                return (
-                  <CabinSelectionTile
-                    cabin={cabin}
-                    key={`${cabin.unit}-${cabin.name}`}
-                    handleSelectCabin={() => handleSubmit(cabin)}
-                  />
-                );
-              })}
-          </ul>
-        )}
-        <Image
-          src={unitImage}
-          alt={`${unitName} unit`}
-          className={styles.unitImage}
-        />
+    <div id={unitName} className={styles.outerContainer}>
+      <div className={styles.innerContainer}>
+        <p className={styles.unitName}>Unit: {unitName}</p>
+        <div className={styles.unitContainer}>
+          {!hasCabinData ? (
+            <p>There are currently no cabins available in this unit</p>
+          ) : (
+            <ul className={styles.unitList}>
+              {cabins
+                .sort((a, b) => {
+                  const aOpenBeds = parseFloat(a.openBeds);
+                  const bOpenBeds = parseFloat(b.openBeds);
+                  if (aOpenBeds > bOpenBeds) return -1;
+                  return 1;
+                })
+                .map(cabin => {
+                  return (
+                    <CabinSelectionTile
+                      cabin={cabin}
+                      key={`${cabin.unit}-${cabin.name}`}
+                      handleSelectCabin={() => handleSubmit(cabin)}
+                    />
+                  );
+                })}
+            </ul>
+          )}
+          <Image
+            src={unitImage}
+            alt={`${unitName} unit`}
+            className={styles.unitImage}
+          />
+        </div>
       </div>
     </div>
   );

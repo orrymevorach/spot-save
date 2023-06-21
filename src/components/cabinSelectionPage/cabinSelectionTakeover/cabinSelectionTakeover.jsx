@@ -14,9 +14,11 @@ export default function CabinSelectionTakeover() {
       showTakeover={showTakeover}
       handleClose={() => dispatch({ type: actions.CLOSE_CABIN_SELECTION })}
     >
-      <div className={styles.container}>
-        <ImageCarousel images={selectedCabin.images} />
-        <CabinSummary {...selectedCabin} />
+      <div className={styles.outerContainer}>
+        <div className={styles.innerContainer}>
+          <ImageCarousel images={selectedCabin.images} />
+          <CabinSummary {...selectedCabin} />
+        </div>
 
         <BottomRow />
       </div>

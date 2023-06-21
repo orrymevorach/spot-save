@@ -2,25 +2,30 @@
 
 .container {
   margin-top: 50px;
-}
-
-.column {
-  width: 700px;
+  width: 100%;
+  max-width: 700px;
 }
 
 .title {
   font-size: 24px;
-  text-decoration: underline;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
-.textContainer {
-  margin-bottom: 50px;
-  p {
-    @include mixins.fontPrimary;
-  }
+.text {
+  @include mixins.fontPrimaryLight;
 }
 
+.input {
+  margin: 50px 0;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.backButton,
 .continueButton {
-  margin-top: 50px;
+  display: block;
 }

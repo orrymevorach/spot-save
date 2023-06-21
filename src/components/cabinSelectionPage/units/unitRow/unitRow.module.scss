@@ -1,27 +1,23 @@
 @use '@variables' as variables;
 
-.showUnitButton {
-  background: none;
-  border: none;
+.outerContainer {
+  border-bottom: 2px solid variables.$charcoal;
+}
+.innerContainer {
+  padding: 50px 0;
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.unitName {
   font-size: 26px;
-  display: flex;
-  align-items: center;
-  padding: 10px 20px;
-  width: 100%;
-  margin: 20px 0;
-  svg {
-    margin-left: 10px;
-    font-size: 14px;
-  }
 }
 
 .unitContainer {
   display: flex;
-  border-bottom: 2px solid variables.$charcoal;
 }
 
 .unitImage {
-  width: 50%;
   height: auto;
   object-fit: contain;
 }
