@@ -67,7 +67,7 @@ const initialState = {
 };
 
 export const useCabinSelectionReducer = () => {
-  const user = useUser();
+  const { user } = useUser();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // Add current user on page load

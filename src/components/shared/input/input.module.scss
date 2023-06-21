@@ -1,7 +1,7 @@
 @use '@mixins' as mixins;
 
 .inputContainer {
-  @include mixins.fontPrimaryBold;
+  @include mixins.fontPrimaryMedium;
 }
 
 .input {

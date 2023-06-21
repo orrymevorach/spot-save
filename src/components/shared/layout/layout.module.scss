@@ -1,6 +1,17 @@
+.container {
+  position: relative;
+}
+
 .image {
   width: 400px;
   height: auto;
   display: block;
-  margin: 50px auto 20px;
+  padding: 50px 0 20px;
+  margin: 0 auto;
+}
+
+.logoutButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }

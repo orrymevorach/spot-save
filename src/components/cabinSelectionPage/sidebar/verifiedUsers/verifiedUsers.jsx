@@ -9,7 +9,7 @@ export default function VerifiedUsers() {
   const { verifiedUsers, verifiedEmails, dispatch, actions } =
     useCabinSelection();
 
-  const user = useUser();
+  const { user } = useUser();
   const removeUser = ({ currentUser }) => {
     return verifiedUsers.filter(
       user => user.emailAddress !== currentUser.emailAddress

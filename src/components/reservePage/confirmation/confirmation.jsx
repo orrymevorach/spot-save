@@ -5,7 +5,7 @@ import { getCabin } from '@/lib/airtable';
 
 export default function Confirmation() {
   const [cabin, setCabin] = useState(null);
-  const user = useUser();
+  const { user } = useUser();
   const cabinName = user.cabin[0].name;
 
   useEffect(() => {
