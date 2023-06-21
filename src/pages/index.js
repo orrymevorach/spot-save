@@ -1,10 +1,10 @@
-import LoginPageContainer from '@/components/loginPage/loginPageContainer';
+import LoginPage from '@/components/loginPage';
 import Layout from '@/components/shared/layout';
 
 export default function Home() {
   return (
     <Layout>
-      <LoginPageContainer />
+      <LoginPage />
     </Layout>
   );
 }

@@ -1,11 +1,11 @@
 import { getUserByEmail } from '@/lib/airtable';
-import { TextField } from '@mui/material';
 import { useState } from 'react';
 import styles from './inputVerify.module.scss';
 import Button from '@/components/shared/button/button';
 import { useCabinSelection } from '@/context/cabin-selection-context';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Input from '@/components/shared/input/input';
 
 export default function InputVerify() {
   const [email, setEmail] = useState('');
@@ -45,14 +45,13 @@ export default function InputVerify() {
   };
 
   return (
-    <form onSubmit={verifyEmail} className={styles.form}>
-      {error && <p className={styles.error}>{error}</p>}
+    <form onSubmit={verifyEmail}>
       <div className={styles.row}>
-        <TextField
-          onChange={handleChange}
+        <Input
+          handleChange={handleChange}
           value={email}
-          size="small"
-          placeholder="Email address"
+          label="Email address"
+          error={error}
         />
         <Button isLoading={isLoading} classNames={styles.button}>
           Add Guest <FontAwesomeIcon icon={faPlus} size="sm" />

@@ -1,0 +1,22 @@
+@use '@mixins' as mixins;
+
+.inputContainer {
+  @include mixins.fontPrimaryBold;
+}
+
+.input {
+  width: 300px;
+}
+
+.label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.error {
+  color: red;
+  font-size: 16px;
+  margin-bottom: 10px;
+  @include mixins.fontPrimaryLight;
+}

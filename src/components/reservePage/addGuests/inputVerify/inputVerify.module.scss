@@ -1,37 +1,9 @@
 @use '@variables' as variables;
 @use '@mixins' as mixins;
 
-.form {
-  margin-bottom: 30px;
-  text-align: left;
-  .label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 18px;
-  }
-}
-
 .row {
   display: flex;
-  align-items: center;
-}
-
-.icon {
-  &.check {
-    color: variables.$darkGreen;
-  }
-  &.close {
-    color: red;
-  }
-}
-
-.emailInput {
-  padding: 40px;
-}
-
-.error {
-  color: red;
-  @include mixins.fontPrimaryLight;
+  align-items: flex-end;
 }
 
 .button {

@@ -1,31 +1,10 @@
 @use '@mixins' as mixins;
 @use '@variables' as variables;
 
-.login {
-  font-size: 24px;
-  @include mixins.fontPrimary;
-  label {
-    display: block;
-    font-size: 16px;
-    margin-bottom: 5px;
-  }
-  .input {
-    width: 300px;
-    margin-bottom: 10px;
-  }
-  .submit {
-    display: block;
-    margin-top: 20px;
-  }
+.submit {
+  margin-top: 20px;
 }
 
-.error {
-  color: red;
-  font-size: 14px;
-  margin-bottom: 10px;
-  @include mixins.fontPrimaryLight;
-}
-
-div.loader {
-  top: 100px;
+.emailInput {
+  margin-bottom: 20px;
 }

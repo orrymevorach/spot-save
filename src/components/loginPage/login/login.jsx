@@ -3,10 +3,9 @@ import { useEffect, useState } from 'react';
 import styles from './login.module.scss';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import Loader from '../../shared/loader/loader';
 import { COOKIES, ROUTES } from '@/utils/constants';
 import Button from '../../shared/button/button';
-import { TextField } from '@mui/material';
+import Input from '@/components/shared/input';
 
 const useLoginExistingUserOnPageLoad = () => {
   const router = useRouter();
@@ -71,31 +70,25 @@ export default function Login() {
     setInput(e.target.value);
   };
 
-  if (isLoading) return <Loader isDotted classNames={styles.loader} />;
-
   return (
-    <form action="#" onSubmit={e => handleSubmit(e)} className={styles.login}>
-      <label htmlFor="email">Email</label>
-      {error && <p className={styles.error}>{error}</p>}
-      <TextField
+    <form action="#" onSubmit={e => handleSubmit(e)}>
+      <Input
         type="email"
         id="email"
-        name="email"
-        onChange={e => handleChange(e, setEmail)}
-        value={email}
-        className={styles.input}
-        size="small"
+        handleChange={e => handleChange(e, setEmail)}
+        classNames={styles.emailInput}
+        label="Email"
+        error={error}
       />
-      <label htmlFor="password">Order Confirmation Number</label>
-      <TextField
+      <Input
         type="password"
         id="password"
-        name="password"
-        onChange={e => handleChange(e, setPassword)}
-        className={styles.input}
-        size="small"
+        handleChange={e => handleChange(e, setPassword)}
+        label="Order confirmation number"
       />
-      <Button classNames={styles.submit}>Log in</Button>
+      <Button isLoading={isLoading} classNames={styles.submit}>
+        Log in
+      </Button>
     </form>
   );
 }

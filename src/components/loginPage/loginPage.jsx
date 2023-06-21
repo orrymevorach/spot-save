@@ -1,4 +1,4 @@
-import styles from './loginPageContainer.module.scss';
+import styles from './loginPage.module.scss';
 import Login from '@/components/loginPage/login';
 import Information from '@/components/loginPage/information';
 
