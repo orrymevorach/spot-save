@@ -3,14 +3,13 @@
 
 .cabinContainer {
   margin-bottom: 40px;
+  padding-right: 50px;
   p {
     @include mixins.fontPrimaryLight;
   }
-  width: 300px;
 }
 
 .nameContainer {
-  width: 230px;
   .name {
     @include mixins.fontPrimaryBold;
   }

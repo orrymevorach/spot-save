@@ -1,50 +1,42 @@
-import { useUser } from '@/context/user-context';
 import styles from './confirmation.module.scss';
-import { useEffect, useState } from 'react';
-import { getCabin } from '@/lib/airtable';
+import { useReservation } from '@/context/reservation-context';
+import Loader from '@/components/shared/loader/loader';
+import Button from '@/components/shared/button/button';
+import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
+import { useState } from 'react';
 
 export default function Confirmation() {
-  const [cabin, setCabin] = useState(null);
-  const { user } = useUser();
-  const cabinName = user.cabin[0].name;
+  const [isLoadingBedSelection, setIsLoadingBedSelection] = useState(false);
+  const {
+    cabinData: { isLoading },
+    dispatch,
+    actions,
+  } = useReservation();
 
-  useEffect(() => {
-    const getCabinData = async () => {
-      const data = await getCabin({ cabinName });
-      setCabin(data);
-      return;
-    };
-    if (cabinName) {
-      getCabinData();
-    }
-  }, [cabinName]);
+  if (isLoading || isLoadingBedSelection) return <Loader isDotted />;
+
+  const handleClick = () => {
+    setIsLoadingBedSelection(true);
+    setTimeout(() => {
+      dispatch({
+        type: actions.SET_SELECTION_STAGE,
+        currentStage: CABIN_SELECTION_STAGES.BED_SELECTION,
+      });
+      setIsLoadingBedSelection(false);
+    }, 300);
+  };
 
   return (
-    <div>
-      {cabin && (
-        <>
-          <div>
-            <p className={styles.confirmed}>Confirmed!</p>
-            <p>
-              You are in cabin {cabin.name} in the {cabin.unit} unit.
-            </p>
-          </div>
-          {cabin.additionalInformation && (
-            <div className={styles.additionalInformationContainer}>
-              <p>Additonal details:</p>
-              <ul>
-                {cabin.additionalInformation.map(info => {
-                  return (
-                    <li key={info} className={styles.additionalInformationItem}>
-                      - {info}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          )}
-        </>
-      )}
+    <div className={styles.container}>
+      <p className={styles.title}>Confirmed!</p>
+      <p className={styles.text}>
+        We have sent a confirmation email with your reservation details to all
+        guests on the reservation.
+      </p>
+      <p className={styles.text}>See you at Highlands!</p>
+      <div className={styles.optionalContainer}>
+        <Button handleClick={handleClick}>Continue to bed selection</Button>
+      </div>
     </div>
   );
 }

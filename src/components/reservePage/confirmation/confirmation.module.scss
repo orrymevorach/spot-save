@@ -1,13 +1,29 @@
 @use '@mixins' as mixins;
+@use '@variables' as variables;
 
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  max-width: 700px;
 }
 
-.confirmed {
+.title {
   font-size: 32px;
+  margin: 50px 0 20px;
   @include mixins.fontSecondary;
+  color: variables.$darkGreen;
+}
+
+.text {
+  @include mixins.fontPrimaryLight;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.optionalContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+
+  p {
+    margin-right: 20px;
+  }
 }

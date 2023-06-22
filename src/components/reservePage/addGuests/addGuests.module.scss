@@ -7,7 +7,7 @@
 }
 
 .title {
-  font-size: 24px;
+  font-size: 20px;
   margin-bottom: 5px;
 }
 
@@ -16,13 +16,14 @@
 }
 
 .input {
-  margin: 10px 0 100px;
+  margin-top: 10px;
 }
 
 .buttons {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  margin-top: 200px;
 }
 
 .backButton,
