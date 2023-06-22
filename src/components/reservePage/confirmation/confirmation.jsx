@@ -4,6 +4,7 @@ import Loader from '@/components/shared/loader/loader';
 import Button from '@/components/shared/button/button';
 import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 export default function Confirmation() {
   const [isLoadingBedSelection, setIsLoadingBedSelection] = useState(false);
@@ -12,8 +13,9 @@ export default function Confirmation() {
     dispatch,
     actions,
   } = useReservation();
+  const router = useRouter();
 
-  if (isLoading || isLoadingBedSelection) return <Loader isDotted />;
+  if (isLoadingBedSelection) return <Loader isDotted />;
 
   const handleClick = () => {
     setIsLoadingBedSelection(true);
@@ -23,6 +25,15 @@ export default function Confirmation() {
         currentStage: CABIN_SELECTION_STAGES.BED_SELECTION,
       });
       setIsLoadingBedSelection(false);
+      router.push(
+        {
+          query: {
+            stage: CABIN_SELECTION_STAGES.BED_SELECTION,
+          },
+        },
+        undefined,
+        { shallow: true }
+      );
     }, 300);
   };
 

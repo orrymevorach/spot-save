@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { reserveSpotInCabin } from '@/lib/airtable';
 import { useReservation } from '@/context/reservation-context';
 import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
+import { useRouter } from 'next/router';
 
 export default function AddGuests() {
   const {
@@ -15,6 +16,7 @@ export default function AddGuests() {
     actions,
   } = useReservation();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const reserveCabinForVerifiedUsers = async () => {
     setIsLoading(true);
@@ -32,6 +34,15 @@ export default function AddGuests() {
         currentStage: CABIN_SELECTION_STAGES.CONFIRMATION,
         reservationStatus: 'Confirmed',
       });
+      router.push(
+        {
+          query: {
+            stage: CABIN_SELECTION_STAGES.CONFIRMATION,
+          },
+        },
+        undefined,
+        { shallow: true }
+      );
     } catch (error) {
       console.error(error);
     }

@@ -1,34 +1,50 @@
+import { useState } from 'react';
 import Dropdown from '@/components/shared/dropdown/dropdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './bed.module.scss';
 import { faMattressPillow } from '@fortawesome/free-solid-svg-icons';
 import { useReservation } from '@/context/reservation-context';
-import { useBedSelection } from '@/context/bed-selection-context';
 import clsx from 'clsx';
 
 export default function Bed({ bedName, classNames = '', flip = false }) {
   const {
-    verifiedUsers,
     cabinData: { cabin },
+    selectedBeds,
+    dispatch,
+    actions,
+    verifiedUsers,
   } = useReservation();
-  const { bedSelection, setBedSelection } = useBedSelection();
 
-  const isBedSelected = !!cabin[bedName].length;
+  const [currentUser, setCurrentUser] = useState('');
+  const isBedSelected = cabin && !!cabin[bedName].length;
 
-  const names = verifiedUsers.map(({ name }) => name);
+  const names = verifiedUsers
+    // .filter(({ id }) => {
+    //   for (let i = 0; i < selectedBeds.length; i++) {
+    //     const selectedBed = selectedBeds[i];
+    //     const userHasBed = selectedBed.userRecordId === id;
+    //     if (userHasBed) return false;
+    //   }
+    //   return true;
+    // })
+    .map(({ name }) => name);
 
   const handleChange = selectedUser => {
-    const userRecordId = verifiedUsers.find(
+    const currentUserData = verifiedUsers.find(
       ({ name }) => selectedUser === name
-    ).id;
+    );
 
-    bedSelection.push({
+    const { id, name } = currentUserData;
+
+    selectedBeds.push({
       bedName,
-      userRecordId,
+      userRecordId: id,
     });
 
-    setBedSelection(bedSelection);
+    dispatch({ type: actions.SELECT_BEDS, selectedBeds });
+    setCurrentUser(name);
   };
+
   const BedIcon = () => (
     <FontAwesomeIcon
       icon={faMattressPillow}
@@ -47,6 +63,7 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
           classNames={styles.dropdown}
           handleChange={handleChange}
           label="Select Guest"
+          currentValue={currentUser}
         />
       )}
 

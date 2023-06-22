@@ -1,10 +1,6 @@
 import styles from './bedSelection.module.scss';
 import { useReservation } from '@/context/reservation-context';
 import Button from '@/components/shared/button/button';
-import {
-  BedSelectionProvider,
-  useBedSelection,
-} from '@/context/bed-selection-context';
 import BedColumn from './bedColumn/bedColumn';
 import { reserveBedsMap } from '@/lib/airtable-bed-reservations';
 import { useState } from 'react';
@@ -25,15 +21,15 @@ const rightBeds = [
 
 const Cabin = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { bedSelection } = useBedSelection();
   const {
     cabinData: { cabin },
+    selectedBeds,
   } = useReservation();
 
   const handleClick = async () => {
     setIsLoading(true);
-    for (let i = 0; i < bedSelection.length; i++) {
-      const { bedName, userRecordId } = bedSelection[i];
+    for (let i = 0; i < selectedBeds.length; i++) {
+      const { bedName, userRecordId } = selectedBeds[i];
       const reserveFunction = reserveBedsMap[bedName];
 
       const response = await reserveFunction({
@@ -63,9 +59,5 @@ const Cabin = () => {
 };
 
 export default function BedSelection() {
-  return (
-    <BedSelectionProvider>
-      <Cabin />
-    </BedSelectionProvider>
-  );
+  return <Cabin />;
 }

@@ -7,9 +7,10 @@ const actions = {
   ADD_GUEST: 'ADD_GUEST',
   REMOVE_GUEST: 'REMOVE_GUEST',
   SET_SELECTION_STAGE: 'SET_SELECTION_STAGE',
+  SELECT_BEDS: 'SELECT_BEDS',
 };
 
-const { ADD_GUEST, REMOVE_GUEST, SET_SELECTION_STAGE } = actions;
+const { ADD_GUEST, REMOVE_GUEST, SET_SELECTION_STAGE, SELECT_BEDS } = actions;
 
 export const CABIN_SELECTION_STAGES = {
   ADD_GUESTS: 'ADD_GUESTS',
@@ -38,15 +39,21 @@ const reducer = (state, action) => {
         currentStage: action.currentStage,
         reservationStatus: action.reservationStatus || state.reservationStatus,
       };
+    case SELECT_BEDS:
+      return {
+        ...state,
+        selectedBeds: action.selectedBeds,
+      };
   }
 };
 
 const initialState = {
-  currentStage: CABIN_SELECTION_STAGES.ADD_GUESTS,
+  currentStage: '',
   selectedCabin: null,
   verifiedEmails: [], // used to verify users
   verifiedUsers: [], // used to display user names after verification
   reservationStatus: '',
+  selectedBeds: [],
 };
 
 const useGetCabinData = () => {
