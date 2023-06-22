@@ -2,17 +2,16 @@ import { getUserByEmail } from '@/lib/airtable';
 import { useState } from 'react';
 import styles from './inputVerify.module.scss';
 import Button from '@/components/shared/button/button';
-import { useCabinSelection } from '@/context/cabin-selection-context';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Input from '@/components/shared/input/input';
+import { useReservation } from '@/context/reservation-context';
 
 export default function InputVerify() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { verifiedEmails, verifiedUsers, dispatch, actions } =
-    useCabinSelection();
+  const { verifiedEmails, verifiedUsers, dispatch, actions } = useReservation();
 
   const handleChange = e => {
     setEmail(e.target.value);
@@ -35,7 +34,7 @@ export default function InputVerify() {
       const updatedVerifiedEmails = [...verifiedEmails, email];
       const updatedVerifiedUsers = [...verifiedUsers, userResponse];
       dispatch({
-        type: actions.VERIFY_GUEST,
+        type: actions.ADD_GUEST,
         verifiedEmails: updatedVerifiedEmails,
         verifiedUsers: updatedVerifiedUsers,
       });

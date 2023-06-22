@@ -1,13 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './verifiedUsers.module.scss';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
-import clsx from 'clsx';
-import { useCabinSelection } from '@/context/cabin-selection-context';
 import { useUser } from '@/context/user-context';
+import { useReservation } from '@/context/reservation-context';
+import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
 
 export default function VerifiedUsers() {
-  const { verifiedUsers, verifiedEmails, dispatch, actions } =
-    useCabinSelection();
+  const { verifiedUsers, verifiedEmails, dispatch, actions, currentStage } =
+    useReservation();
 
   const { user } = useUser();
   const removeUser = ({ currentUser }) => {
@@ -19,6 +19,7 @@ export default function VerifiedUsers() {
   const removeEmail = ({ currentUser }) => {
     return verifiedEmails.filter(email => email !== currentUser.emailAddress);
   };
+
   return (
     <div>
       <p className={styles.title}>Names on Reservation</p>
@@ -29,7 +30,8 @@ export default function VerifiedUsers() {
               <span className={styles.number}>{index + 1}.</span>
               {currentUser.name}
             </p>
-            {currentUser.name !== user.name && (
+            {currentUser.name !== user.name &&
+            currentStage === CABIN_SELECTION_STAGES.ADD_GUESTS ? (
               <button
                 className={styles.remove}
                 onClick={() =>
@@ -42,6 +44,8 @@ export default function VerifiedUsers() {
               >
                 <FontAwesomeIcon icon={faMinusCircle} />
               </button>
+            ) : (
+              ''
             )}
           </div>
         );

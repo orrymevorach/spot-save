@@ -1,25 +1,39 @@
 import InputVerify from './inputVerify/inputVerify';
-import { useCabinSelection } from '@/context/cabin-selection-context';
 import styles from './addGuests.module.scss';
 import Button from '@/components/shared/button/button';
 import { ROUTES } from '@/utils/constants';
 import { useState } from 'react';
 import { reserveSpotInCabin } from '@/lib/airtable';
+import { useReservation } from '@/context/reservation-context';
+import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
 
 export default function AddGuests() {
-  const { verifiedUsers } = useCabinSelection();
+  const {
+    verifiedUsers,
+    cabinData: { cabin },
+    dispatch,
+    actions,
+  } = useReservation();
   const [isLoading, setIsLoading] = useState(false);
 
   const reserveCabinForVerifiedUsers = async () => {
     setIsLoading(true);
-    for (let i = 0; i < verifiedUsers.length; i++) {
-      const user = verifiedUsers[i];
-      const response = await reserveSpotInCabin({
-        cabinId: selectedCabin.id,
-        attendeeId: user.id,
+    try {
+      for (let i = 0; i < verifiedUsers.length; i++) {
+        const user = verifiedUsers[i];
+        const response = await reserveSpotInCabin({
+          cabinId: cabin.id,
+          attendeeId: user.id,
+        });
+      }
+      setIsLoading(false);
+      dispatch({
+        type: actions.SET_SELECTION_STAGE,
+        currentStage: CABIN_SELECTION_STAGES.CONFIRMATION,
       });
+    } catch (error) {
+      console.error(error);
     }
-    setIsLoading(false);
   };
 
   const numberOfVerifiedUsers = verifiedUsers.length;

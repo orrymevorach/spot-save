@@ -1,33 +1,20 @@
 import styles from './sidebarSummary.module.scss';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { getCabin } from '@/lib/airtable';
 import Loader from '@/components/shared/loader/loader';
 import ImageCarousel from '@/components/shared/imageCarousel/imageCarousel';
 import rainbow from 'public/rainbow-min.png';
 import Image from 'next/image';
+import { useReservation } from '@/context/reservation-context';
 
 export default function SidebarSummary() {
-  const [cabin, setCabin] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
-  const cabinQuery = router.query.cabin;
-
-  useEffect(() => {
-    const getCabinData = async () => {
-      const cabinData = await getCabin({ cabinName: cabinQuery });
-      setCabin(cabinData);
-      setIsLoading(false);
-      return;
-    };
-    if (cabinQuery && !cabin) {
-      getCabinData();
-    }
-  }, [cabinQuery, cabin]);
+  const {
+    cabinData: { cabin, isLoading },
+  } = useReservation();
 
   if (isLoading) return <Loader isDotted />;
 
-  const { name, unit, images } = cabin;
+  const { name, unit, images, additionalInformation } = cabin;
+  const hasAdditionalInformation =
+    additionalInformation && additionalInformation.length > 0;
 
   return (
     <div className={styles.summaryContainer}>
@@ -43,6 +30,18 @@ export default function SidebarSummary() {
         <span className={styles.left}>Unit:</span>
         <span className={styles.right}>{unit}</span>
       </p>
+      {hasAdditionalInformation && (
+        <div className={styles.additionalInformationContainer}>
+          <p className={styles.additionalInformationTitle}>
+            Additional information:
+          </p>
+          <ul className={styles.additionalInformationList}>
+            {additionalInformation.map(detail => (
+              <li key={detail}>{detail}</li>
+            ))}
+          </ul>
+        </div>
+      )}
       {images && (
         <ImageCarousel
           images={images}

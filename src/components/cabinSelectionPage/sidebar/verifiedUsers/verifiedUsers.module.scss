@@ -1,8 +1,7 @@
 @use '@mixins' as mixins;
 
 .title {
-  font-size: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .verifiedUserContainer {
@@ -11,13 +10,12 @@
 }
 
 .number {
-  width: 27px;
+  width: 17px;
   display: inline-block;
 }
 
 .verifiedUser {
-  min-width: 200px;
-  @include mixins.fontPrimary;
+  @include mixins.fontPrimaryLight;
 }
 
 .remove {

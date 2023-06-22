@@ -30,9 +30,22 @@
   width: 60px;
 }
 .right {
-  @include mixins.fontPrimary;
+  @include mixins.fontPrimaryLight;
 }
 
 .images {
   margin: 20px 0;
+}
+
+.additionalInformationContainer {
+  margin: 15px 0;
+}
+
+ul.additionalInformationList {
+  list-style: disc;
+  li {
+    margin-left: 17px;
+    @include mixins.fontPrimaryLight;
+    font-size: 15px;
+  }
 }
