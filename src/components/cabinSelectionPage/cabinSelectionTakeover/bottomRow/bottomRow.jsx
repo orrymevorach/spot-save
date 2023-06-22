@@ -7,21 +7,9 @@ import { useRouter } from 'next/router';
 import { ROUTES } from '@/utils/constants';
 
 export default function BottomRow() {
-  const { selectedCabin, dispatch, actions } = useCabinSelection();
+  const { selectedCabin } = useCabinSelection();
 
   const [isLoading, setIsLoading] = useState(false);
-
-  // const reserveCabinForVerifiedUsers = async () => {
-  //   setIsLoading(true);
-  //   for (let i = 0; i < verifiedUsers.length; i++) {
-  //     const user = verifiedUsers[i];
-  //     const response = await reserveSpotInCabin({
-  //       cabinId: selectedCabin.id,
-  //       attendeeId: user.id,
-  //     });
-  //   }
-  //   setIsLoading(false);
-  // };
 
   const router = useRouter();
   const handleClick = async () => {

@@ -40,6 +40,7 @@ export default function ImageCarousel({
   images,
   hideThumbnails = false,
   classNames = '',
+  height = 300,
 }) {
   const [index, setIndex] = useState(0);
   const currentImage = images[index];
@@ -76,6 +77,7 @@ export default function ImageCarousel({
           className={styles.image}
           ref={imageRef}
           quality={50}
+          style={{ maxHeight: `${height}px` }}
         />
         <button onClick={handleClickRight} className={styles.chevronRight}>
           <FontAwesomeIcon icon={faChevronRight} color="white" size="2xl" />

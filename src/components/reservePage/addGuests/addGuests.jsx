@@ -3,9 +3,24 @@ import { useCabinSelection } from '@/context/cabin-selection-context';
 import styles from './addGuests.module.scss';
 import Button from '@/components/shared/button/button';
 import { ROUTES } from '@/utils/constants';
+import { useState } from 'react';
+import { reserveSpotInCabin } from '@/lib/airtable';
 
 export default function AddGuests() {
   const { verifiedUsers } = useCabinSelection();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const reserveCabinForVerifiedUsers = async () => {
+    setIsLoading(true);
+    for (let i = 0; i < verifiedUsers.length; i++) {
+      const user = verifiedUsers[i];
+      const response = await reserveSpotInCabin({
+        cabinId: selectedCabin.id,
+        attendeeId: user.id,
+      });
+    }
+    setIsLoading(false);
+  };
 
   const numberOfVerifiedUsers = verifiedUsers.length;
   const hasMaximumGuests = numberOfVerifiedUsers >= 12;
@@ -31,7 +46,13 @@ export default function AddGuests() {
         <Button classNames={styles.backButton} href={ROUTES.CABIN_SELECTION}>
           Back to cabin selection
         </Button>
-        <Button classNames={styles.continueButton}>Continue to checkout</Button>
+        <Button
+          handleClick={reserveCabinForVerifiedUsers}
+          isLoading={isLoading}
+          classNames={styles.continueButton}
+        >
+          Confirm reservation
+        </Button>
       </div>
     </div>
   );

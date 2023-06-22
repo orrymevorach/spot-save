@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { getCabin } from '@/lib/airtable';
 import Loader from '@/components/shared/loader/loader';
 import ImageCarousel from '@/components/shared/imageCarousel/imageCarousel';
+import rainbow from 'public/rainbow-min.png';
+import Image from 'next/image';
 
 export default function SidebarSummary() {
   const [cabin, setCabin] = useState(null);
@@ -29,7 +31,10 @@ export default function SidebarSummary() {
 
   return (
     <div className={styles.summaryContainer}>
-      <p className={styles.title}>Summary</p>
+      <div className={styles.titleContainer}>
+        <p className={styles.title}>Summary</p>
+        <Image src={rainbow} alt="" className={styles.image} />
+      </div>
       <p>
         <span className={styles.left}>Cabin:</span>
         <span className={styles.right}>{name}</span>
@@ -43,6 +48,7 @@ export default function SidebarSummary() {
           images={images}
           hideThumbnails
           classNames={styles.images}
+          height={150}
         />
       )}
     </div>
