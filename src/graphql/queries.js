@@ -23,6 +23,42 @@ export const GET_CABIN = gql`
       unit
       images
       additionalInformation
+      frontBunkLeft {
+        id
+      }
+      frontCotLeft {
+        id
+      }
+      backCotLeft {
+        id
+      }
+      frontLoftLeft {
+        id
+      }
+      backLoftLeft {
+        id
+      }
+      backBunkLeft {
+        id
+      }
+      frontBunkRight {
+        id
+      }
+      frontCotRight {
+        id
+      }
+      backCotRight {
+        id
+      }
+      frontLoftRight {
+        id
+      }
+      backLoftRight {
+        id
+      }
+      backBunkRight {
+        id
+      }
     }
   }
 `;

@@ -25,6 +25,24 @@
   margin-bottom: 20px;
 }
 
+.statusContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.statusPill {
+  padding: 8px 10px;
+  border-radius: variables.$borderRadius;
+  margin-left: 5px;
+  &Confirmed {
+    background-color: lightgreen;
+  }
+  &Pending {
+    background-color: rgba(yellow, 0.6);
+  }
+}
+
 .left {
   display: inline-block;
   width: 60px;

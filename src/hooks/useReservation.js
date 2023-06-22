@@ -24,6 +24,7 @@ const reducer = (state, action) => {
         ...state,
         verifiedEmails: action.verifiedEmails,
         verifiedUsers: action.verifiedUsers,
+        reservationStatus: action.reservationStatus,
       };
     case REMOVE_GUEST:
       return {
@@ -35,6 +36,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         currentStage: action.currentStage,
+        reservationStatus: action.reservationStatus || state.reservationStatus,
       };
   }
 };
@@ -44,6 +46,7 @@ const initialState = {
   selectedCabin: null,
   verifiedEmails: [], // used to verify users
   verifiedUsers: [], // used to display user names after verification
+  reservationStatus: '',
 };
 
 const useGetCabinData = () => {
@@ -77,10 +80,12 @@ export const useReservationReducer = () => {
   // Add current user on page load
   useEffect(() => {
     if (user && !state.verifiedEmails.length) {
+      const hasCabin = user.cabin.length > 0;
       dispatch({
         type: ADD_GUEST,
         verifiedEmails: [user.emailAddress],
         verifiedUsers: [user],
+        reservationStatus: hasCabin ? 'Confirmed' : 'Pending',
       });
     }
   }, [user, state.verifiedEmails]);

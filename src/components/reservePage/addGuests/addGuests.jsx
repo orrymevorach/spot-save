@@ -30,6 +30,7 @@ export default function AddGuests() {
       dispatch({
         type: actions.SET_SELECTION_STAGE,
         currentStage: CABIN_SELECTION_STAGES.CONFIRMATION,
+        reservationStatus: 'Confirmed',
       });
     } catch (error) {
       console.error(error);

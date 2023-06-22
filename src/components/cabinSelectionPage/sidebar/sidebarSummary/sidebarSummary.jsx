@@ -4,10 +4,12 @@ import ImageCarousel from '@/components/shared/imageCarousel/imageCarousel';
 import rainbow from 'public/rainbow-min.png';
 import Image from 'next/image';
 import { useReservation } from '@/context/reservation-context';
+import clsx from 'clsx';
 
 export default function SidebarSummary() {
   const {
     cabinData: { cabin, isLoading },
+    reservationStatus,
   } = useReservation();
 
   if (isLoading) return <Loader isDotted />;
@@ -21,6 +23,17 @@ export default function SidebarSummary() {
       <div className={styles.titleContainer}>
         <p className={styles.title}>Summary</p>
         <Image src={rainbow} alt="" className={styles.image} />
+      </div>
+      <div className={styles.statusContainer}>
+        <p>Reservation status:</p>
+        <p
+          className={clsx(
+            styles.statusPill,
+            styles[`statusPill${reservationStatus}`]
+          )}
+        >
+          {reservationStatus}
+        </p>
       </div>
       <p>
         <span className={styles.left}>Cabin:</span>

@@ -7,8 +7,13 @@ import { useBedSelection } from '@/context/bed-selection-context';
 import clsx from 'clsx';
 
 export default function Bed({ bedName, classNames = '', flip = false }) {
-  const { verifiedUsers } = useReservation();
+  const {
+    verifiedUsers,
+    cabinData: { cabin },
+  } = useReservation();
   const { bedSelection, setBedSelection } = useBedSelection();
+
+  const isBedSelected = !!cabin[bedName].length;
 
   const names = verifiedUsers.map(({ name }) => name);
 
@@ -34,11 +39,17 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
   return (
     <div className={clsx(styles.bed, classNames, flip && styles.flip)}>
       {flip && <BedIcon />}
-      <Dropdown
-        options={names}
-        classNames={styles.dropdown}
-        handleChange={handleChange}
-      />
+      {isBedSelected ? (
+        <p className={styles.reserved}>Reserved</p>
+      ) : (
+        <Dropdown
+          options={names}
+          classNames={styles.dropdown}
+          handleChange={handleChange}
+          label="Select Guest"
+        />
+      )}
+
       {!flip && <BedIcon />}
     </div>
   );
