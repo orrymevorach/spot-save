@@ -1,0 +1,18 @@
+.bed {
+  display: flex;
+  align-items: center;
+}
+
+div.dropdown {
+  width: 200px;
+  margin-right: 10px;
+}
+
+.flip {
+  div.dropdown {
+    margin: 0 0 0 10px;
+  }
+  .icon {
+    transform: scaleX(-1);
+  }
+}

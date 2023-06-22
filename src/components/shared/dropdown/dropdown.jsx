@@ -7,9 +7,11 @@ export default function Dropdown({
   handleChange,
   currentValue,
   variant = 'outlined',
+  classNames = '',
+  size = 'small',
 }) {
   return (
-    <FormControl fullWidth variant={variant}>
+    <FormControl fullWidth variant={variant} className={classNames} size={size}>
       <InputLabel id={`${label}-label`}>{label}</InputLabel>
       <Select
         labelId={`${label}-label`}

@@ -1,0 +1,10 @@
+.row {
+  margin-bottom: 50px;
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.column:last-child {
+  margin-left: 100px;
+}

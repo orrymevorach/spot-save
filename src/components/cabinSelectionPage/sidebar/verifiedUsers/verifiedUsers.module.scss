@@ -10,12 +10,13 @@
 }
 
 .number {
-  width: 17px;
+  width: 30px;
   display: inline-block;
 }
 
 .verifiedUser {
   @include mixins.fontPrimaryLight;
+  width: 200px;
 }
 
 .remove {
