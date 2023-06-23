@@ -4,6 +4,7 @@ import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { useUser } from '@/context/user-context';
 import { useReservation } from '@/context/reservation-context';
 import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
+import clsx from 'clsx';
 
 export default function VerifiedUsers() {
   const { verifiedUsers, verifiedEmails, dispatch, actions, currentStage } =
@@ -27,13 +28,19 @@ export default function VerifiedUsers() {
     <div>
       <p className={styles.title}>Names on Reservation</p>
       {verifiedUsers.map((currentUser, index) => {
+        const isLoggedInUser = currentUser.name === user.name;
         return (
           <div className={styles.verifiedUserContainer} key={currentUser.name}>
-            <p className={styles.verifiedUser}>
+            <p
+              className={clsx(
+                styles.verifiedUser,
+                !isLoggedInUser && styles.nonActiveUser
+              )}
+            >
               <span className={styles.number}>{index + 1}.</span>
               {currentUser.name}
             </p>
-            {currentUser.name !== user.name &&
+            {!isLoggedInUser &&
             currentStage === CABIN_SELECTION_STAGES.ADD_GUESTS ? (
               <button
                 className={styles.remove}

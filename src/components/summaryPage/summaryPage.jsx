@@ -60,7 +60,17 @@ export default function SummaryPage() {
           >
             Switch Cabin/Unit
           </Button>
-          <Button classNames={styles.button}>Select Beds</Button>
+          <Button
+            classNames={styles.button}
+            handleClick={() =>
+              handleRoute({
+                pathname: ROUTES.RESERVE,
+                stage: CABIN_SELECTION_STAGES.BED_SELECTION,
+              })
+            }
+          >
+            Select Beds
+          </Button>
         </div>
       </div>
     </div>

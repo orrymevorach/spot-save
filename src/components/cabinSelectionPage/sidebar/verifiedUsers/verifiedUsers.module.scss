@@ -1,4 +1,5 @@
 @use '@mixins' as mixins;
+@use '@variables' as variables;
 
 .title {
   margin-bottom: 5px;
@@ -16,11 +17,26 @@
 
 .verifiedUser {
   @include mixins.fontPrimaryLight;
-  width: 200px;
+  min-width: 200px;
+  padding: 2px 6px;
+}
+
+.nonActiveUser {
+  background-color: variables.$darkGreen;
+  color: white;
+  animation: highlight 1s linear forwards;
+  border-radius: variables.$borderRadius;
 }
 
 .remove {
   margin-left: 10px;
   background: none;
   border: none;
+}
+
+@keyframes highlight {
+  100% {
+    background: none;
+    color: variables.$charcoal;
+  }
 }
