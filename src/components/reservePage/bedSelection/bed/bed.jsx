@@ -49,15 +49,13 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
     <FontAwesomeIcon
       icon={faMattressPillow}
       size="3x"
-      className={styles.icon}
+      className={clsx(styles.icon, isBedSelected && styles.reserved)}
     />
   );
   return (
     <div className={clsx(styles.bed, classNames, flip && styles.flip)}>
       {flip && <BedIcon />}
-      {isBedSelected ? (
-        <p className={styles.reserved}>Reserved</p>
-      ) : (
+      {!isBedSelected ? (
         <Dropdown
           options={names}
           classNames={styles.dropdown}
@@ -65,6 +63,8 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
           label="Select Guest"
           currentValue={currentUser}
         />
+      ) : (
+        <div className={styles.placeholder}></div>
       )}
 
       {!flip && <BedIcon />}

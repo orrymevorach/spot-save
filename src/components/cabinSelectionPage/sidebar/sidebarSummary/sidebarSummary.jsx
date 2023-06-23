@@ -1,35 +1,17 @@
 import styles from './sidebarSummary.module.scss';
 import Loader from '@/components/shared/loader/loader';
-import ImageCarousel from '@/components/shared/imageCarousel/imageCarousel';
-import rainbow from 'public/rainbow-min.png';
-import Image from 'next/image';
 
 export default function SidebarSummary({ cabinData }) {
   const { cabin, isLoading } = cabinData;
 
   if (isLoading) return <Loader isDotted />;
 
-  const { name, unit, images, additionalInformation } = cabin;
+  const { name, unit, additionalInformation } = cabin;
   const hasAdditionalInformation =
     additionalInformation && additionalInformation.length > 0;
 
   return (
     <div className={styles.summaryContainer}>
-      <div className={styles.titleContainer}>
-        <p className={styles.title}>Summary</p>
-        <Image src={rainbow} alt="" className={styles.image} />
-      </div>
-      {/* <div className={styles.statusContainer}>
-        <p>Reservation status:</p>
-        <p
-          className={clsx(
-            styles.statusPill,
-            styles[`statusPill${reservationStatus}`]
-          )}
-        >
-          {reservationStatus}
-        </p>
-      </div> */}
       <p>
         <span className={styles.left}>Cabin:</span>
         <span className={styles.right}>{name}</span>
@@ -50,14 +32,6 @@ export default function SidebarSummary({ cabinData }) {
           </ul>
         </div>
       )}
-      {/* {images && (
-        <ImageCarousel
-          images={images}
-          hideThumbnails
-          classNames={styles.images}
-          height={150}
-        />
-      )} */}
     </div>
   );
 }

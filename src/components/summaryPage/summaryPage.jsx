@@ -6,46 +6,71 @@ import styles from './summaryPage.module.scss';
 import Button from '../shared/button/button';
 import { useRouter } from 'next/router';
 import { ROUTES } from '@/utils/constants';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
+import Takeover from '../shared/takeover/takeover';
+import AddGuests from '../reservePage/addGuests/addGuests';
+import BedSelection from '../reservePage/bedSelection/bedSelection';
 
 export default function SummaryPage() {
-  const [isRouting, setIsRouting] = useState(false);
-  const { user, isLoading } = useUser();
+  const { user, isLoading: isUserDataLoading } = useUser();
   const router = useRouter();
+  const [currentStage, setCurrentStage] = useState();
 
-  if (isLoading || isRouting) return <Loader isDotted />;
+  const stageQuery = router.query.stage;
+  useEffect(() => {
+    if (stageQuery) {
+      setCurrentStage(stageQuery);
+    }
+  }, [stageQuery]);
 
-  if (!user) return <p>no user found!</p>;
+  if (isUserDataLoading || !user) return <Loader isDotted />;
+
+  const handleRoute = ({ pathname, stage }) => {
+    const query = stage ? { stage } : null;
+    router.push({
+      pathname,
+      query,
+    });
+  };
 
   const cabinData = {
     cabin: user.cabin[0],
-    isLoading,
-  };
-
-  const handleRoute = ({ pathname, stage }) => {
-    setIsRouting(true);
-    setTimeout(() => {
-      const query = stage ? { stage } : null;
-      router.push({
-        pathname,
-        query,
-      });
-    }, 300);
+    isLoading: isUserDataLoading,
   };
 
   return (
     <div className={styles.container}>
-      <SidebarSummary cabinData={cabinData} />
-      <VerifiedUsers />
+      {currentStage === CABIN_SELECTION_STAGES.ADD_GUESTS && (
+        <Takeover>
+          <div className={styles.takeover}>
+            <AddGuests />
+            <VerifiedUsers />
+          </div>
+        </Takeover>
+      )}
+      {currentStage === CABIN_SELECTION_STAGES.BED_SELECTION && (
+        <Takeover>
+          <div className={styles.takeover}>
+            <BedSelection />
+          </div>
+        </Takeover>
+      )}
+
+      <div>
+        <div className={styles.titleContainer}>
+          <p className={styles.title}>Summary</p>
+        </div>
+        <SidebarSummary cabinData={cabinData} />
+        <VerifiedUsers />
+      </div>
       <div className={styles.modifyContainer}>
-        <p className={styles.modifyTitle}>Modify your reservation</p>
+        <p className={styles.title}>Modify your reservation</p>
         <div className={styles.buttons}>
           <Button
             classNames={styles.button}
             handleClick={() =>
               handleRoute({
-                pathname: ROUTES.RESERVE,
                 stage: CABIN_SELECTION_STAGES.ADD_GUESTS,
               })
             }
@@ -64,7 +89,6 @@ export default function SummaryPage() {
             classNames={styles.button}
             handleClick={() =>
               handleRoute({
-                pathname: ROUTES.RESERVE,
                 stage: CABIN_SELECTION_STAGES.BED_SELECTION,
               })
             }

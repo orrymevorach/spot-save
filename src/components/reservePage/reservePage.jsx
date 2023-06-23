@@ -5,7 +5,6 @@ import AddGuests from './addGuests/addGuests';
 import styles from './reservePage.module.scss';
 import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
 import Confirmation from './confirmation/confirmation';
-import BedSelection from './bedSelection/bedSelection';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Loader from '../shared/loader/loader';
@@ -31,7 +30,7 @@ const useSetStageBasedOnQuery = () => {
 
 export default function ReservePage() {
   const { currentStage, cabinData } = useReservation();
-  const { ADD_GUESTS, CONFIRMATION, BED_SELECTION } = CABIN_SELECTION_STAGES;
+  const { ADD_GUESTS, CONFIRMATION } = CABIN_SELECTION_STAGES;
   useSetStageBasedOnQuery();
   if (!currentStage) return <Loader isDotted />;
   return (
@@ -40,7 +39,6 @@ export default function ReservePage() {
       <div className={styles.container}>
         {currentStage === ADD_GUESTS && <AddGuests />}
         {currentStage === CONFIRMATION && <Confirmation />}
-        {currentStage === BED_SELECTION && <BedSelection />}
         <Sidebar cabinData={cabinData} />
       </div>
     </div>

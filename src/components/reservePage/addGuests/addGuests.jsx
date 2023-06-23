@@ -2,51 +2,10 @@ import InputVerify from './inputVerify/inputVerify';
 import styles from './addGuests.module.scss';
 import Button from '@/components/shared/button/button';
 import { ROUTES } from '@/utils/constants';
-// import { useState } from 'react';
-// import { reserveSpotInCabin } from '@/lib/airtable';
 import { useReservation } from '@/context/reservation-context';
-// import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
-// import { useRouter } from 'next/router';
 
 export default function AddGuests() {
-  const {
-    verifiedUsers,
-    // cabinData: { cabin },
-    // dispatch,
-    // actions,
-  } = useReservation();
-  // const [isLoading, setIsLoading] = useState(false);
-  // const router = useRouter();
-
-  // const reserveCabinForVerifiedUsers = async () => {
-  //   setIsLoading(true);
-  //   try {
-  //     for (let i = 0; i < verifiedUsers.length; i++) {
-  //       const user = verifiedUsers[i];
-  //       const response = await reserveSpotInCabin({
-  //         cabinId: cabin.id,
-  //         attendeeId: user.id,
-  //       });
-  //     }
-  //     setIsLoading(false);
-  //     dispatch({
-  //       type: actions.SET_SELECTION_STAGE,
-  //       currentStage: CABIN_SELECTION_STAGES.CONFIRMATION,
-  //       reservationStatus: 'Confirmed',
-  //     });
-  //     router.push(
-  //       {
-  //         query: {
-  //           stage: CABIN_SELECTION_STAGES.CONFIRMATION,
-  //         },
-  //       },
-  //       undefined,
-  //       { shallow: true }
-  //     );
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const { verifiedUsers } = useReservation();
 
   const numberOfVerifiedUsers = verifiedUsers.length;
   const hasMaximumGuests = numberOfVerifiedUsers >= 12;
@@ -69,16 +28,7 @@ export default function AddGuests() {
         </div>
       )}
       <div className={styles.buttons}>
-        <Button classNames={styles.backButton} href={ROUTES.CABIN_SELECTION}>
-          Back to cabin selection
-        </Button>
-        {/* <Button
-          handleClick={reserveCabinForVerifiedUsers}
-          isLoading={isLoading}
-          classNames={styles.continueButton}
-        >
-          Confirm reservation
-        </Button> */}
+        <Button href={ROUTES.CABIN_SELECTION}>Back to cabin selection</Button>
       </div>
     </div>
   );

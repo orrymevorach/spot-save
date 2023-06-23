@@ -2,47 +2,9 @@
 @use '@variables' as variables;
 
 .summaryContainer {
-  margin: 50px 0 40px;
+  margin: 0px 0 40px;
   border-bottom: 1px solid variables.$charcoal;
   padding-bottom: 30px;
-}
-
-.titleContainer {
-  display: flex;
-  align-items: center;
-}
-
-.image {
-  width: 50px;
-  height: auto;
-  position: relative;
-  top: -14px;
-  margin-left: 10px;
-}
-
-.title {
-  font-size: 28px;
-  @include mixins.fontSecondary;
-  color: variables.$darkGreen;
-  margin-bottom: 20px;
-}
-
-.statusContainer {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.statusPill {
-  padding: 4px 8px;
-  border-radius: variables.$borderRadius;
-  margin-left: 5px;
-  &Confirmed {
-    background-color: lightgreen;
-  }
-  &Pending {
-    background-color: rgba(yellow, 0.6);
-  }
 }
 
 .left {
@@ -51,10 +13,6 @@
 }
 .right {
   @include mixins.fontPrimaryLight;
-}
-
-.images {
-  margin: 20px 0;
 }
 
 .additionalInformationContainer {

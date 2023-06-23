@@ -22,8 +22,14 @@
   display: flex;
   align-items: center;
   margin-top: 50px;
-
   p {
     margin-right: 20px;
   }
+}
+
+.button {
+  display: block;
+  margin-right: 20px;
+  width: 230px;
+  text-align: center;
 }

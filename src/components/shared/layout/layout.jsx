@@ -18,15 +18,13 @@ export default function Layout({ children }) {
   const [isPageLoading, setIsPageLoading] = useState(false);
   const router = useRouter();
   const { user, setUser } = useUser();
+
   const handleLogout = () => {
-    setIsLogoutLoading(true);
-    setTimeout(() => {
-      Cookies.remove(COOKIES.USER_RECORD);
-      setUser(null);
-      router.push(ROUTES.HOME);
-      setIsLogoutLoading(false);
-    }, 300);
+    Cookies.remove(COOKIES.USER_RECORD);
+    setUser(null);
+    router.push(ROUTES.HOME);
   };
+
   const handleViewReservation = () => {
     setIsPageLoading(true);
     setTimeout(() => {
@@ -35,12 +33,13 @@ export default function Layout({ children }) {
     }, 300);
   };
 
-  const hasCabin = user?.cabin && user.cabin[0];
+  const isCabinSelectionPage = router.pathname === ROUTES.CABIN_SELECTION;
+
   return (
     <div className={styles.container}>
       {user && (
         <div className={styles.buttons}>
-          {hasCabin && (
+          {isCabinSelectionPage && (
             <Button
               isLoading={isPageLoading}
               handleClick={handleViewReservation}

@@ -1,27 +1,13 @@
 import styles from './bedSelection.module.scss';
 import { useReservation } from '@/context/reservation-context';
 import Button from '@/components/shared/button/button';
-import BedColumn from './bedColumn/bedColumn';
 import { reserveBedsMap } from '@/lib/airtable-bed-reservations';
 import { useState } from 'react';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
+import Cabin from './cabin/cabin';
 
-const leftBeds = [
-  ['backBunkLeft'],
-  ['backLoftLeft', 'frontLoftLeft'],
-  ['backCotLeft', 'frontCotLeft'],
-  ['frontBunkLeft'],
-];
-
-const rightBeds = [
-  ['backBunkRight'],
-  ['backLoftRight', 'frontLoftRight'],
-  ['backCotRight', 'frontCotRight'],
-  ['frontBunkRight'],
-];
-
-const Cabin = () => {
+export default function BedSelection() {
   const [isLoading, setIsLoading] = useState(false);
   const {
     cabinData: { cabin },
@@ -44,7 +30,6 @@ const Cabin = () => {
     }
     setIsLoading(false);
   };
-
   const handleClickCancel = () => {
     dispatch({
       type: actions.SET_SELECTION_STAGE,
@@ -62,32 +47,26 @@ const Cabin = () => {
       }
     );
   };
+
   return (
-    <div className={styles.container}>
-      <p>Back of cabin</p>
-      <div className={styles.bedsContainer}>
-        <BedColumn beds={leftBeds} />
-        <BedColumn beds={rightBeds} flip />
+    <div className={styles.bedSelectionContainer}>
+      <Cabin />
+      <div className={styles.buttons}>
+        <Button
+          handleClick={handleClick}
+          isLoading={isLoading}
+          classNames={styles.button}
+        >
+          Confirm Beds
+        </Button>
+        <Button
+          handleClick={handleClickCancel}
+          isLoading={isLoading}
+          classNames={styles.button}
+        >
+          Go Back
+        </Button>
       </div>
-      <p>Front door</p>
-      <Button
-        handleClick={handleClickCancel}
-        isLoading={isLoading}
-        classNames={styles.confirmButton}
-      >
-        Cancel
-      </Button>
-      <Button
-        handleClick={handleClick}
-        isLoading={isLoading}
-        classNames={styles.confirmButton}
-      >
-        Confirm Beds
-      </Button>
     </div>
   );
-};
-
-export default function BedSelection() {
-  return <Cabin />;
 }

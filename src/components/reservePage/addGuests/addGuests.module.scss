@@ -20,13 +20,6 @@
 }
 
 .buttons {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 200px;
-}
-
-.backButton,
-.continueButton {
-  display: block;
+  position: absolute;
+  bottom: 30px;
 }
