@@ -50,14 +50,14 @@ export default function SidebarSummary({ cabinData }) {
           </ul>
         </div>
       )}
-      {images && (
+      {/* {images && (
         <ImageCarousel
           images={images}
           hideThumbnails
           classNames={styles.images}
           height={150}
         />
-      )}
+      )} */}
     </div>
   );
 }
