@@ -10,6 +10,9 @@ export default function VerifiedUsers() {
     useReservation();
 
   const { user } = useUser();
+
+  if (verifiedUsers.length <= 1) return;
+
   const removeUser = ({ currentUser }) => {
     return verifiedUsers.filter(
       user => user.emailAddress !== currentUser.emailAddress

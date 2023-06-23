@@ -5,6 +5,7 @@ import Button from '@/components/shared/button/button';
 import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { ROUTES } from '@/utils/constants';
 
 export default function Confirmation() {
   const [isLoadingBedSelection, setIsLoadingBedSelection] = useState(false);
@@ -47,6 +48,7 @@ export default function Confirmation() {
       <p className={styles.text}>See you at Highlands!</p>
       <div className={styles.optionalContainer}>
         <Button handleClick={handleClick}>Continue to bed selection</Button>
+        <Button href={ROUTES.SUMMARY}>View Summary</Button>
       </div>
     </div>
   );

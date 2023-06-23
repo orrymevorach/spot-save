@@ -15,6 +15,7 @@ export const Logo = ({ classNames = ' ' }) => {
 
 export default function Layout({ children }) {
   const [isLogoutLoading, setIsLogoutLoading] = useState(false);
+  const [isPageLoading, setIsPageLoading] = useState(false);
   const router = useRouter();
   const { user, setUser } = useUser();
   const handleLogout = () => {
@@ -26,16 +27,35 @@ export default function Layout({ children }) {
       setIsLogoutLoading(false);
     }, 300);
   };
+  const handleViewReservation = () => {
+    setIsPageLoading(true);
+    setTimeout(() => {
+      router.push(ROUTES.SUMMARY);
+      setIsPageLoading(false);
+    }, 300);
+  };
+
+  const hasCabin = user?.cabin && user.cabin[0];
   return (
     <div className={styles.container}>
       {user && (
-        <Button
-          isLoading={isLogoutLoading}
-          handleClick={handleLogout}
-          classNames={styles.logoutButton}
-        >
-          Log out
-        </Button>
+        <div className={styles.buttons}>
+          {hasCabin && (
+            <Button
+              isLoading={isPageLoading}
+              handleClick={handleViewReservation}
+            >
+              My Reservation
+            </Button>
+          )}
+          <Button
+            isLoading={isLogoutLoading}
+            handleClick={handleLogout}
+            classNames={styles.logoutButton}
+          >
+            Log Out
+          </Button>
+        </div>
       )}
 
       <Image src={logo} className={styles.image} alt="" />

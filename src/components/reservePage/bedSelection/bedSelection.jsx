@@ -4,6 +4,8 @@ import Button from '@/components/shared/button/button';
 import BedColumn from './bedColumn/bedColumn';
 import { reserveBedsMap } from '@/lib/airtable-bed-reservations';
 import { useState } from 'react';
+import { Router, useRouter } from 'next/router';
+import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
 
 const leftBeds = [
   ['backBunkLeft'],
@@ -24,7 +26,10 @@ const Cabin = () => {
   const {
     cabinData: { cabin },
     selectedBeds,
+    dispatch,
+    actions,
   } = useReservation();
+  const router = useRouter();
 
   const handleClick = async () => {
     setIsLoading(true);
@@ -39,6 +44,24 @@ const Cabin = () => {
     }
     setIsLoading(false);
   };
+
+  const handleClickCancel = () => {
+    dispatch({
+      type: actions.SET_SELECTION_STAGE,
+      currentStage: CABIN_SELECTION_STAGES.CONFIRMATION,
+    });
+    router.push(
+      {
+        query: {
+          stage: CABIN_SELECTION_STAGES.CONFIRMATION,
+        },
+      },
+      undefined,
+      {
+        shallow: true,
+      }
+    );
+  };
   return (
     <div className={styles.container}>
       <p>Back of cabin</p>
@@ -47,6 +70,13 @@ const Cabin = () => {
         <BedColumn beds={rightBeds} flip />
       </div>
       <p>Front door</p>
+      <Button
+        handleClick={handleClickCancel}
+        isLoading={isLoading}
+        classNames={styles.confirmButton}
+      >
+        Cancel
+      </Button>
       <Button
         handleClick={handleClick}
         isLoading={isLoading}

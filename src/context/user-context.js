@@ -10,18 +10,21 @@ export const useUser = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const userRecordCookie = Cookies.get(COOKIES.USER_RECORD);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const loadUser = async () => {
+      setIsLoading(true);
       const userData = await getUserByRecordId({ id: userRecordCookie });
       setUser(userData);
+      setIsLoading(false);
     };
     if (userRecordCookie) {
       loadUser();
     }
   }, [userRecordCookie]);
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, isLoading }}>
       {children}
     </UserContext.Provider>
   );

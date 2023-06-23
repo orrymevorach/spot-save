@@ -1,3 +1,5 @@
+@use '@variables' as variables;
+
 @mixin fontPrimaryLight {
   font-family: 'Neue Haas Light', 'Arial', sans-serif;
 }
@@ -20,4 +22,5 @@
 
 @mixin fontSecondary {
   font-family: 'Tan Aesop';
+  color: variables.$darkGreen;
 }

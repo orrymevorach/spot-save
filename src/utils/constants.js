@@ -6,4 +6,5 @@ export const ROUTES = {
   HOME: '/',
   CABIN_SELECTION: '/cabin-selection',
   RESERVE: '/reserve',
+  SUMMARY: '/summary',
 };

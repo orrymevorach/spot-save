@@ -3,14 +3,9 @@ import Loader from '@/components/shared/loader/loader';
 import ImageCarousel from '@/components/shared/imageCarousel/imageCarousel';
 import rainbow from 'public/rainbow-min.png';
 import Image from 'next/image';
-import { useReservation } from '@/context/reservation-context';
-import clsx from 'clsx';
 
-export default function SidebarSummary() {
-  const {
-    cabinData: { cabin, isLoading },
-    reservationStatus,
-  } = useReservation();
+export default function SidebarSummary({ cabinData }) {
+  const { cabin, isLoading } = cabinData;
 
   if (isLoading) return <Loader isDotted />;
 
@@ -24,7 +19,7 @@ export default function SidebarSummary() {
         <p className={styles.title}>Summary</p>
         <Image src={rainbow} alt="" className={styles.image} />
       </div>
-      <div className={styles.statusContainer}>
+      {/* <div className={styles.statusContainer}>
         <p>Reservation status:</p>
         <p
           className={clsx(
@@ -34,7 +29,7 @@ export default function SidebarSummary() {
         >
           {reservationStatus}
         </p>
-      </div>
+      </div> */}
       <p>
         <span className={styles.left}>Cabin:</span>
         <span className={styles.right}>{name}</span>
