@@ -5,6 +5,8 @@ import VerifiedUsers from './verifiedUsers/verifiedUsers';
 import { useReservation } from '@/context/reservation-context';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { reserveSpotInCabin } from '@/lib/airtable';
+import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
 
 export default function Sidebar({ cabinData }) {
   const {
