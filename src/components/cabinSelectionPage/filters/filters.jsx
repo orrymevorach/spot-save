@@ -14,7 +14,7 @@ export default function Filters({ classNames = '' }) {
       <p className={styles.title}>Filter by:</p>
       <Dropdown
         options={numberOfGuests}
-        label="Number of guests"
+        label="Available beds"
         variant="standard"
       />
       <Dropdown options={unitNames} label="Unit" variant="standard" />
