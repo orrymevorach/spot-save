@@ -5,12 +5,10 @@ import { UserProvider } from '@/context/user-context';
 
 export default function Summary() {
   return (
-    <UserProvider>
-      <ReservationProvider>
-        <Layout>
-          <SummaryPage />
-        </Layout>
-      </ReservationProvider>
-    </UserProvider>
+    <ReservationProvider>
+      <Layout>
+        <SummaryPage />
+      </Layout>
+    </ReservationProvider>
   );
 }

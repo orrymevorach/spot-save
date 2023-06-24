@@ -4,7 +4,6 @@ import Button from '@/components/shared/button/button';
 import { reserveBedsMap } from '@/lib/airtable-bed-reservations';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
 import Cabin from './cabin/cabin';
 
 export default function BedSelection() {
@@ -12,8 +11,6 @@ export default function BedSelection() {
   const {
     cabinData: { cabin },
     selectedBeds,
-    dispatch,
-    actions,
   } = useReservation();
   const router = useRouter();
 
@@ -30,23 +27,6 @@ export default function BedSelection() {
     }
     setIsLoading(false);
   };
-  const handleClickCancel = () => {
-    dispatch({
-      type: actions.SET_SELECTION_STAGE,
-      currentStage: CABIN_SELECTION_STAGES.CONFIRMATION,
-    });
-    router.push(
-      {
-        query: {
-          stage: CABIN_SELECTION_STAGES.CONFIRMATION,
-        },
-      },
-      undefined,
-      {
-        shallow: true,
-      }
-    );
-  };
 
   return (
     <div className={styles.bedSelectionContainer}>
@@ -58,13 +38,6 @@ export default function BedSelection() {
           classNames={styles.button}
         >
           Confirm Beds
-        </Button>
-        <Button
-          handleClick={handleClickCancel}
-          isLoading={isLoading}
-          classNames={styles.button}
-        >
-          Go Back
         </Button>
       </div>
     </div>

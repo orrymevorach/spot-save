@@ -17,29 +17,31 @@ export default function Layout({ children }) {
   const [isLogoutLoading, setIsLogoutLoading] = useState(false);
   const [isPageLoading, setIsPageLoading] = useState(false);
   const router = useRouter();
-  const { user, setUser } = useUser();
+  const { user, dispatch } = useUser();
 
   const handleLogout = () => {
+    setIsLogoutLoading(true);
     Cookies.remove(COOKIES.USER_RECORD);
-    setUser(null);
-    router.push(ROUTES.HOME);
+    setTimeout(() => {
+      dispatch({ type: 'LOG_OUT' });
+      router.push(ROUTES.HOME);
+    }, 300);
   };
 
   const handleViewReservation = () => {
     setIsPageLoading(true);
     setTimeout(() => {
       router.push(ROUTES.SUMMARY);
-      setIsPageLoading(false);
     }, 300);
   };
 
-  const isCabinSelectionPage = router.pathname === ROUTES.CABIN_SELECTION;
+  const isSummaryPage = router.pathname === ROUTES.SUMMARY;
 
   return (
     <div className={styles.container}>
       {user && (
         <div className={styles.buttons}>
-          {isCabinSelectionPage && (
+          {!isSummaryPage && (
             <Button
               isLoading={isPageLoading}
               handleClick={handleViewReservation}

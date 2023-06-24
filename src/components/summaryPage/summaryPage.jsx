@@ -65,7 +65,7 @@ export default function SummaryPage() {
         <VerifiedUsers />
       </div>
       <div className={styles.modifyContainer}>
-        <p className={styles.title}>Modify your reservation</p>
+        <p className={styles.title}>Modify Your Reservation</p>
         <div className={styles.buttons}>
           <Button
             classNames={styles.button}
