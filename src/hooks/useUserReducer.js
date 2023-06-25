@@ -51,6 +51,7 @@ export default function useUserReducer() {
       loadUser();
     }
   }, [userRecordCookie, dispatch]);
+
   return {
     ...state,
     dispatch,

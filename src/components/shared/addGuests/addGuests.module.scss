@@ -13,13 +13,9 @@
 
 .text {
   @include mixins.fontPrimaryLight;
+  margin-right: 50px;
 }
 
 .input {
   margin-top: 10px;
-}
-
-.buttons {
-  position: absolute;
-  bottom: 30px;
 }

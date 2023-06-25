@@ -1,17 +1,16 @@
 import InputVerify from './inputVerify/inputVerify';
 import styles from './addGuests.module.scss';
-import Button from '@/components/shared/button/button';
-import { ROUTES } from '@/utils/constants';
 import { useReservation } from '@/context/reservation-context';
+import clsx from 'clsx';
 
-export default function AddGuests() {
+export default function AddGuests({ classNames = '' }) {
   const { verifiedUsers } = useReservation();
 
   const numberOfVerifiedUsers = verifiedUsers.length;
   const hasMaximumGuests = numberOfVerifiedUsers >= 12;
 
   return (
-    <div className={styles.container}>
+    <div className={clsx(styles.container, classNames)}>
       <p className={styles.title}>Add Guests (optional)</p>
       <p className={styles.text}>
         If you would like to reserve a spot in your cabin on behalf of your
@@ -27,9 +26,6 @@ export default function AddGuests() {
           <InputVerify />
         </div>
       )}
-      <div className={styles.buttons}>
-        <Button href={ROUTES.CABIN_SELECTION}>Back to cabin selection</Button>
-      </div>
     </div>
   );
 }

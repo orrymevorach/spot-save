@@ -1,6 +1,10 @@
 @use '@mixins' as mixins;
 @use '@variables' as variables;
 
+.container {
+  margin-bottom: 50px;
+}
+
 .title {
   margin-bottom: 5px;
 }

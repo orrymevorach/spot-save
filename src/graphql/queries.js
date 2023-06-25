@@ -78,6 +78,13 @@ export const GET_USER_BY_EMAIL = gql`
       paymentIntent
       name
       emailAddress
+      cabin {
+        id
+        name
+        unit
+        additionalInformation
+        images
+      }
     }
   }
 `;

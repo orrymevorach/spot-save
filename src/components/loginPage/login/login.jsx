@@ -47,9 +47,9 @@ export default function Login() {
       user?.id && user?.paymentIntent === password;
     if (userExistsAndPasswordMatches) {
       Cookies.set(COOKIES.USER_RECORD, user.id);
-      router.push({
-        pathname: ROUTES.CABIN_SELECTION,
-      });
+      const hasCabin = user.cabin && user.cabin[0];
+      if (hasCabin) router.push(ROUTES.SUMMARY);
+      else router.push(ROUTES.CABIN_SELECTION);
       return;
     } else if (passwordDoesNotMatch) {
       setIsLoading(false);

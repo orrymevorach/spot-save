@@ -19,7 +19,7 @@ export default function Sidebar({ cabinData }) {
       <Summary cabinData={cabinData} />
       <VerifiedUsers />
       {currentStage !== CABIN_SELECTION_STAGES.CONFIRMATION && (
-        <ReserveButton />
+        <ReserveButton cabinId={cabinData?.cabin?.id} />
       )}
     </div>
   );

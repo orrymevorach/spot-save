@@ -1,0 +1,22 @@
+@use '@mixins' as mixins;
+@use '@variables' as variables;
+
+.title {
+  font-size: 28px;
+  @include mixins.fontSecondary;
+  color: variables.$darkGreen;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  margin-bottom: 10px;
+}
+
+.modifyContainer {
+  margin-left: 100px;
+}

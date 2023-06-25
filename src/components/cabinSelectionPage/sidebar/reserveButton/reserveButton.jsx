@@ -1,20 +1,17 @@
 import styles from './reserveButton.module.scss';
 import Button from '@/components/shared/button/button';
 import { useReservation } from '@/context/reservation-context';
+import { useUser } from '@/context/user-context';
 import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
-import { reserveSpotInCabin } from '@/lib/airtable';
+import { getUserByRecordId, reserveSpotInCabin } from '@/lib/airtable';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-export default function ReserveButton() {
-  const {
-    verifiedUsers,
-    cabinData: { cabin },
-    dispatch,
-    actions,
-  } = useReservation();
+export default function ReserveButton({ children, cabinId }) {
+  const { verifiedUsers, dispatch, actions } = useReservation();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { user, dispatch: dispatchUser, actions: userActions } = useUser();
 
   const reserveCabinForVerifiedUsers = async () => {
     setIsLoading(true);
@@ -22,10 +19,14 @@ export default function ReserveButton() {
       for (let i = 0; i < verifiedUsers.length; i++) {
         const user = verifiedUsers[i];
         const response = await reserveSpotInCabin({
-          cabinId: cabin.id,
+          cabinId,
           attendeeId: user.id,
         });
       }
+      // Get latest user data, with cabin
+      const userData = await getUserByRecordId({ id: user.id });
+      dispatchUser({ type: userActions.LOG_IN, userData });
+
       setIsLoading(false);
       dispatch({
         type: actions.SET_SELECTION_STAGE,
@@ -51,7 +52,7 @@ export default function ReserveButton() {
       isLoading={isLoading}
       classNames={styles.continueButton}
     >
-      Confirm reservation
+      {children || 'Confirm reservation'}
     </Button>
   );
 }
