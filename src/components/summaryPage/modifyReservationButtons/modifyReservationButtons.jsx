@@ -3,16 +3,10 @@ import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
 import { ROUTES } from '@/utils/constants';
 import styles from './modifyReservationButtons.module.scss';
 import { useRouter } from 'next/router';
-import { useReservation } from '@/context/reservation-context';
 
-export default function ModifyReservationButtons({ setShowAddGuestsTakeover }) {
+export default function ModifyReservationButtons() {
   const router = useRouter();
-  // const { dispatch, actions } = useReservation();
   const handleRoute = ({ pathname, stage }) => {
-    // dispatch({
-    //   type: actions.SET_SELECTION_STAGE,
-    //   currentStage: CABIN_SELECTION_STAGES.ADD_GUESTS,
-    // });
     const query = stage ? { stage } : null;
     router.push({
       pathname,
