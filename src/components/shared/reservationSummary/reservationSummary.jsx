@@ -1,7 +1,9 @@
-import styles from './sidebarSummary.module.scss';
+import { useUser } from '@/context/user-context';
+import styles from './reservationSummary.module.scss';
 import Loader from '@/components/shared/loader/loader';
 
-export default function SidebarSummary({ cabinData }) {
+export default function ReservationSummary({ cabinData }) {
+  const { user } = useUser();
   const { cabin, isLoading } = cabinData;
 
   if (isLoading) return <Loader isDotted />;
@@ -12,6 +14,10 @@ export default function SidebarSummary({ cabinData }) {
 
   return (
     <div className={styles.summaryContainer}>
+      <p>
+        <span className={styles.left}>Name:</span>
+        <span className={styles.right}>{user.name}</span>
+      </p>
       <p>
         <span className={styles.left}>Cabin:</span>
         <span className={styles.right}>{name}</span>

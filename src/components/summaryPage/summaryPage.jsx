@@ -1,15 +1,15 @@
-import SidebarSummary from '../cabinSelectionPage/sidebar/sidebarSummary';
-import VerifiedUsers from '../cabinSelectionPage/sidebar/verifiedUsers';
 import { useUser } from '@/context/user-context';
 import Loader from '../shared/loader/loader';
 import styles from './summaryPage.module.scss';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
 import BedSelectionTakeover from './bedSelectionTakeover/bedSelectionTakeover';
-import AddGuestsTakeover from './addGuestsTakeover/addGuestsTakeover';
 import ModifyReservationButtons from './modifyReservationButtons/modifyReservationButtons';
 import { useReservation } from '@/context/reservation-context';
+import ReservationSummary from '../shared/reservationSummary/reservationSummary';
+import VerifiedUsers from '../shared/verifiedUsers/verifiedUsers';
+import AddGuestsTakeover from './addGuestsTakeover/addGuestsTakeover';
 
 export default function SummaryPage() {
   const { user, isLoading: isUserDataLoading } = useUser();
@@ -43,7 +43,7 @@ export default function SummaryPage() {
         <div className={styles.titleContainer}>
           <p className={styles.title}>Summary</p>
         </div>
-        <SidebarSummary cabinData={cabinData} />
+        <ReservationSummary cabinData={cabinData} />
         <VerifiedUsers />
       </div>
       <ModifyReservationButtons />

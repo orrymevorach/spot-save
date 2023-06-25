@@ -1,13 +1,13 @@
 import Takeover from '@/components/shared/takeover/takeover';
 import styles from './addGuestsTakeover.module.scss';
 import AddGuests from '@/components/shared/addGuests/addGuests';
-import VerifiedUsers from '@/components/cabinSelectionPage/sidebar/verifiedUsers/verifiedUsers';
 import Button from '@/components/shared/button/button';
-import ReserveButton from '@/components/cabinSelectionPage/sidebar/reserveButton/reserveButton';
+import ReserveButton from '@/components/shared/reserveButton';
 import { useReservation } from '@/context/reservation-context';
 import { useRouter } from 'next/router';
 import { useUser } from '@/context/user-context';
 import { ROUTES } from '@/utils/constants';
+import VerifiedUsers from '@/components/shared/verifiedUsers';
 
 export default function AddGuestsTakeover() {
   const { dispatch, actions } = useReservation();

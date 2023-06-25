@@ -52,6 +52,7 @@ export const getUserByEmail = async ({ email }) => {
     const { data } = await client.query({
       query: GET_USER_BY_EMAIL,
       variables: { email },
+      fetchPolicy: 'no-cache',
     });
     return data.tickets[0];
   } catch (error) {
