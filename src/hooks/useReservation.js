@@ -25,7 +25,6 @@ const reducer = (state, action) => {
         ...state,
         verifiedEmails: action.verifiedEmails,
         verifiedUsers: action.verifiedUsers,
-        reservationStatus: action.reservationStatus,
       };
     case REMOVE_GUEST:
       return {
@@ -37,7 +36,6 @@ const reducer = (state, action) => {
       return {
         ...state,
         currentStage: action.currentStage,
-        reservationStatus: action.reservationStatus || state.reservationStatus,
       };
     case SELECT_BEDS:
       return {
@@ -52,7 +50,6 @@ const initialState = {
   selectedCabin: null,
   verifiedEmails: [], // used to verify users
   verifiedUsers: [], // used to display user names after verification
-  reservationStatus: '',
   selectedBeds: [],
 };
 
@@ -92,7 +89,6 @@ export const useReservationReducer = () => {
         type: ADD_GUEST,
         verifiedEmails: [user.emailAddress],
         verifiedUsers: [user],
-        reservationStatus: hasCabin ? 'Confirmed' : 'Pending',
       });
     }
   }, [user, state.verifiedEmails]);

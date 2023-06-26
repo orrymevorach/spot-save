@@ -4,6 +4,8 @@ import {
   RESERVE_SPOT_IN_CABIN,
   GET_USER_BY_ID,
   GET_CABIN,
+  RESERVE_BED,
+  CLEAR_CURRENT_BED_SELECTION,
 } from '@/graphql/queries';
 import { client } from '@/graphql/apollo-config';
 
@@ -68,6 +70,60 @@ export const getUserByRecordId = async ({ id }) => {
       fetchPolicy: 'no-cache',
     });
     return data.tickets[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const reserveBed = async ({
+  userId,
+  frontBunkLeft,
+  frontCotLeft,
+  backCotLeft,
+  frontLoftLeft,
+  backLoftLeft,
+  backBunkLeft,
+  frontBunkRight,
+  frontCotRight,
+  backCotRight,
+  frontLoftRight,
+  backLoftRight,
+  backBunkRight,
+}) => {
+  try {
+    const { data } = await client.mutate({
+      mutation: RESERVE_BED,
+      variables: {
+        userId,
+        frontBunkLeft,
+        frontCotLeft,
+        backCotLeft,
+        frontLoftLeft,
+        backLoftLeft,
+        backBunkLeft,
+        frontBunkRight,
+        frontCotRight,
+        backCotRight,
+        frontLoftRight,
+        backLoftRight,
+        backBunkRight,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const clearCurrentBedSelection = async ({ userId }) => {
+  try {
+    const { data } = await client.mutate({
+      mutation: CLEAR_CURRENT_BED_SELECTION,
+      variables: {
+        userId,
+      },
+    });
+    return data;
   } catch (error) {
     console.log(error);
   }

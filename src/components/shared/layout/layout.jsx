@@ -36,18 +36,21 @@ export default function Layout({ children }) {
   };
 
   const isSummaryPage = router.pathname === ROUTES.SUMMARY;
+  const hasCabin = user?.cabin && user.cabin.length > 0;
 
   return (
     <div className={styles.container}>
       {user && (
         <div className={styles.buttons}>
-          {!isSummaryPage && (
+          {!isSummaryPage && hasCabin ? (
             <Button
               isLoading={isPageLoading}
               handleClick={handleViewReservation}
             >
               My Reservation
             </Button>
+          ) : (
+            ''
           )}
           <Button
             isLoading={isLogoutLoading}

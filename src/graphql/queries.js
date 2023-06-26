@@ -105,3 +105,61 @@ export const GET_USER_BY_ID = gql`
     }
   }
 `;
+
+export const RESERVE_BED = gql`
+  mutation ReserveBed(
+    $userId: String
+    $frontBunkLeft: [String]
+    $frontCotLeft: [String]
+    $backCotLeft: [String]
+    $frontLoftLeft: [String]
+    $backLoftLeft: [String]
+    $backBunkLeft: [String]
+    $frontBunkRight: [String]
+    $frontCotRight: [String]
+    $backCotRight: [String]
+    $frontLoftRight: [String]
+    $backLoftRight: [String]
+    $backBunkRight: [String]
+  ) {
+    update_tickets(
+      id: $userId
+      frontBunkLeft: $frontBunkLeft
+      frontCotLeft: $frontCotLeft
+      backCotLeft: $backCotLeft
+      frontLoftLeft: $frontLoftLeft
+      backLoftLeft: $backLoftLeft
+      backBunkLeft: $backBunkLeft
+      frontBunkRight: $frontBunkRight
+      frontCotRight: $frontCotRight
+      backCotRight: $backCotRight
+      frontLoftRight: $frontLoftRight
+      backLoftRight: $backLoftRight
+      backBunkRight: $backBunkRight
+    ) {
+      id
+    }
+  }
+`;
+
+export const CLEAR_CURRENT_BED_SELECTION = gql`
+  mutation ReserveBed($userId: String) {
+    update_tickets(
+      id: $userId
+      frontBunkLeft: []
+      frontCotLeft: []
+      backCotLeft: []
+      frontLoftLeft: []
+      backLoftLeft: []
+      backBunkLeft: []
+      frontBunkRight: []
+      frontCotRight: []
+      backCotRight: []
+      frontLoftRight: []
+      backLoftRight: []
+      backBunkRight: []
+    ) {
+      id
+    }
+  }
+`;

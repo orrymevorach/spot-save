@@ -7,7 +7,7 @@ import { getUserByRecordId, reserveSpotInCabin } from '@/lib/airtable';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-export default function ReserveButton({ children, cabinId }) {
+export default function ReserveButton({ children, cabinId, redirectUrl }) {
   const { verifiedUsers, dispatch, actions } = useReservation();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -31,17 +31,12 @@ export default function ReserveButton({ children, cabinId }) {
       dispatch({
         type: actions.SET_SELECTION_STAGE,
         currentStage: CABIN_SELECTION_STAGES.CONFIRMATION,
-        reservationStatus: 'Confirmed',
       });
-      router.push(
-        {
-          query: {
-            stage: CABIN_SELECTION_STAGES.CONFIRMATION,
-          },
+      router.push({
+        query: {
+          stage: CABIN_SELECTION_STAGES.CONFIRMATION,
         },
-        undefined,
-        { shallow: true }
-      );
+      });
     } catch (error) {
       console.error(error);
     }
