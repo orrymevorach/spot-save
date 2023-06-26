@@ -2,7 +2,7 @@ import styles from './unitRow.module.scss';
 import CabinSelectionTile from '../cabinSelectionTile/cabinSelectionTile';
 import { useCabinSelection } from '@/context/cabin-selection-context';
 import Image from 'next/image';
-import Colors from 'public/colors.jpg';
+import Colours from 'public/Colours.jpg';
 import Comics from 'public/comics.jpg';
 import Zodiacs from 'public/zodiacs.jpg';
 import Seekers from 'public/seekers.jpg';
@@ -13,7 +13,7 @@ import { faChevronCircleDown } from '@fortawesome/free-solid-svg-icons';
 import { useRef, useState } from 'react';
 
 const unitImages = {
-  Colors,
+  Colours,
   Comics,
   Zodiacs,
   Seekers,

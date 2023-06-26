@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getCabins } from '@/lib/airtable';
 
 const initialUnitsData = {
-  Colors: {
+  Colours: {
     cabins: [],
   },
   Comics: {
