@@ -2,7 +2,7 @@ import styles from './unitRow.module.scss';
 import CabinSelectionTile from '../cabinSelectionTile/cabinSelectionTile';
 import { useCabinSelection } from '@/context/cabin-selection-context';
 import Image from 'next/image';
-import Colours from 'public/Colours.jpg';
+import Colours from 'public/colours.jpg';
 import Comics from 'public/comics.jpg';
 import Zodiacs from 'public/zodiacs.jpg';
 import Seekers from 'public/seekers.jpg';
