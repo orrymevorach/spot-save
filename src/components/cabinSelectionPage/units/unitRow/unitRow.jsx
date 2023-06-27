@@ -1,16 +1,12 @@
 import styles from './unitRow.module.scss';
-import CabinSelectionTile from '../cabinSelectionTile/cabinSelectionTile';
-import { useCabinSelection } from '@/context/cabin-selection-context';
 import Image from 'next/image';
-import Colours from 'public/colours.jpg';
+import Colours from 'public/Colours.jpg';
 import Comics from 'public/comics.jpg';
 import Zodiacs from 'public/zodiacs.jpg';
 import Seekers from 'public/seekers.jpg';
 import CITS from 'public/cits.jpg';
 import lteam from 'public/l-team.jpg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronCircleDown } from '@fortawesome/free-solid-svg-icons';
-import { useRef, useState } from 'react';
+import CabinList from './cabinList/cabinList';
 
 const unitImages = {
   Colours,
@@ -22,24 +18,8 @@ const unitImages = {
 };
 
 export default function UnitRow({ unitData }) {
-  const { dispatch, actions } = useCabinSelection();
-  const [scrollValue, setScrollValue] = useState(0);
-
   const [unitName, { cabins = [] }] = unitData;
   const hasCabinData = cabins.length;
-
-  const handleSubmit = selectedCabin => {
-    dispatch({
-      type: actions.OPEN_CABIN_SELECTION,
-      cabin: selectedCabin,
-    });
-  };
-  const cabinListRef = useRef();
-
-  const handleScrollDown = e => {
-    cabinListRef.current.scrollTop = scrollValue + 150;
-  };
-
   const unitImage = unitImages[unitName];
 
   return (
@@ -50,36 +30,7 @@ export default function UnitRow({ unitData }) {
           {!hasCabinData ? (
             <p>There are currently no cabins available in this unit</p>
           ) : (
-            <div className={styles.cabinListOuterContainer}>
-              <ul
-                className={styles.cabinListInnerContainer}
-                ref={cabinListRef}
-                onScroll={e => setScrollValue(e.target.scrollTop)}
-              >
-                {cabins
-                  .sort((a, b) => {
-                    const aOpenBeds = parseFloat(a.openBeds);
-                    const bOpenBeds = parseFloat(b.openBeds);
-                    if (aOpenBeds > bOpenBeds) return -1;
-                    return 1;
-                  })
-                  .map(cabin => {
-                    return (
-                      <CabinSelectionTile
-                        cabin={cabin}
-                        key={`${cabin.unit}-${cabin.name}`}
-                        handleSelectCabin={() => handleSubmit(cabin)}
-                      />
-                    );
-                  })}
-              </ul>
-              <button
-                className={styles.scrollDownButton}
-                onClick={handleScrollDown}
-              >
-                <FontAwesomeIcon icon={faChevronCircleDown} size="3x" />
-              </button>
-            </div>
+            <CabinList unitData={unitData} />
           )}
           <Image
             src={unitImage}

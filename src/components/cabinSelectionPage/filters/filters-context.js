@@ -7,11 +7,24 @@ const useFilters = () => {
   return context;
 };
 
+const FILTERS = {
+  AVAILABLE_BEDS: 'Available beds',
+  UNIT: 'Unit',
+  GENDER: 'Gender',
+};
+
+const GENDER_LABELS = {
+  MALE: 'Male Only',
+  FEMALE: 'Female Only',
+  MIXED: 'Mixed',
+};
+
+const { AVAILABLE_BEDS, UNIT, GENDER } = FILTERS;
+
 const initialState = {
-  Levels: null,
-  Mat: null,
-  Apparatus: null,
-  Duration: null,
+  [AVAILABLE_BEDS]: null,
+  [UNIT]: null,
+  [GENDER]: null,
 };
 
 const FiltersProvider = ({ children }) => {
@@ -25,4 +38,4 @@ const FiltersProvider = ({ children }) => {
   );
 };
 
-export { FiltersProvider, useFilters };
+export { FiltersProvider, useFilters, FILTERS, GENDER_LABELS };
