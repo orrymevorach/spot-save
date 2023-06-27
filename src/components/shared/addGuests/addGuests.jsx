@@ -4,10 +4,11 @@ import { useReservation } from '@/context/reservation-context';
 import clsx from 'clsx';
 
 export default function AddGuests({ classNames = '' }) {
-  const { verifiedUsers } = useReservation();
+  const { verifiedUsers, cabinData } = useReservation();
+  const numberOfOpenBeds = cabinData?.cabin?.openBeds;
 
   const numberOfVerifiedUsers = verifiedUsers.length;
-  const hasMaximumGuests = numberOfVerifiedUsers >= 12;
+  const hasMaximumGuests = numberOfVerifiedUsers >= numberOfOpenBeds;
 
   return (
     <div className={clsx(styles.container, classNames)}>
@@ -19,7 +20,7 @@ export default function AddGuests({ classNames = '' }) {
       </p>
       {hasMaximumGuests ? (
         <div className={styles.input}>
-          <p>Maximum 12 guests per cabin</p>
+          <p>There are no more open beds in this cabin.</p>
         </div>
       ) : (
         <div className={styles.input}>

@@ -23,6 +23,7 @@ export const GET_CABIN = gql`
       unit
       images
       additionalInformation
+      openBeds
       frontBunkLeft {
         id
       }
