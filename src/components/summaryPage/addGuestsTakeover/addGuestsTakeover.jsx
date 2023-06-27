@@ -12,7 +12,8 @@ import VerifiedUsers from '@/components/shared/verifiedUsers';
 export default function AddGuestsTakeover() {
   const { dispatch, actions } = useReservation();
   const { user } = useUser();
-  const cabinId = user.cabin && user.cabin[0].id;
+  const cabin = user.cabin && user.cabin[0];
+  const cabinId = cabin && cabin.id;
 
   const router = useRouter();
   const handleClose = () => {
@@ -25,7 +26,11 @@ export default function AddGuestsTakeover() {
     <>
       <Takeover handleClose={handleClose}>
         <div className={styles.takeover}>
-          <AddGuests classNames={styles.addGuests} hideBackButton />
+          <AddGuests
+            cabin={cabin}
+            classNames={styles.addGuests}
+            hideBackButton
+          />
           <VerifiedUsers />
         </div>
         <div className={styles.bottomRow}>

@@ -6,7 +6,7 @@ export default function ReservationSummary({ cabinData }) {
   const { user } = useUser();
   const { cabin, isLoading } = cabinData;
 
-  if (isLoading) return <Loader isDotted />;
+  if (isLoading || !user) return <Loader isDotted />;
 
   const { name, unit, additionalInformation } = cabin;
   const hasAdditionalInformation =

@@ -1,7 +1,7 @@
 import CabinSelectionTakeover from '../cabinSelectionTakeover';
 import Units from '../units';
 import { useCabinSelection } from '@/context/cabin-selection-context';
-import useGetCabinAndUnitData from '@/hooks/useGetCabinAndUnitData';
+import { useCabinAndUnitData } from '@/context/cabin-and-unit-data-context';
 import Filters from '../filters/filters';
 import UnitLinks from '../unitLinks/unitLinks';
 import styles from './cabinSelectionContainer.module.scss';
@@ -13,7 +13,7 @@ import useShowOnScroll from '@/hooks/useShowOnScroll';
 export default function CabinSelectionContainer() {
   const [showBackToTopButton, setShowBackToTopButton] = useState(false);
   const { showTakeover } = useCabinSelection();
-  const { isLoading, units } = useGetCabinAndUnitData();
+  const { isLoading, units } = useCabinAndUnitData();
   const headerRef = useRef();
   useShowOnScroll({ ref: headerRef, setIsShowing: setShowBackToTopButton });
 

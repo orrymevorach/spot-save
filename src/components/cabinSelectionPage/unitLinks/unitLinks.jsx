@@ -1,9 +1,9 @@
-import useGetCabinAndUnitData from '@/hooks/useGetCabinAndUnitData';
+import { useCabinAndUnitData } from '@/context/cabin-and-unit-data-context';
 import styles from './unitLinks.module.scss';
 import clsx from 'clsx';
 
 export default function UnitLinks({ classNames = '' }) {
-  const { units } = useGetCabinAndUnitData();
+  const { units } = useCabinAndUnitData();
   return (
     <div className={clsx(styles.container, classNames)}>
       <p className={styles.title}>Skip to:</p>

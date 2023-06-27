@@ -1,9 +1,9 @@
-import useGetCabinAndUnitData from '@/hooks/useGetCabinAndUnitData';
+import { useCabinAndUnitData } from '@/context/cabin-and-unit-data-context';
 import UnitRow from './unitRow';
 import { FILTERS, useFilters } from '../filters/filters-context';
 
 export default function Units() {
-  const { units } = useGetCabinAndUnitData();
+  const { units } = useCabinAndUnitData();
   const { selectedFilters } = useFilters();
   const { UNIT } = FILTERS;
   const unitFilter = selectedFilters[UNIT];

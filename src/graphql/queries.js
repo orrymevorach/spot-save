@@ -85,6 +85,7 @@ export const GET_USER_BY_EMAIL = gql`
         unit
         additionalInformation
         images
+        openBeds
       }
     }
   }
@@ -102,6 +103,43 @@ export const GET_USER_BY_ID = gql`
         unit
         additionalInformation
         images
+        openBeds
+        frontBunkLeft {
+          id
+        }
+        frontCotLeft {
+          id
+        }
+        backCotLeft {
+          id
+        }
+        frontLoftLeft {
+          id
+        }
+        backLoftLeft {
+          id
+        }
+        backBunkLeft {
+          id
+        }
+        frontBunkRight {
+          id
+        }
+        frontCotRight {
+          id
+        }
+        backCotRight {
+          id
+        }
+        frontLoftRight {
+          id
+        }
+        backLoftRight {
+          id
+        }
+        backBunkRight {
+          id
+        }
       }
     }
   }

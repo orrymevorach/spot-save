@@ -1,12 +1,12 @@
 import Dropdown from '@/components/shared/dropdown';
 import styles from './filters.module.scss';
-import useGetCabinAndUnitData from '@/hooks/useGetCabinAndUnitData';
+import { useCabinAndUnitData } from '@/context/cabin-and-unit-data-context';
 import clsx from 'clsx';
 import { FILTERS, GENDER_LABELS, useFilters } from './filters-context';
 
 export default function Filters({ classNames = '' }) {
   const { selectedFilters, setSelectedFilters } = useFilters();
-  const { units } = useGetCabinAndUnitData();
+  const { units } = useCabinAndUnitData();
   const { MALE, FEMALE, MIXED } = GENDER_LABELS;
 
   const gender = [MALE, FEMALE, MIXED];

@@ -3,9 +3,11 @@ import styles from './addGuests.module.scss';
 import { useReservation } from '@/context/reservation-context';
 import clsx from 'clsx';
 
-export default function AddGuests({ classNames = '' }) {
-  const { verifiedUsers, cabinData } = useReservation();
-  const numberOfOpenBeds = cabinData?.cabin?.openBeds;
+export default function AddGuests({ cabin, classNames = '' }) {
+  const { verifiedUsers } = useReservation();
+
+  if (!cabin) return;
+  const numberOfOpenBeds = cabin.openBeds;
 
   const numberOfVerifiedUsers = verifiedUsers.length;
   const hasMaximumGuests = numberOfVerifiedUsers >= numberOfOpenBeds;

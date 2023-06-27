@@ -37,12 +37,24 @@ const Thumbnails = ({ images = [], index, setIndex }) => {
 };
 
 export default function ImageCarousel({
-  images,
+  images = [],
   hideThumbnails = false,
   classNames = '',
   height = 300,
 }) {
   const [index, setIndex] = useState(0);
+  // fadeIn animation
+  const imageRef = useRef();
+  useEffect(() => {
+    if (imageRef.current) {
+      imageRef.current.className = `${styles.image} ${styles.fadeIn}`;
+      setTimeout(() => {
+        imageRef.current.className = `${styles.image}`;
+      }, 300);
+    }
+  }, [index, imageRef]);
+
+  if (!images?.length) return;
   const currentImage = images[index];
 
   const handleClickLeft = () => {
@@ -53,15 +65,6 @@ export default function ImageCarousel({
     if (index + 1 === images.length) setIndex(0);
     else setIndex(index + 1);
   };
-
-  // fadeIn animation
-  const imageRef = useRef();
-  useEffect(() => {
-    imageRef.current.className = `${styles.image} ${styles.fadeIn}`;
-    setTimeout(() => {
-      imageRef.current.className = `${styles.image}`;
-    }, 300);
-  }, [index]);
 
   return (
     <div className={classNames}>
