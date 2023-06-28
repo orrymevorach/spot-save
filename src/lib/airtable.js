@@ -6,6 +6,8 @@ import {
   GET_CABIN,
   RESERVE_BED,
   CLEAR_CURRENT_BED_SELECTION,
+  CREATE_GROUP,
+  UPDATE_GROUP,
 } from '@/graphql/queries';
 import { client } from '@/graphql/apollo-config';
 
@@ -124,6 +126,36 @@ export const clearCurrentBedSelection = async ({ userId }) => {
       },
     });
     return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createGroup = async ({ groupName, members }) => {
+  try {
+    const { data } = await client.mutate({
+      mutation: CREATE_GROUP,
+      variables: {
+        groupName,
+        members,
+      },
+    });
+    return data.insert_groups[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateGroup = async ({ groupId, members }) => {
+  try {
+    const { data } = await client.mutate({
+      mutation: UPDATE_GROUP,
+      variables: {
+        id: groupId,
+        members,
+      },
+    });
+    return data.update_groups[0];
   } catch (error) {
     console.log(error);
   }

@@ -8,26 +8,26 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Loader from '../shared/loader/loader';
 import AddGuestsReservePage from './addGuestsReservePage/addGuestsReservePage';
+import { ROUTES } from '@/utils/constants';
 
 const useSetStageBasedOnQuery = () => {
   const { actions, dispatch } = useReservation();
   const { ADD_GUESTS } = CABIN_SELECTION_STAGES;
   const router = useRouter();
   useEffect(() => {
-    if (!router.query.stage) {
-      dispatch({
-        type: actions.SET_SELECTION_STAGE,
-        currentStage: ADD_GUESTS,
-      });
-    } else {
-      dispatch({
-        type: actions.SET_SELECTION_STAGE,
-        currentStage: router.query.stage,
-      });
+    if (
+      router.isReady &&
+      !router.query.cabin &&
+      router.query.stage === ADD_GUESTS
+    ) {
+      router.push(ROUTES.CABIN_SELECTION);
     }
+    dispatch({
+      type: actions.SET_SELECTION_STAGE,
+      currentStage: router.query.stage,
+    });
   }, [router, ADD_GUESTS, actions, dispatch]);
 };
-
 export default function ReservePage() {
   const { currentStage, cabinData } = useReservation();
   const { ADD_GUESTS, CONFIRMATION } = CABIN_SELECTION_STAGES;

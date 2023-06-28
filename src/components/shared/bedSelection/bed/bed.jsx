@@ -8,14 +8,15 @@ import { useUser } from '@/context/user-context';
 import BedDropdown from './bed-dropdown/bed-dropdown';
 
 export default function Bed({ bedName, classNames = '', flip = false }) {
-  const { selectedBeds, dispatch, actions, verifiedUsers } = useReservation();
+  const { selectedBeds, dispatch, actions, groupData } = useReservation();
+  const { members } = groupData;
   const { user } = useUser();
   const [currentUser, setCurrentUser] = useState('');
 
   const cabin = user?.cabin && user.cabin[0];
   const isBedSelected = cabin[bedName].length > 0;
 
-  const names = verifiedUsers
+  const names = members
     // Filter out names with selected beds
     .filter(({ id }) => {
       for (let i = 0; i < selectedBeds.length; i++) {
@@ -28,9 +29,7 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
     .map(({ name }) => name);
 
   const handleChange = selectedUser => {
-    const currentUserData = verifiedUsers.find(
-      ({ name }) => selectedUser === name
-    );
+    const currentUserData = members.find(({ name }) => selectedUser === name);
 
     const { id, name } = currentUserData;
 

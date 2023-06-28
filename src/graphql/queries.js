@@ -97,6 +97,14 @@ export const GET_USER_BY_ID = gql`
       id
       name
       emailAddress
+      group {
+        id
+        members {
+          id
+          name
+          emailAddress
+        }
+      }
       cabin {
         id
         name
@@ -198,6 +206,22 @@ export const CLEAR_CURRENT_BED_SELECTION = gql`
       backLoftRight: []
       backBunkRight: []
     ) {
+      id
+    }
+  }
+`;
+
+export const CREATE_GROUP = gql`
+  mutation CreateGroup($groupName: String, $members: [String]) {
+    insert_groups(groupName: $groupName, members: $members) {
+      id
+    }
+  }
+`;
+
+export const UPDATE_GROUP = gql`
+  mutation UpdateGroup($id: String, $members: [String]) {
+    update_groups(id: $id, members: $members) {
       id
     }
   }

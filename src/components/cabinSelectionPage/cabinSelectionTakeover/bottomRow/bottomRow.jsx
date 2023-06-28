@@ -5,6 +5,7 @@ import { useCabinSelection } from '@/context/cabin-selection-context';
 import Loader from '@/components/shared/loader/loader';
 import { useRouter } from 'next/router';
 import { ROUTES } from '@/utils/constants';
+import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
 
 export default function BottomRow() {
   const { selectedCabin } = useCabinSelection();
@@ -17,7 +18,10 @@ export default function BottomRow() {
     setTimeout(() => {
       router.push({
         pathname: ROUTES.RESERVE,
-        query: { cabin: selectedCabin.name },
+        query: {
+          cabin: selectedCabin.name,
+          stage: CABIN_SELECTION_STAGES.ADD_GUESTS,
+        },
       });
     }, 500);
   };

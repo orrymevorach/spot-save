@@ -17,7 +17,9 @@ export default function Sidebar({ cabinData }) {
         <Image src={rainbow} alt="" className={styles.image} />
       </div>
       <ReservationSummary cabinData={cabinData} />
-      <VerifiedUsers />
+      <VerifiedUsers
+        hideRemoveButton={currentStage === CABIN_SELECTION_STAGES.ADD_GUESTS}
+      />
       {currentStage !== CABIN_SELECTION_STAGES.CONFIRMATION && (
         <ReserveButton cabinId={cabinData?.cabin?.id} />
       )}

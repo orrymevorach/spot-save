@@ -7,22 +7,24 @@ import { getUserByRecordId, reserveSpotInCabin } from '@/lib/airtable';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-export default function ReserveButton({ children, cabinId, redirectUrl }) {
-  const { verifiedUsers, dispatch, actions } = useReservation();
+export default function ReserveButton({ children, cabinId }) {
+  const { groupData, dispatch, actions } = useReservation();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { user, dispatch: dispatchUser, actions: userActions } = useUser();
+  const groupMembers = groupData.members;
 
-  const reserveCabinForVerifiedUsers = async () => {
+  const reserveCabinForGroupMembers = async () => {
     setIsLoading(true);
     try {
-      for (let i = 0; i < verifiedUsers.length; i++) {
-        const user = verifiedUsers[i];
+      for (let i = 0; i < groupMembers.length; i++) {
+        const groupMember = groupMembers[i];
         const response = await reserveSpotInCabin({
           cabinId,
-          attendeeId: user.id,
+          attendeeId: groupMember.id,
         });
       }
+
       // Get latest user data, with cabin
       const userData = await getUserByRecordId({ id: user.id });
       dispatchUser({ type: userActions.LOG_IN, userData });
@@ -43,7 +45,7 @@ export default function ReserveButton({ children, cabinId, redirectUrl }) {
   };
   return (
     <Button
-      handleClick={reserveCabinForVerifiedUsers}
+      handleClick={reserveCabinForGroupMembers}
       isLoading={isLoading}
       classNames={styles.continueButton}
     >

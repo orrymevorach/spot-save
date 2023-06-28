@@ -14,7 +14,12 @@ import AddGuestsTakeover from './addGuestsTakeover/addGuestsTakeover';
 export default function SummaryPage() {
   const { user, isLoading: isUserDataLoading } = useUser();
   const router = useRouter();
-  const { currentStage, dispatch, actions, verifiedUsers } = useReservation();
+  const {
+    currentStage,
+    dispatch,
+    actions,
+    groupData: { members },
+  } = useReservation();
 
   const stageQuery = router.query.stage;
   useEffect(() => {
@@ -44,7 +49,7 @@ export default function SummaryPage() {
           <p className={styles.title}>Summary</p>
         </div>
         <ReservationSummary cabinData={cabinData} />
-        {verifiedUsers.length > 1 && <VerifiedUsers />}
+        {members?.length > 1 && <VerifiedUsers />}
       </div>
       <ModifyReservationButtons />
     </div>

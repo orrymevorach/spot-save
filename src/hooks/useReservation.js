@@ -18,20 +18,29 @@ export const CABIN_SELECTION_STAGES = {
   BED_SELECTION: 'BED_SELECTION',
 };
 
+const initialState = {
+  currentStage: '',
+  selectedCabin: null,
+  selectedBeds: [],
+  groupData: {
+    id: '',
+    members: [],
+  },
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
     case ADD_GUEST:
       return {
         ...state,
-        verifiedEmails: action.verifiedEmails,
-        verifiedUsers: action.verifiedUsers,
+        groupData: action.groupData,
       };
-    case REMOVE_GUEST:
-      return {
-        ...state,
-        verifiedEmails: action.verifiedEmails,
-        verifiedUsers: action.verifiedUsers,
-      };
+    // case REMOVE_GUEST:
+    //   return {
+    //     ...state,
+    //     verifiedEmails: action.verifiedEmails,
+    //     verifiedUsers: action.verifiedUsers,
+    //   };
     case SET_SELECTION_STAGE:
       return {
         ...state,
@@ -43,14 +52,6 @@ const reducer = (state, action) => {
         selectedBeds: action.selectedBeds,
       };
   }
-};
-
-const initialState = {
-  currentStage: '',
-  selectedCabin: null,
-  verifiedEmails: [], // used to verify users
-  verifiedUsers: [], // used to display user names after verification
-  selectedBeds: [],
 };
 
 const useGetCabinData = () => {
@@ -81,17 +82,17 @@ export const useReservationReducer = () => {
   const { user } = useUser();
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // Add current user on page load
+  // Add group data on page load
   useEffect(() => {
-    if (user && !state.verifiedEmails.length) {
-      const hasCabin = user.cabin.length > 0;
+    if (user && !state.groupData.members.length) {
+      const hasGroup = user?.group && user.group[0];
+      const groupData = hasGroup ? user.group[0] : { members: [user] };
       dispatch({
         type: ADD_GUEST,
-        verifiedEmails: [user.emailAddress],
-        verifiedUsers: [user],
+        groupData,
       });
     }
-  }, [user, state.verifiedEmails]);
+  }, [user, state]);
 
   const cabinData = useGetCabinData();
 

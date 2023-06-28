@@ -4,13 +4,13 @@ import { useReservation } from '@/context/reservation-context';
 import clsx from 'clsx';
 
 export default function AddGuests({ cabin, classNames = '' }) {
-  const { verifiedUsers } = useReservation();
+  const { groupData } = useReservation();
 
   if (!cabin) return;
   const numberOfOpenBeds = cabin.openBeds;
 
-  const numberOfVerifiedUsers = verifiedUsers.length;
-  const hasMaximumGuests = numberOfVerifiedUsers >= numberOfOpenBeds;
+  const numberOfGroupMembers = groupData.members.length;
+  const hasMaximumGuests = numberOfGroupMembers > numberOfOpenBeds;
 
   return (
     <div className={clsx(styles.container, classNames)}>
