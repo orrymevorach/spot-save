@@ -10,7 +10,7 @@ export default function AddGuests({ cabin, classNames = '' }) {
   const numberOfOpenBeds = cabin.openBeds;
 
   const numberOfGroupMembers = groupData.members.length;
-  const hasMaximumGuests = numberOfGroupMembers > numberOfOpenBeds;
+  const hasRoom = numberOfOpenBeds > numberOfGroupMembers;
 
   return (
     <div className={clsx(styles.container, classNames)}>
@@ -20,13 +20,13 @@ export default function AddGuests({ cabin, classNames = '' }) {
         friends or partners, please make sure they have purchased a ticket in
         advance, and verify their email address.
       </p>
-      {hasMaximumGuests ? (
+      {hasRoom ? (
         <div className={styles.input}>
-          <p>There are no more open beds in this cabin.</p>
+          <InputVerify />
         </div>
       ) : (
         <div className={styles.input}>
-          <InputVerify />
+          <p>There are no more open beds in this cabin.</p>
         </div>
       )}
     </div>

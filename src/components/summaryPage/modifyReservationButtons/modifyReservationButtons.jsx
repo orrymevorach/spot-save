@@ -25,7 +25,7 @@ export default function ModifyReservationButtons() {
             })
           }
         >
-          Add Guests
+          Add Guests / Modify Group
         </Button>
         <Button
           classNames={styles.button}

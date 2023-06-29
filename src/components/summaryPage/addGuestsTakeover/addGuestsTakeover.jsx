@@ -8,12 +8,15 @@ import { useRouter } from 'next/router';
 import { useUser } from '@/context/user-context';
 import { ROUTES } from '@/utils/constants';
 import VerifiedUsers from '@/components/shared/verifiedUsers';
+import { useState } from 'react';
+import { updateGroup } from '@/lib/airtable';
 
 export default function AddGuestsTakeover() {
-  const { dispatch, actions } = useReservation();
+  const { dispatch, actions, groupData } = useReservation();
   const { user } = useUser();
   const cabin = user.cabin && user.cabin[0];
   const cabinId = cabin && cabin.id;
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
   const handleClose = () => {
@@ -21,6 +24,24 @@ export default function AddGuestsTakeover() {
     router.push({ pathname: ROUTES.SUMMARY }, undefined, {
       shallow: true,
     });
+  };
+
+  const handleLeaveGroup = async () => {
+    setIsLoading(true);
+
+    const remainingMembers = groupData.members.filter(
+      ({ id }) => id !== user.id
+    );
+    const memberRecordIds = remainingMembers.map(({ id }) => id);
+
+    await updateGroup({ groupId: groupData.id, members: memberRecordIds });
+    groupData.id = '';
+    groupData.members = [user];
+    dispatch({
+      type: actions.UPDATE_GROUP,
+      groupData,
+    });
+    setIsLoading(false);
   };
   return (
     <>
@@ -34,12 +55,15 @@ export default function AddGuestsTakeover() {
           <VerifiedUsers />
         </div>
         <div className={styles.bottomRow}>
-          <Button handleClick={handleClose} classNames={styles.cancelButton}>
+          <Button handleClick={handleClose} classNames={styles.button}>
             Cancel
           </Button>
-          <ReserveButton cabinId={cabinId}>
+          <ReserveButton cabinId={cabinId} classNames={styles.button}>
             {'Update Reservation'}
           </ReserveButton>
+          <Button isLoading={isLoading} handleClick={handleLeaveGroup}>
+            Leave Group
+          </Button>
         </div>
       </Takeover>
     </>

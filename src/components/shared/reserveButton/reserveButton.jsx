@@ -6,8 +6,9 @@ import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
 import { getUserByRecordId, reserveSpotInCabin } from '@/lib/airtable';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import clsx from 'clsx';
 
-export default function ReserveButton({ children, cabinId }) {
+export default function ReserveButton({ children, cabinId, classNames = '' }) {
   const { groupData, dispatch, actions } = useReservation();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -47,7 +48,7 @@ export default function ReserveButton({ children, cabinId }) {
     <Button
       handleClick={reserveCabinForGroupMembers}
       isLoading={isLoading}
-      classNames={styles.continueButton}
+      classNames={clsx(styles.continueButton, classNames)}
     >
       {children || 'Confirm reservation'}
     </Button>

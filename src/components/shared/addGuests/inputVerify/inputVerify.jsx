@@ -1,9 +1,4 @@
-import {
-  createGroup,
-  getUserByEmail,
-  getUserByRecordId,
-  updateGroup,
-} from '@/lib/airtable';
+import { createGroup, getUserByEmail, updateGroup } from '@/lib/airtable';
 import { useState } from 'react';
 import styles from './inputVerify.module.scss';
 import Button from '@/components/shared/button/button';
@@ -27,7 +22,7 @@ const createOrUpdateGroup = async ({ user, groupData }) => {
     };
   } else {
     const response = await updateGroup({
-      groupId: user.group[0].id,
+      groupId: groupData.id,
       members: groupRecordIds,
     });
     return {
@@ -59,8 +54,7 @@ export default function InputVerify() {
     const isRepeatEmail = groupEmails.includes(email);
     if (isRepeatEmail) {
       return {
-        error:
-          'This email has already been verified. Please enter a new email.',
+        error: 'This guest is already in your group. Please enter a new email.',
       };
     } else if (!hasUser) {
       return {
@@ -97,7 +91,7 @@ export default function InputVerify() {
     setIsLoading(false);
     setEmail('');
     dispatch({
-      type: actions.ADD_GUEST,
+      type: actions.UPDATE_GROUP,
       groupData: updatedGroupData,
     });
   };

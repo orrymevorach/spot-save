@@ -47,7 +47,6 @@ export default function Login() {
       user?.id && user?.paymentIntent === password;
     if (userExistsAndPasswordMatches) {
       Cookies.set(COOKIES.USER_RECORD, user.id);
-      console.log('user', user);
       const hasCabin = user.cabin && user.cabin[0];
       if (hasCabin) router.push(ROUTES.SUMMARY);
       else router.push(ROUTES.CABIN_SELECTION);

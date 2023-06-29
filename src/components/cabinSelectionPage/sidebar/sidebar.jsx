@@ -6,9 +6,29 @@ import rainbow from 'public/rainbow-min.png';
 import Image from 'next/image';
 import ReservationSummary from '@/components/shared/reservationSummary';
 import VerifiedUsers from '@/components/shared/verifiedUsers/verifiedUsers';
+import { useUser } from '@/context/user-context';
+import Loader from '@/components/shared/loader/loader';
 
 export default function Sidebar({ cabinData }) {
-  const { currentStage } = useReservation();
+  const {
+    currentStage,
+    groupData: { members },
+  } = useReservation();
+  const { user } = useUser();
+  const { isLoading: isCabinDataLoading, cabin } = cabinData;
+
+  if (isCabinDataLoading || !user) {
+    return (
+      <div className={styles.sidebar}>
+        <Loader isDotted />
+      </div>
+    );
+  }
+
+  const isConfirmationStage =
+    currentStage !== CABIN_SELECTION_STAGES.CONFIRMATION;
+  const cabinHasEnoughBeds = cabin.openBeds >= members.length;
+  const showReservationButton = isConfirmationStage && cabinHasEnoughBeds;
 
   return (
     <div className={styles.sidebar}>
@@ -20,7 +40,10 @@ export default function Sidebar({ cabinData }) {
       <VerifiedUsers
         hideRemoveButton={currentStage === CABIN_SELECTION_STAGES.ADD_GUESTS}
       />
-      {currentStage !== CABIN_SELECTION_STAGES.CONFIRMATION && (
+      {!cabinHasEnoughBeds && (
+        <p>There are not enough beds in this cabin for your entire group.</p>
+      )}
+      {showReservationButton && (
         <ReserveButton cabinId={cabinData?.cabin?.id} />
       )}
     </div>

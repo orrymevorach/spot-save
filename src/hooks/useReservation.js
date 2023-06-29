@@ -4,13 +4,12 @@ import { useRouter } from 'next/router';
 const { useReducer, useEffect, useState } = require('react');
 
 const actions = {
-  ADD_GUEST: 'ADD_GUEST',
-  REMOVE_GUEST: 'REMOVE_GUEST',
+  UPDATE_GROUP: 'UPDATE_GROUP',
   SET_SELECTION_STAGE: 'SET_SELECTION_STAGE',
   SELECT_BEDS: 'SELECT_BEDS',
 };
 
-const { ADD_GUEST, REMOVE_GUEST, SET_SELECTION_STAGE, SELECT_BEDS } = actions;
+const { UPDATE_GROUP, SET_SELECTION_STAGE, SELECT_BEDS } = actions;
 
 export const CABIN_SELECTION_STAGES = {
   ADD_GUESTS: 'ADD_GUESTS',
@@ -30,17 +29,11 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case ADD_GUEST:
+    case UPDATE_GROUP:
       return {
         ...state,
         groupData: action.groupData,
       };
-    // case REMOVE_GUEST:
-    //   return {
-    //     ...state,
-    //     verifiedEmails: action.verifiedEmails,
-    //     verifiedUsers: action.verifiedUsers,
-    //   };
     case SET_SELECTION_STAGE:
       return {
         ...state,
@@ -88,7 +81,7 @@ export const useReservationReducer = () => {
       const hasGroup = user?.group && user.group[0];
       const groupData = hasGroup ? user.group[0] : { members: [user] };
       dispatch({
-        type: ADD_GUEST,
+        type: UPDATE_GROUP,
         groupData,
       });
     }

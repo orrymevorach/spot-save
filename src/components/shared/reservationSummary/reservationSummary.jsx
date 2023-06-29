@@ -1,12 +1,9 @@
 import { useUser } from '@/context/user-context';
 import styles from './reservationSummary.module.scss';
-import Loader from '@/components/shared/loader/loader';
 
 export default function ReservationSummary({ cabinData }) {
   const { user } = useUser();
-  const { cabin, isLoading } = cabinData;
-
-  if (isLoading || !user) return <Loader isDotted />;
+  const { cabin } = cabinData;
 
   const { name, unit, additionalInformation } = cabin;
   const hasAdditionalInformation =

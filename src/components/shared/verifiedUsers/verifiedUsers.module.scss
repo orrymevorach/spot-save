@@ -3,6 +3,7 @@
 
 .container {
   margin-bottom: 50px;
+  overflow-y: scroll;
 }
 
 .title {
@@ -36,6 +37,7 @@
   margin-left: 10px;
   background: none;
   border: none;
+  position: relative;
 }
 
 @keyframes highlight {
@@ -43,4 +45,10 @@
     background: none;
     color: variables.$charcoal;
   }
+}
+
+div.loader {
+  top: -9px;
+  left: -30px;
+  transform: translateX(0);
 }
