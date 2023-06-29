@@ -15,14 +15,15 @@ export default function BedSelection() {
   const handleClick = async () => {
     setIsLoading(true);
     for (let i = 0; i < selectedBeds.length; i++) {
-      const { bedName, userRecordId } = selectedBeds[i];
-      await clearCurrentBedSelection({ userId: userRecordId });
+      const { bedName, id } = selectedBeds[i];
+      await clearCurrentBedSelection({ userId: id });
       const response = await reserveBed({
-        userId: userRecordId,
+        userId: id,
         [bedName]: cabin.id,
       });
     }
     setIsLoading(false);
+    window.location = '/summary?stage=BED_SELECTION';
   };
 
   const handleReset = () => {

@@ -16,12 +16,12 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
   const cabin = user?.cabin && user.cabin[0];
   const isBedSelected = cabin[bedName].length > 0;
 
+  // Filter out names with selected beds
   const names = members
-    // Filter out names with selected beds
     .filter(({ id }) => {
       for (let i = 0; i < selectedBeds.length; i++) {
         const selectedBed = selectedBeds[i];
-        const userHasBed = selectedBed.userRecordId === id;
+        const userHasBed = selectedBed.id === id;
         if (userHasBed) return false;
       }
       return true;
@@ -35,18 +35,35 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
 
     selectedBeds.push({
       bedName,
-      userRecordId: id,
+      id,
     });
     dispatch({ type: actions.SELECT_BEDS, selectedBeds });
     setCurrentUser(name);
   };
 
+  // Clear user from bed if reset button is clicked
   useEffect(() => {
-    // Remove user if Reset button is clicked
     if (!selectedBeds.length) {
       setCurrentUser();
     }
   }, [selectedBeds]);
+
+  const currentBedOccupantInCurrentGroup = members.find(({ name }) => {
+    if (
+      cabin[bedName] &&
+      cabin[bedName].length &&
+      cabin[bedName][0].name === name
+    ) {
+      return true;
+    }
+    return false;
+  });
+
+  const reservedText = currentBedOccupantInCurrentGroup
+    ? currentBedOccupantInCurrentGroup.name
+    : isBedSelected && !currentBedOccupantInCurrentGroup
+    ? 'Reserved'
+    : '';
 
   const BedIcon = () => (
     <FontAwesomeIcon
@@ -59,6 +76,7 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
       )}
     />
   );
+
   return (
     <div className={clsx(styles.bed, classNames, flip && styles.flip)}>
       {flip && <BedIcon />}
@@ -71,7 +89,18 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
           value={currentUser}
         />
       ) : (
-        <div className={styles.placeholder}></div>
+        <div className={styles.placeholder}>
+          {reservedText && (
+            <p
+              className={clsx(
+                styles.reservedText,
+                flip && styles.reservedTextFlipped
+              )}
+            >
+              {reservedText}
+            </p>
+          )}
+        </div>
       )}
 
       {!flip && <BedIcon />}

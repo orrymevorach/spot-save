@@ -1,67 +1,22 @@
 import { gql } from '@apollo/client';
+import { CABIN_FRAGMENT, GROUP_FRAGMENT } from './fragments';
 
 export const GET_CABINS = gql`
   query GetCabins {
     cabins {
-      id
-      openBeds
-      name
-      status
-      totalBeds
-      unit
-      additionalInformation
-      images
+      ...CabinFields
     }
   }
+  ${CABIN_FRAGMENT}
 `;
 
 export const GET_CABIN = gql`
   query GetCabin($cabinName: String) {
     cabins(name: $cabinName) {
-      id
-      name
-      unit
-      images
-      additionalInformation
-      openBeds
-      frontBunkLeft {
-        id
-      }
-      frontCotLeft {
-        id
-      }
-      backCotLeft {
-        id
-      }
-      frontLoftLeft {
-        id
-      }
-      backLoftLeft {
-        id
-      }
-      backBunkLeft {
-        id
-      }
-      frontBunkRight {
-        id
-      }
-      frontCotRight {
-        id
-      }
-      backCotRight {
-        id
-      }
-      frontLoftRight {
-        id
-      }
-      backLoftRight {
-        id
-      }
-      backBunkRight {
-        id
-      }
+      ...CabinFields
     }
   }
+  ${CABIN_FRAGMENT}
 `;
 
 export const RESERVE_SPOT_IN_CABIN = gql`
@@ -80,15 +35,11 @@ export const GET_USER_BY_EMAIL = gql`
       name
       emailAddress
       cabin {
-        id
-        name
-        unit
-        additionalInformation
-        images
-        openBeds
+        ...CabinFields
       }
     }
   }
+  ${CABIN_FRAGMENT}
 `;
 
 export const GET_USER_BY_ID = gql`
@@ -98,59 +49,15 @@ export const GET_USER_BY_ID = gql`
       name
       emailAddress
       group {
-        id
-        members {
-          id
-          name
-          emailAddress
-        }
+        ...GroupFields
       }
       cabin {
-        id
-        name
-        unit
-        additionalInformation
-        images
-        openBeds
-        frontBunkLeft {
-          id
-        }
-        frontCotLeft {
-          id
-        }
-        backCotLeft {
-          id
-        }
-        frontLoftLeft {
-          id
-        }
-        backLoftLeft {
-          id
-        }
-        backBunkLeft {
-          id
-        }
-        frontBunkRight {
-          id
-        }
-        frontCotRight {
-          id
-        }
-        backCotRight {
-          id
-        }
-        frontLoftRight {
-          id
-        }
-        backLoftRight {
-          id
-        }
-        backBunkRight {
-          id
-        }
+        ...CabinFields
       }
     }
   }
+  ${GROUP_FRAGMENT}
+  ${CABIN_FRAGMENT}
 `;
 
 export const RESERVE_BED = gql`
