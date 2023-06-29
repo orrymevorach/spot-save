@@ -16,6 +16,7 @@ $primaryColor: variables.$darkGreen;
   cursor: pointer;
   transition: 0.1s;
   border: 2px solid $primaryColor;
+  text-align: center;
   .spinnerIcon {
     animation: rotate 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   }

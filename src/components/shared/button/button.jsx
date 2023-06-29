@@ -24,9 +24,17 @@ export default function Button({
   handleClick = null,
   classNames = '',
   isLight = false,
+  isAnchor = false,
 }) {
   const classnames = clsx(styles.button, classNames, isLight && styles.light);
 
+  if (isAnchor) {
+    return (
+      <a href={href} className={classnames}>
+        {children}
+      </a>
+    );
+  }
   if (href) {
     return (
       <Link href={href} className={classnames}>

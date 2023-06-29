@@ -39,7 +39,8 @@ export default function ModifyReservationButtons() {
         </Button>
         <Button
           classNames={styles.button}
-          handleClick={() => handleRoute({ pathname: ROUTES.CABIN_SELECTION })}
+          isAnchor
+          href={ROUTES.CABIN_SELECTION}
         >
           Change Cabin/Unit
         </Button>

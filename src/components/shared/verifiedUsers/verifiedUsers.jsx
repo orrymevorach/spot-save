@@ -60,18 +60,27 @@ const VerifiedUser = ({ currentUser, index, hideRemoveButton }) => {
 
 export default function VerifiedUsers({ hideRemoveButton }) {
   const { groupData } = useReservation();
+  const { user } = useUser();
 
   return (
     <div className={styles.container}>
       <p className={styles.title}>Names on Reservation</p>
-      {groupData.members.map((currentUser, index) => (
-        <VerifiedUser
-          key={currentUser.name}
-          currentUser={currentUser}
-          index={index}
-          hideRemoveButton={hideRemoveButton}
-        />
-      ))}
+      {groupData.members
+        // add current user to top of list
+        .sort((a, b) => {
+          if (a.name === user.name) {
+            return -1;
+          }
+          return 1;
+        })
+        .map((currentUser, index) => (
+          <VerifiedUser
+            key={currentUser.name}
+            currentUser={currentUser}
+            index={index}
+            hideRemoveButton={hideRemoveButton}
+          />
+        ))}
     </div>
   );
 }

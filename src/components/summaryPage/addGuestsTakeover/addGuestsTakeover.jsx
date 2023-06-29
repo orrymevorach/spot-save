@@ -55,9 +55,6 @@ export default function AddGuestsTakeover() {
           <VerifiedUsers />
         </div>
         <div className={styles.bottomRow}>
-          <Button handleClick={handleClose} classNames={styles.button}>
-            Cancel
-          </Button>
           <ReserveButton cabinId={cabinId} classNames={styles.button}>
             {'Update Reservation'}
           </ReserveButton>
