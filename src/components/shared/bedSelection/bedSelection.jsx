@@ -8,7 +8,7 @@ import { clearCurrentBedSelection, reserveBed } from '@/lib/airtable';
 
 export default function BedSelection() {
   const [isLoading, setIsLoading] = useState(false);
-  const { selectedBeds, dispatch, actions } = useReservation();
+  const { selectedBeds } = useReservation();
   const { user } = useUser();
   const cabin = user.cabin[0];
 
@@ -26,10 +26,6 @@ export default function BedSelection() {
     window.location = '/summary?stage=BED_SELECTION';
   };
 
-  const handleReset = () => {
-    dispatch({ type: actions.SELECT_BEDS, selectedBeds: [] });
-  };
-
   return (
     <div className={styles.bedSelectionContainer}>
       <Cabin />
@@ -40,9 +36,6 @@ export default function BedSelection() {
           classNames={styles.button}
         >
           Confirm Beds
-        </Button>
-        <Button handleClick={handleReset} classNames={styles.button}>
-          Reset
         </Button>
       </div>
     </div>

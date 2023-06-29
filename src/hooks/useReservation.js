@@ -133,7 +133,7 @@ export const useReservationReducer = () => {
 
   const cabinData = useGetCabinData();
 
-  useGetBeds({ cabinData: state.cabinData, dispatch, actions });
+  useGetBeds({ cabinData, dispatch, actions });
 
   return {
     ...state,

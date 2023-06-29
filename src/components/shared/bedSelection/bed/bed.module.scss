@@ -14,7 +14,7 @@ div.dropdown {
   color: green;
 }
 .reserved {
-  color: red;
+  color: gray;
 }
 .selected {
   color: rgb(33, 33, 160);
@@ -31,15 +31,24 @@ div.dropdown {
     text-align: left;
     padding: 0 0 0 10px;
   }
-}
-
-.placeholder {
-  width: 240px;
+  .removeButton {
+    order: 2;
+  }
+  .reservedText {
+    justify-content: space-between;
+    padding-left: 39px;
+    padding-right: 0;
+  }
 }
 
 .reservedText {
-  padding-left: 10px;
+  display: flex;
+  width: 240px;
+  justify-content: space-between;
+  padding-right: 50px;
 }
-.reservedTextFlipped {
-  padding-left: 39px;
+
+.removeButton {
+  background: none;
+  border: none;
 }

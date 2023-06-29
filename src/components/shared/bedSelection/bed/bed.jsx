@@ -1,23 +1,17 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './bed.module.scss';
-import { faMattressPillow } from '@fortawesome/free-solid-svg-icons';
+import {
+  faMattressPillow,
+  faMinusCircle,
+} from '@fortawesome/free-solid-svg-icons';
 import { useReservation } from '@/context/reservation-context';
 import clsx from 'clsx';
 import { useUser } from '@/context/user-context';
 import BedDropdown from './bed-dropdown/bed-dropdown';
 
-export default function Bed({ bedName, classNames = '', flip = false }) {
-  const { selectedBeds, dispatch, actions, groupData } = useReservation();
-  const { members } = groupData;
-  const { user } = useUser();
-  const [currentUser, setCurrentUser] = useState('');
-
-  const cabin = user?.cabin && user.cabin[0];
-  const isBedSelected = cabin[bedName].length > 0;
-
-  // Filter out names with selected beds
-  const names = members
+const filterOutUsersWithSelectedBeds = ({ members, selectedBeds }) => {
+  return members
     .filter(({ id }) => {
       for (let i = 0; i < selectedBeds.length; i++) {
         const selectedBed = selectedBeds[i];
@@ -27,28 +21,10 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
       return true;
     })
     .map(({ name }) => name);
+};
 
-  const handleChange = selectedUser => {
-    const currentUserData = members.find(({ name }) => selectedUser === name);
-
-    const { id, name } = currentUserData;
-
-    selectedBeds.push({
-      bedName,
-      id,
-    });
-    dispatch({ type: actions.SELECT_BEDS, selectedBeds });
-    setCurrentUser(name);
-  };
-
-  // Clear user from bed if reset button is clicked
-  useEffect(() => {
-    if (!selectedBeds.length) {
-      setCurrentUser();
-    }
-  }, [selectedBeds]);
-
-  const currentBedOccupantInCurrentGroup = members.find(({ name }) => {
+const getIsBedOccupiedByMemberOfGroup = ({ members, bedName, cabin }) => {
+  return members.find(({ name }) => {
     if (
       cabin[bedName] &&
       cabin[bedName].length &&
@@ -58,12 +34,68 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
     }
     return false;
   });
+};
 
-  const reservedText = currentBedOccupantInCurrentGroup
-    ? currentBedOccupantInCurrentGroup.name
-    : isBedSelected && !currentBedOccupantInCurrentGroup
-    ? 'Reserved'
-    : '';
+export default function Bed({ bedName, classNames = '', flip = false }) {
+  const {
+    selectedBeds,
+    dispatch,
+    actions,
+    groupData: { members },
+  } = useReservation();
+  const { user } = useUser();
+  const [currentUser, setCurrentUser] = useState('');
+  const [placeOnHold, setPlaceOnHold] = useState(false);
+  const cabin = user?.cabin && user.cabin[0];
+
+  // Filter out names with selected beds
+  const usersWithoutSelectedBeds = filterOutUsersWithSelectedBeds({
+    members,
+    selectedBeds,
+  });
+
+  const handleChange = selectedUser => {
+    const currentUserData = members.find(({ name }) => selectedUser === name);
+
+    const { id, name } = currentUserData;
+
+    selectedBeds.push({
+      bedName,
+      id,
+      name,
+    });
+    dispatch({ type: actions.SELECT_BEDS, selectedBeds });
+    setCurrentUser(name);
+    setPlaceOnHold(true);
+  };
+
+  const currentBedOccupantInCurrentGroup = getIsBedOccupiedByMemberOfGroup({
+    members,
+    bedName,
+    cabin,
+  });
+
+  // Set bed status on page load
+  useEffect(() => {
+    const isBedSelected = cabin[bedName].length > 0;
+    if (currentBedOccupantInCurrentGroup) {
+      // If bed is selected by a person in this group
+      setCurrentUser(currentBedOccupantInCurrentGroup.name);
+    } else if (isBedSelected) {
+      // If bed is selected by a person outside of this group
+      setCurrentUser('Reserved');
+    }
+  }, [currentBedOccupantInCurrentGroup, cabin, bedName]);
+
+  const handleRemove = () => {
+    const updatedBeds = selectedBeds.filter(({ name }) => name !== currentUser);
+    setCurrentUser();
+    setPlaceOnHold(false);
+    dispatch({
+      type: actions.SELECT_BEDS,
+      selectedBeds: updatedBeds,
+    });
+  };
 
   const BedIcon = () => (
     <FontAwesomeIcon
@@ -71,8 +103,8 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
       size="3x"
       className={clsx(
         styles.icon,
-        isBedSelected && styles.reserved,
-        currentUser && styles.selected
+        currentUser && styles.reserved,
+        placeOnHold && styles.selected
       )}
     />
   );
@@ -80,27 +112,23 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
   return (
     <div className={clsx(styles.bed, classNames, flip && styles.flip)}>
       {flip && <BedIcon />}
-      {!isBedSelected ? (
+      {!currentUser ? (
         <BedDropdown
-          options={names}
+          options={usersWithoutSelectedBeds}
           classNames={styles.dropdown}
           handleChange={handleChange}
           label="Select Guest"
           value={currentUser}
         />
       ) : (
-        <div className={styles.placeholder}>
-          {reservedText && (
-            <p
-              className={clsx(
-                styles.reservedText,
-                flip && styles.reservedTextFlipped
-              )}
-            >
-              {reservedText}
-            </p>
+        <p className={styles.reservedText}>
+          {currentUser !== 'Reserved' && (
+            <button onClick={handleRemove} className={styles.removeButton}>
+              <FontAwesomeIcon icon={faMinusCircle} />
+            </button>
           )}
-        </div>
+          {currentUser}
+        </p>
       )}
 
       {!flip && <BedIcon />}
