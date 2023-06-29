@@ -2,9 +2,12 @@
   display: flex;
 }
 
-.buttons {
+.sidePanel {
   margin-top: 25px;
   margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .button {

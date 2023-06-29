@@ -1,9 +1,17 @@
 import { useUser } from '@/context/user-context';
 import styles from './reservationSummary.module.scss';
+import { useReservation } from '@/context/reservation-context';
+import { replaceCamelCaseWithSpaces } from '@/utils/string-utils';
 
 export default function ReservationSummary({ cabinData }) {
   const { user } = useUser();
   const { cabin } = cabinData;
+  const { selectedBeds } = useReservation();
+
+  const selectedBed = selectedBeds.find(({ name }) => name === user.name);
+  const selectedBedName = selectedBed
+    ? replaceCamelCaseWithSpaces(selectedBed.bedName)
+    : '--';
 
   const { name, unit, additionalInformation } = cabin;
   const hasAdditionalInformation =
@@ -23,6 +31,11 @@ export default function ReservationSummary({ cabinData }) {
         <span className={styles.left}>Unit:</span>
         <span className={styles.right}>{unit}</span>
       </p>
+      <p>
+        <span className={styles.left}>Bed:</span>
+        <span className={styles.right}>{selectedBedName}</span>
+      </p>
+
       {hasAdditionalInformation && (
         <div className={styles.additionalInformationContainer}>
           <p className={styles.additionalInformationTitle}>

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Cabin from './cabin/cabin';
 import { useUser } from '@/context/user-context';
 import { clearCurrentBedSelection, reserveBed } from '@/lib/airtable';
+import Legend from './legend/legend';
 
 export default function BedSelection() {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,14 +30,15 @@ export default function BedSelection() {
   return (
     <div className={styles.bedSelectionContainer}>
       <Cabin />
-      <div className={styles.buttons}>
+      <div className={styles.sidePanel}>
         <Button
           handleClick={handleClick}
           isLoading={isLoading}
           classNames={styles.button}
         >
-          Confirm Beds
+          Confirm Selection
         </Button>
+        <Legend />
       </div>
     </div>
   );

@@ -46,6 +46,10 @@ div.dropdown {
   width: 240px;
   justify-content: space-between;
   padding-right: 50px;
+  @include mixins.fontPrimaryBold;
+  &.anonymous {
+    @include mixins.fontPrimary;
+  }
 }
 
 .removeButton {

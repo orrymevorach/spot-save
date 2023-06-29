@@ -13,6 +13,7 @@
 }
 .right {
   @include mixins.fontPrimaryLight;
+  text-transform: capitalize;
 }
 
 .additionalInformationContainer {

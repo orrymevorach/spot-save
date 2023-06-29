@@ -121,7 +121,12 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
           value={currentUser}
         />
       ) : (
-        <p className={styles.reservedText}>
+        <p
+          className={clsx(
+            styles.reservedText,
+            currentUser === 'Reserved' && styles.anonymous
+          )}
+        >
           {currentUser !== 'Reserved' && (
             <button onClick={handleRemove} className={styles.removeButton}>
               <FontAwesomeIcon icon={faMinusCircle} />

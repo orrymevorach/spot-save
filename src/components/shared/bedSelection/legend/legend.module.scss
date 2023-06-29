@@ -1,0 +1,15 @@
+@use '@mixins' as mixins;
+
+.container {
+  margin-bottom: 25px;
+}
+
+.statusContainer {
+  display: flex;
+  align-items: center;
+}
+
+.statusText {
+  @include mixins.fontPrimaryLight;
+  margin-left: 10px;
+}
