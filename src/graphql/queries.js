@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { CABIN_FRAGMENT, GROUP_FRAGMENT } from './fragments';
+import { CABIN_FRAGMENT, USER_FRAGMENT } from './fragments';
 
 export const GET_CABINS = gql`
   query GetCabins {
@@ -45,19 +45,10 @@ export const GET_USER_BY_EMAIL = gql`
 export const GET_USER_BY_ID = gql`
   query GetUser($id: String) {
     tickets(id: $id) {
-      id
-      name
-      emailAddress
-      group {
-        ...GroupFields
-      }
-      cabin {
-        ...CabinFields
-      }
+      ...UserFields
     }
   }
-  ${GROUP_FRAGMENT}
-  ${CABIN_FRAGMENT}
+  ${USER_FRAGMENT}
 `;
 
 export const RESERVE_BED = gql`

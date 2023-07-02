@@ -24,7 +24,7 @@ export default function Layout({ children }) {
     Cookies.remove(COOKIES.USER_RECORD);
     setTimeout(() => {
       dispatch({ type: 'LOG_OUT' });
-      router.push(ROUTES.HOME);
+      window.location = '/';
     }, 300);
   };
 

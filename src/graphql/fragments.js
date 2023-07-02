@@ -68,6 +68,28 @@ export const GROUP_FRAGMENT = gql`
       id
       name
       emailAddress
+      paymentIntent
+      cabin {
+        ...CabinFields
+      }
     }
   }
+  ${CABIN_FRAGMENT}
+`;
+
+export const USER_FRAGMENT = gql`
+  fragment UserFields on tickets {
+    id
+    name
+    emailAddress
+    paymentIntent
+    cabin {
+      ...CabinFields
+    }
+    group {
+      ...GroupFields
+    }
+  }
+  ${CABIN_FRAGMENT}
+  ${GROUP_FRAGMENT}
 `;

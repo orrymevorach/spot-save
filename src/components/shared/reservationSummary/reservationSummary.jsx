@@ -3,7 +3,10 @@ import styles from './reservationSummary.module.scss';
 import { useReservation } from '@/context/reservation-context';
 import { replaceCamelCaseWithSpaces } from '@/utils/string-utils';
 
-export default function ReservationSummary({ cabinData }) {
+export default function ReservationSummary({
+  cabinData,
+  showBedSelection = false,
+}) {
   const { user } = useUser();
   const { cabin } = cabinData;
   const { selectedBeds } = useReservation();
@@ -31,10 +34,12 @@ export default function ReservationSummary({ cabinData }) {
         <span className={styles.left}>Unit:</span>
         <span className={styles.right}>{unit}</span>
       </p>
-      <p>
-        <span className={styles.left}>Bed:</span>
-        <span className={styles.right}>{selectedBedName}</span>
-      </p>
+      {showBedSelection && (
+        <p>
+          <span className={styles.left}>Bed:</span>
+          <span className={styles.right}>{selectedBedName}</span>
+        </p>
+      )}
 
       {hasAdditionalInformation && (
         <div className={styles.additionalInformationContainer}>

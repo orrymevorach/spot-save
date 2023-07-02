@@ -20,6 +20,11 @@ export default function ReserveButton({ children, cabinId, classNames = '' }) {
     try {
       for (let i = 0; i < groupMembers.length; i++) {
         const groupMember = groupMembers[i];
+        // const userHasNoPrevioulsyReservedCabin = groupMember.cabin.length === 0;
+        // const usersExistingCabinIsDifferentThenCurrentCabin =
+        //   groupMember.cabin &&
+        //   groupMember.cabin.length &&
+        //   groupMember.cabin[0].id !== cabinId;
         const response = await reserveSpotInCabin({
           cabinId,
           attendeeId: groupMember.id,

@@ -20,7 +20,7 @@ const legend = [
 export default function Legend() {
   return (
     <div className={styles.container}>
-      <p>Legend</p>
+      <p className={styles.title}>Legend:</p>
       {legend.map(({ status, color }) => {
         return (
           <div key={status} className={styles.statusContainer}>

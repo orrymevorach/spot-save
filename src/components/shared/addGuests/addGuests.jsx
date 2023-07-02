@@ -26,7 +26,7 @@ export default function AddGuests({ cabin, classNames = '' }) {
         </div>
       ) : (
         <div className={styles.input}>
-          <p>There are no more open beds in this cabin.</p>
+          <p>There are not enough beds in this cabin for your entire group.</p>
         </div>
       )}
     </div>
