@@ -9,6 +9,7 @@ import { useReservation } from '@/context/reservation-context';
 import clsx from 'clsx';
 import { useUser } from '@/context/user-context';
 import BedDropdown from './bed-dropdown/bed-dropdown';
+import { clearCurrentBedSelection, getUserByRecordId } from '@/lib/airtable';
 
 const filterOutUsersWithSelectedBeds = ({ members, selectedBeds }) => {
   return members
@@ -43,7 +44,7 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
     actions,
     groupData: { members },
   } = useReservation();
-  const { user } = useUser();
+  const { user, dispatch: dispatchUser, actions: userActions } = useUser();
   const [currentUser, setCurrentUser] = useState('');
   const [placeOnHold, setPlaceOnHold] = useState(false);
   const cabin = user?.cabin && user.cabin[0];
@@ -87,14 +88,19 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
     }
   }, [currentBedOccupantInCurrentGroup, cabin, bedName]);
 
-  const handleRemove = () => {
+  const handleRemove = async () => {
+    const currentUserData = members.find(({ name }) => currentUser === name);
     const updatedBeds = selectedBeds.filter(({ name }) => name !== currentUser);
     setCurrentUser();
     setPlaceOnHold(false);
+    await clearCurrentBedSelection({ userId: currentUserData.id });
     dispatch({
       type: actions.SELECT_BEDS,
       selectedBeds: updatedBeds,
     });
+    // Getting user to have up to date cabin data
+    const userData = await getUserByRecordId({ id: user.id });
+    dispatchUser({ type: userActions.LOG_IN, userData });
   };
 
   const BedIcon = () => (

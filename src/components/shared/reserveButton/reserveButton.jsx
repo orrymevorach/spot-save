@@ -20,15 +20,22 @@ export default function ReserveButton({ children, cabinId, classNames = '' }) {
     try {
       for (let i = 0; i < groupMembers.length; i++) {
         const groupMember = groupMembers[i];
-        // const userHasNoPrevioulsyReservedCabin = groupMember.cabin.length === 0;
-        // const usersExistingCabinIsDifferentThenCurrentCabin =
-        //   groupMember.cabin &&
-        //   groupMember.cabin.length &&
-        //   groupMember.cabin[0].id !== cabinId;
-        const response = await reserveSpotInCabin({
-          cabinId,
-          attendeeId: groupMember.id,
-        });
+        const userHasNoPrevioulsyReservedCabin = groupMember.cabin.length === 0;
+        const usersExistingCabinIsDifferentThenCurrentCabin =
+          groupMember.cabin &&
+          groupMember.cabin.length &&
+          groupMember.cabin[0].id !== cabinId;
+        // Reserving a spot in a cabin clears your existing bed selection.
+        // Setting these conditions so as not to affect the reservation of people already in this cabin.
+        if (
+          userHasNoPrevioulsyReservedCabin ||
+          usersExistingCabinIsDifferentThenCurrentCabin
+        ) {
+          const response = await reserveSpotInCabin({
+            cabinId,
+            attendeeId: groupMember.id,
+          });
+        }
       }
 
       // Get latest user data, with cabin

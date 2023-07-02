@@ -21,7 +21,22 @@ export const GET_CABIN = gql`
 
 export const RESERVE_SPOT_IN_CABIN = gql`
   mutation ReserveSpot($cabinId: String, $attendeeId: String) {
-    update_tickets(id: $attendeeId, cabin: [$cabinId]) {
+    update_tickets(
+      id: $attendeeId
+      cabin: [$cabinId]
+      frontBunkLeft: []
+      frontCotLeft: []
+      backCotLeft: []
+      frontLoftLeft: []
+      backLoftLeft: []
+      backBunkLeft: []
+      frontBunkRight: []
+      frontCotRight: []
+      backCotRight: []
+      frontLoftRight: []
+      backLoftRight: []
+      backBunkRight: []
+    ) {
       id
     }
   }
