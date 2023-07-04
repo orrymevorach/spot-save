@@ -10,6 +10,12 @@ export const CABIN_FRAGMENT = gql`
     unit
     additionalInformation
     images
+    attendees {
+      name
+      cabin {
+        name
+      }
+    }
     frontBunkLeft {
       id
       name

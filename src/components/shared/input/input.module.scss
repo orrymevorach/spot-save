@@ -1,3 +1,4 @@
+@use '@variables' as variables;
 @use '@mixins' as mixins;
 
 .inputContainer {
@@ -19,4 +20,11 @@
   font-size: 16px;
   margin-bottom: 10px;
   @include mixins.fontPrimaryLight;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .inputContainer,
+  .input {
+    width: 100%;
+  }
 }

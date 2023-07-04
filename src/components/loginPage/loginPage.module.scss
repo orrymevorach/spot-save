@@ -20,3 +20,17 @@
     padding: 0 50px;
   }
 }
+
+@media screen and (max-width: variables.$mobile) {
+  .mainContainer {
+    flex-direction: column;
+    margin-top: 30px;
+  }
+  .column {
+    width: 100%;
+    &:first-of-type {
+      margin-right: 0;
+      order: 2;
+    }
+  }
+}

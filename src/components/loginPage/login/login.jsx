@@ -71,7 +71,11 @@ export default function Login() {
   };
 
   return (
-    <form action="#" onSubmit={e => handleSubmit(e)}>
+    <form
+      action="#"
+      onSubmit={e => handleSubmit(e)}
+      className={styles.container}
+    >
       <Input
         type="email"
         id="email"

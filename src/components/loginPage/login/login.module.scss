@@ -8,3 +8,16 @@
 div.emailInput {
   margin-bottom: 20px;
 }
+
+@media screen and (max-width: variables.$mobile) {
+  .container {
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .submit {
+    width: 100%;
+  }
+}
