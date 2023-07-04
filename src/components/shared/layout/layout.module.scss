@@ -1,3 +1,5 @@
+@use '@variables' as variables;
+
 .container {
   position: relative;
 }
@@ -18,4 +20,10 @@
 
 .logoutButton {
   margin-left: 20px;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .image {
+    width: 350px;
+  }
 }

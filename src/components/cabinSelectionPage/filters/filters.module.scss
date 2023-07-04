@@ -2,10 +2,9 @@
 @use '@variables' as variables;
 
 .filters {
-  padding-bottom: 50px;
   position: relative;
   z-index: 1;
-  margin: 0 auto;
+  margin: 0 auto 50px;
   @media screen and (max-width: variables.$mobile) {
     flex-direction: column;
     margin-top: 0;

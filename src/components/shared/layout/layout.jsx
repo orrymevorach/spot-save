@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 import { COOKIES, ROUTES } from '@/utils/constants';
 import { useRouter } from 'next/router';
 import { useUser } from '@/context/user-context';
+import { useWindowSize } from '@/context/window-size-context';
 
 export const Logo = ({ classNames = ' ' }) => {
   return <Image src={logo} className={clsx(styles.image, classNames)} alt="" />;
@@ -18,6 +19,7 @@ export default function Layout({ children }) {
   const [isPageLoading, setIsPageLoading] = useState(false);
   const router = useRouter();
   const { user, dispatch } = useUser();
+  const { isMobile } = useWindowSize();
 
   const handleLogout = () => {
     setIsLogoutLoading(true);
@@ -46,6 +48,8 @@ export default function Layout({ children }) {
             <Button
               isLoading={isPageLoading}
               handleClick={handleViewReservation}
+              isSmall={!!isMobile}
+              classNames={styles.button}
             >
               My Reservation
             </Button>
@@ -55,7 +59,8 @@ export default function Layout({ children }) {
           <Button
             isLoading={isLogoutLoading}
             handleClick={handleLogout}
-            classNames={styles.logoutButton}
+            classNames={clsx(styles.logoutButton, styles.button)}
+            isSmall={!!isMobile}
           >
             Log Out
           </Button>

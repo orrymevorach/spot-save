@@ -9,6 +9,7 @@ import Loader from '@/components/shared/loader/loader';
 import Button from '@/components/shared/button/button';
 import { useRef, useState } from 'react';
 import useShowOnScroll from '@/hooks/useShowOnScroll';
+import { useWindowSize } from '@/context/window-size-context';
 
 export default function CabinSelectionContainer() {
   const [showBackToTopButton, setShowBackToTopButton] = useState(false);
@@ -16,6 +17,7 @@ export default function CabinSelectionContainer() {
   const { isLoading, units } = useCabinAndUnitData();
   const headerRef = useRef();
   useShowOnScroll({ ref: headerRef, setIsShowing: setShowBackToTopButton });
+  const { isMobile } = useWindowSize();
 
   if (isLoading || !units.length) return <Loader isDotted />;
 
@@ -45,7 +47,7 @@ export default function CabinSelectionContainer() {
             <li>hey</li>
           </ol> */}
           <Filters />
-          <UnitLinks />
+          {!isMobile && <UnitLinks />}
         </div>
       </div>
       <Units />
