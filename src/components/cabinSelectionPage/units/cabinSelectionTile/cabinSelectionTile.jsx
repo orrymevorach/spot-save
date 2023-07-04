@@ -17,6 +17,7 @@ export default function CabinSelectionTile({ cabin, handleSelectCabin }) {
           <Button
             classNames={styles.button}
             handleClick={() => handleSelectCabin(cabin)}
+            isSmall
           >
             Select
           </Button>

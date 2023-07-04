@@ -22,3 +22,33 @@
   height: auto;
   object-fit: contain;
 }
+
+@media screen and (max-width: variables.$tablet) {
+  .innerContainer {
+    width: 80%;
+  }
+  .unitImage {
+    width: 80%;
+    align-self: flex-start;
+  }
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .innerContainer {
+    width: 320px;
+    padding: 50px 20px;
+  }
+  button.showMapButton {
+    margin-left: 20px;
+    padding: 4px 10px;
+  }
+
+  .unitTitleContainer {
+    display: flex;
+    align-items: center;
+  }
+  .takeoverUnitImage {
+    width: auto;
+    height: auto;
+  }
+}

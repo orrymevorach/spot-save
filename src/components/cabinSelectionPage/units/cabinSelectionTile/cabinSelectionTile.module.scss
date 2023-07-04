@@ -16,10 +16,6 @@
 }
 
 .button {
-  padding: 4px 0;
-  min-width: 80px;
-  @include mixins.fontPrimaryLight;
-  margin-top: 10px;
   &.full {
     background-color: rgb(220, 29, 29);
     color: white;
