@@ -9,3 +9,26 @@
 .innerContainer {
   display: flex;
 }
+
+.carousel {
+  width: 560px;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .innerContainer {
+    flex-direction: column;
+  }
+  .carousel {
+    order: 2;
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  div.takeover {
+    height: auto;
+  }
+
+  div.modal {
+    margin: 25px;
+  }
+}

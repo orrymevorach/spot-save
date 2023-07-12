@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import style from './takeover.module.scss';
 import CloseButton from '@/components/shared/closeButton';
+import clsx from 'clsx';
 
 export default function Takeover({
   children,
@@ -8,6 +9,8 @@ export default function Takeover({
   disableOverlayClose,
   handleClose,
   showTakeover,
+  classNames = '',
+  modalClassNames = '',
 }) {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const closeModal = handleClose ? handleClose : () => setIsModalOpen(false);
@@ -15,12 +18,12 @@ export default function Takeover({
   return (
     <>
       {isOpen && (
-        <div className={style.takeover} style={styles}>
+        <div className={clsx(style.takeover, classNames)} style={styles}>
           <div
             className={style.overlay}
             onClick={disableOverlayClose ? () => {} : closeModal}
           ></div>
-          <div className={style.modal}>
+          <div className={clsx(style.modal, modalClassNames)}>
             {children}
             <CloseButton handleClick={closeModal} />
           </div>
