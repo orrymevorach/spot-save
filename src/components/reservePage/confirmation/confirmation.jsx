@@ -18,7 +18,7 @@ export default function Confirmation() {
         guests on the reservation.
       </p>
       <p className={styles.text}>See you at Highlands!</p>
-      <div className={styles.optionalContainer}>
+      <div className={styles.buttonsContainer}>
         <Button classNames={styles.button} href={ROUTES.SUMMARY}>
           View summary
         </Button>

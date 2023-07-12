@@ -20,3 +20,9 @@
 .modifyContainer {
   margin-left: 100px;
 }
+
+@media screen and (max-width: variables.$mobile) {
+  .modifyContainer {
+    margin-left: 0;
+  }
+}
