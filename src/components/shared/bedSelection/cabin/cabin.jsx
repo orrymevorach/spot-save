@@ -1,3 +1,4 @@
+import { useWindowSize } from '@/context/window-size-context';
 import BedColumn from '../bedColumn/bedColumn';
 import styles from './cabin.module.scss';
 
@@ -31,14 +32,17 @@ export const bedList = [
 ];
 
 export default function Cabin() {
+  const { isMobile } = useWindowSize();
   return (
     <div className={styles.cabinContainer}>
-      <p>Back of cabin</p>
+      {!isMobile && <p>Back of cabin</p>}
       <div className={styles.bedColumnsContainer}>
+        {isMobile && <p className={styles.sideText}>Left side of cabin</p>}
         <BedColumn beds={leftBeds} />
-        <BedColumn beds={rightBeds} flip />
+        {isMobile && <p className={styles.sideText}>Right side of cabin</p>}
+        <BedColumn beds={rightBeds} flip={!isMobile} />
       </div>
-      <p>Front door</p>
+      {!isMobile && <p>Front door</p>}
     </div>
   );
 }

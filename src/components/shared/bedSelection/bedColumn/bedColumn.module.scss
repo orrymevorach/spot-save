@@ -1,3 +1,5 @@
+@use '@variables' as variables;
+
 .row {
   margin-bottom: 50px;
   &:last-of-type {
@@ -7,4 +9,10 @@
 
 .column:last-child {
   margin-left: 100px;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .column:last-child {
+    margin: 0;
+  }
 }

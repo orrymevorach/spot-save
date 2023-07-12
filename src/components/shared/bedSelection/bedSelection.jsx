@@ -6,6 +6,7 @@ import Cabin from './cabin/cabin';
 import { useUser } from '@/context/user-context';
 import { clearCurrentBedSelection, reserveBed } from '@/lib/airtable';
 import Legend from './legend/legend';
+import { useWindowSize } from '@/context/window-size-context';
 
 export default function BedSelection() {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,6 +14,7 @@ export default function BedSelection() {
     selectedBeds,
     groupData: { members },
   } = useReservation();
+  const { isMobile } = useWindowSize();
   const { user } = useUser();
   const cabin = user.cabin[0];
 
@@ -38,19 +40,24 @@ export default function BedSelection() {
     window.location = '/summary?stage=BED_SELECTION';
   };
 
+  const ConfirmButton = () => (
+    <Button
+      handleClick={handleClick}
+      isLoading={isLoading}
+      classNames={styles.button}
+    >
+      Confirm Selection
+    </Button>
+  );
+
   return (
     <div className={styles.bedSelectionContainer}>
       <Cabin />
       <div className={styles.sidePanel}>
-        <Button
-          handleClick={handleClick}
-          isLoading={isLoading}
-          classNames={styles.button}
-        >
-          Confirm Selection
-        </Button>
+        {!isMobile && <ConfirmButton />}
         <Legend />
       </div>
+      {isMobile && <ConfirmButton />}
     </div>
   );
 }

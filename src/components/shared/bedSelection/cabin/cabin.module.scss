@@ -1,3 +1,5 @@
+@use '@variables' as variables;
+
 .cabinContainer {
   display: flex;
   flex-direction: column;
@@ -6,4 +8,16 @@
 
 .bedColumnsContainer {
   display: flex;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .bedColumnsContainer {
+    flex-direction: column;
+  }
+  .sideText {
+    margin: 20px 0 10px 5px;
+  }
+  .cabinContainer {
+    order: 2;
+  }
 }

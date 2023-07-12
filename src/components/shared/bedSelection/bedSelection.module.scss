@@ -1,3 +1,5 @@
+@use '@variables' as variables;
+
 .bedSelectionContainer {
   display: flex;
 }
@@ -14,4 +16,17 @@
   width: 250px;
   display: block;
   margin-bottom: 10px;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .bedSelectionContainer {
+    flex-direction: column;
+  }
+  .sidePanel {
+    margin-left: 0;
+  }
+  .button {
+    order: 3;
+    margin-top: 50px;
+  }
 }
