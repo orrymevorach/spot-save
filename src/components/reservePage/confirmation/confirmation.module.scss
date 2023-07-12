@@ -18,22 +18,14 @@
   font-size: 18px;
 }
 
-.buttonsContainer {
-  display: flex;
-  margin-top: 50px;
-}
-
 .button {
   display: block;
-  margin-right: 20px;
+  margin: 50px 20px 0 0;
   width: 230px;
   text-align: center;
 }
 
 @media screen and (max-width: variables.$mobile) {
-  .buttonsContainer {
-    flex-direction: column;
-  }
   .button {
     width: 100%;
     &:last-child {
