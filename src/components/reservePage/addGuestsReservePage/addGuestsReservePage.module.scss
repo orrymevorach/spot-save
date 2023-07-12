@@ -1,4 +1,10 @@
-.buttons {
+@use '@variables' as variables;
+
+.button {
   position: absolute;
   bottom: 30px;
+  @media screen and (max-width: variables.$mobile) {
+    position: static;
+    margin-top: 10px;
+  }
 }

@@ -46,3 +46,14 @@
   color: variables.$darkGreen;
   margin-bottom: 20px;
 }
+
+@media screen and (max-width: variables.$mobile) {
+  .sidebar {
+    margin-top: 50px;
+    position: static;
+    width: 100%;
+    padding: 0;
+    box-shadow: none;
+    animation: none;
+  }
+}

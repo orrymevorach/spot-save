@@ -10,9 +10,9 @@ export default function AddGuestsReservePage() {
   return (
     <>
       <AddGuests cabin={cabin} />
-      <div className={styles.buttons}>
-        <Button href={ROUTES.CABIN_SELECTION}>Back to cabin selection</Button>
-      </div>
+      <Button classNames={styles.button} href={ROUTES.CABIN_SELECTION}>
+        Back to cabin selection
+      </Button>
     </>
   );
 }

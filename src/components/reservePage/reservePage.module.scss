@@ -1,3 +1,5 @@
+@use '@variables' as variables;
+
 .sideMargins {
   padding-left: 100px;
   display: block;
@@ -13,4 +15,13 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .sideMargins {
+    padding: 0 20px;
+  }
+  .container {
+    flex-direction: column;
+  }
 }

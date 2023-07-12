@@ -15,7 +15,6 @@ export default function CabinSelectionTakeover() {
     <Takeover
       showTakeover={showTakeover}
       handleClose={() => dispatch({ type: actions.CLOSE_CABIN_SELECTION })}
-      classNames={styles.takeover}
       modalClassNames={styles.modal}
     >
       <div className={styles.outerContainer}>

@@ -4,5 +4,6 @@
 .list {
   @include mixins.fontPrimaryLight;
   color: variables.$charcoal;
-  margin: 5px 0 40px;
+  margin: 5px 0 40px 15px;
+  padding: 0;
 }
