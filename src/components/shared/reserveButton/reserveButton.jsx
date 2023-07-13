@@ -7,13 +7,15 @@ import { getUserByRecordId, reserveSpotInCabin } from '@/lib/airtable';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import clsx from 'clsx';
+import { sendConfirmationEmail } from '@/lib/mailgun';
 
-export default function ReserveButton({ children, cabinId, classNames = '' }) {
-  const { groupData, dispatch, actions } = useReservation();
+export default function ReserveButton({ children, cabin, classNames = '' }) {
+  const { groupData, dispatch, actions, selectedBeds } = useReservation();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { user, dispatch: dispatchUser, actions: userActions } = useUser();
   const groupMembers = groupData.members;
+  const cabinId = cabin.id;
 
   const reserveCabinForGroupMembers = async () => {
     setIsLoading(true);
@@ -47,6 +49,8 @@ export default function ReserveButton({ children, cabinId, classNames = '' }) {
         type: actions.SET_SELECTION_STAGE,
         currentStage: CABIN_SELECTION_STAGES.CONFIRMATION,
       });
+      await sendConfirmationEmail({ groupMembers, cabin, selectedBeds });
+
       router.push({
         query: {
           stage: CABIN_SELECTION_STAGES.CONFIRMATION,

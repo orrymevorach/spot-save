@@ -58,12 +58,13 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
   const handleChange = selectedUser => {
     const currentUserData = members.find(({ name }) => selectedUser === name);
 
-    const { id, name } = currentUserData;
+    const { id, name, emailAddress } = currentUserData;
 
     selectedBeds.push({
       bedName,
       id,
       name,
+      emailAddress,
     });
     dispatch({ type: actions.SELECT_BEDS, selectedBeds });
     setCurrentUser(name);

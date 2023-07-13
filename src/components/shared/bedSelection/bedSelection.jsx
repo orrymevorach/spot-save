@@ -7,6 +7,7 @@ import { useUser } from '@/context/user-context';
 import { clearCurrentBedSelection, reserveBed } from '@/lib/airtable';
 import Legend from './legend/legend';
 import { useWindowSize } from '@/context/window-size-context';
+import { sendConfirmationEmail } from '@/lib/mailgun';
 
 export default function BedSelection() {
   const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +37,11 @@ export default function BedSelection() {
         [bedName]: cabin.id,
       });
     }
+    await sendConfirmationEmail({
+      groupMembers: usersToBeUpdated,
+      cabin,
+      selectedBeds,
+    });
     setIsLoading(false);
     window.location = '/summary?stage=BED_SELECTION';
   };

@@ -15,7 +15,6 @@ export default function AddGuestsTakeover() {
   const { dispatch, actions, groupData } = useReservation();
   const { user } = useUser();
   const cabin = user.cabin && user.cabin[0];
-  const cabinId = cabin && cabin.id;
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -55,7 +54,7 @@ export default function AddGuestsTakeover() {
           <VerifiedUsers />
         </div>
         <div className={styles.bottomRow}>
-          <ReserveButton cabinId={cabinId} classNames={styles.button}>
+          <ReserveButton cabin={cabin} classNames={styles.button}>
             {'Update Reservation'}
           </ReserveButton>
           <Button isLoading={isLoading} handleClick={handleLeaveGroup}>

@@ -43,9 +43,7 @@ export default function Sidebar({ cabinData }) {
       {!cabinHasEnoughBeds && (
         <p>There are not enough beds in this cabin for your entire group.</p>
       )}
-      {showReservationButton && (
-        <ReserveButton cabinId={cabinData?.cabin?.id} />
-      )}
+      {showReservationButton && <ReserveButton cabin={cabinData?.cabin} />}
     </div>
   );
 }
