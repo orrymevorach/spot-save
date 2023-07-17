@@ -54,7 +54,6 @@ export default function Layout({ children }) {
             {
               label: 'Log Out',
               isButton: true,
-              isShowing: !isSummaryPage && hasCabin,
               handleClick: handleLogout,
             },
           ]}

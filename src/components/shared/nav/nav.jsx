@@ -33,7 +33,13 @@ export default function Nav({ hamburgerMenuColor = '', navData = [] }) {
         <nav className={styles.nav}>
           <ul className={styles.navList}>
             {navData.map(
-              ({ url, label, isButton, isShowing, handleClick = () => {} }) => {
+              ({
+                url,
+                label,
+                isButton,
+                isShowing = true,
+                handleClick = () => {},
+              }) => {
                 if (!isShowing) return;
                 if (isButton) {
                   return (
