@@ -28,7 +28,6 @@ export default function SummaryPage() {
     }
   }, [stageQuery, dispatch, actions]);
 
-  return <Loader isDotted />;
   if (isUserDataLoading || !user) return <Loader isDotted />;
 
   const cabinData = {
