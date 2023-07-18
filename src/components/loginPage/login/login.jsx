@@ -23,7 +23,7 @@ const errors = {
   USER_NOT_FOUND:
     'We do not have a record of this email. Please buy a ticket, or contact info@highlandsmusicfestival.ca',
   INCORRECT_PASSWORD:
-    'The order confirmation number does not match the one we have on file for this email. Please double check your spelling, or contact info@highlandsmusicfestival.ca',
+    'This password does not match the one we have on file for this email. Please double check your spelling, or contact info@highlandsmusicfestival.ca',
   GENERIC:
     "We're sorry, an unknown error has occured. Please contact info@highlandsmusicfestival.ca.",
 };
@@ -88,7 +88,7 @@ export default function Login() {
         type="password"
         id="password"
         handleChange={e => handleChange(e, setPassword)}
-        label="Order confirmation number"
+        label="Password"
       />
       <Button isLoading={isLoading} classNames={styles.submit}>
         Log in

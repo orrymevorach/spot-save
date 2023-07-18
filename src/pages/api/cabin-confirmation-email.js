@@ -30,9 +30,9 @@ export default async function handler(req, res) {
       <div>
         <img src="https://reservations.highlandsmusicfestival.ca/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FLogo-1200px-No-Bkgd-min.effb0614.png&w=3840&q=75" style="width:300px;" }} />
         <p>Your reservation is confirmed!</p>
-        <p>Cabin: <span style="font-weight:bold;">${cabin.name}</span></p>
-        <p>Unit: <span style="font-weight:bold;">${cabin.unit}</span></p>
-        <p>Bed: <span style="font-weight:bold;text-transform:capitalize">${selectedBedName}</span></p>
+        <p style="display:flex;"><span style="display:block;width:45px;">Cabin:</span> <span style="display:block;font-weight:bold;">${cabin.name}</span></p>
+        <p style="display:flex;"><span style="display:block;width:45px;">Unit:</span> <span style="display:block;font-weight:bold;">${cabin.unit}</span></p>
+        <p style="display:flex;"><span style="display:block;width:45px;">Bed:</span> <span style="display:block;font-weight:bold;text-transform:capitalize">${selectedBedName}</span></p>
         <p>If you did not make this reservation, someone may have made a booking on your behalf.</p>
         <p>To view or modify your reservation, <a href="https://reservations.highlandsmusicfestival.ca">click here</a>.</p>
         <p>If you have any question or concerns, please contact us at info@highlandsmusicfestival.ca</p>
