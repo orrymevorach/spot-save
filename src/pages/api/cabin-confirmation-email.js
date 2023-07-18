@@ -4,7 +4,6 @@ let nodemailer = require('nodemailer');
 
 export default async function handler(req, res) {
   const { groupMembers, cabin, selectedBeds } = req.body;
-  console.log('groupMembers', groupMembers);
 
   let transporter = nodemailer.createTransport({
     host: 'smtp.mailgun.org',
@@ -24,7 +23,7 @@ export default async function handler(req, res) {
       ? replaceCamelCaseWithSpaces(selectedBed.bedName)
       : 'No bed selected';
     await transporter.sendMail({
-      from: 'Highlands@reservations.highlandsmusicfestival.ca',
+      from: 'Highlands Music Festival noreply@reservations.highlandsmusicfestival.ca',
       to: groupMember.emailAddress,
       subject: 'Cabin Reservation Confirmed!',
       html: `
