@@ -3,6 +3,17 @@ import styles from './addGuests.module.scss';
 import { useReservation } from '@/context/reservation-context';
 import clsx from 'clsx';
 
+const getErrorMessage = ({ numberOfOpenBeds, numberOfGroupMembers }) => {
+  const isCabinFull = numberOfOpenBeds === 0;
+  const hasRoom = numberOfOpenBeds > numberOfGroupMembers;
+  if (isCabinFull)
+    return 'This cabin is full. Please select a different cabin.';
+  else if (!hasRoom)
+    return 'There are not enough beds in this cabin for your entire group.';
+  else
+    return 'We apologize, this cabin cannot be reserved right now. If you specifically want to request this cabin, please contact info@highlandsmusicfestival.ca.';
+};
+
 export default function AddGuests({ cabin, classNames = '' }) {
   const { groupData } = useReservation();
 
@@ -11,6 +22,11 @@ export default function AddGuests({ cabin, classNames = '' }) {
 
   const numberOfGroupMembers = groupData.members.length;
   const hasRoom = numberOfOpenBeds > numberOfGroupMembers;
+
+  const errorMessage = getErrorMessage({
+    numberOfOpenBeds,
+    numberOfGroupMembers,
+  });
 
   return (
     <div className={clsx(styles.container, classNames)}>
@@ -26,7 +42,7 @@ export default function AddGuests({ cabin, classNames = '' }) {
         </div>
       ) : (
         <div className={styles.input}>
-          <p>There are not enough beds in this cabin for your entire group.</p>
+          <p>{errorMessage}</p>
         </div>
       )}
     </div>
