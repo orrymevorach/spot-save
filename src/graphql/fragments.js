@@ -19,50 +19,62 @@ export const CABIN_FRAGMENT = gql`
     frontBunkLeft {
       id
       name
+      emailAddress
     }
     frontCotLeft {
       id
       name
+      emailAddress
     }
     backCotLeft {
       id
       name
+      emailAddress
     }
     frontLoftLeft {
       id
       name
+      emailAddress
     }
     backLoftLeft {
       id
       name
+      emailAddress
     }
     backBunkLeft {
       id
       name
+      emailAddress
     }
     frontBunkRight {
       id
       name
+      emailAddress
     }
     frontCotRight {
       id
       name
+      emailAddress
     }
     backCotRight {
       id
       name
+      emailAddress
     }
     frontLoftRight {
       id
       name
+      emailAddress
     }
     backLoftRight {
       id
       name
+      emailAddress
     }
     backBunkRight {
       id
       name
+      emailAddress
     }
   }
 `;
