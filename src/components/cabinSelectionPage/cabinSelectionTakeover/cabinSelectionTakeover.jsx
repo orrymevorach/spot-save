@@ -5,11 +5,14 @@ import ImageCarousel from '@/components/shared/imageCarousel';
 import CabinSummary from './cabinSummary';
 import Takeover from '@/components/shared/takeover/takeover';
 import { useWindowSize } from '@/context/window-size-context';
+import { useState } from 'react';
+import BedSelection from '@/components/shared/bedSelection/bedSelection';
 
 export default function CabinSelectionTakeover() {
   const { showTakeover, dispatch, actions, selectedCabin } =
     useCabinSelection();
   const { isMobile } = useWindowSize();
+  const [showBedSelection, setShowBedSelection] = useState(false);
 
   return (
     <Takeover
@@ -17,18 +20,24 @@ export default function CabinSelectionTakeover() {
       handleClose={() => dispatch({ type: actions.CLOSE_CABIN_SELECTION })}
       modalClassNames={styles.modal}
     >
-      <div className={styles.outerContainer}>
-        <div className={styles.innerContainer}>
-          <ImageCarousel
-            images={selectedCabin.images}
-            classNames={styles.carousel}
-            height={isMobile ? 200 : 300}
-          />
-          <CabinSummary {...selectedCabin} />
+      {showBedSelection ? (
+        <BedSelection cabin={selectedCabin} readOnly />
+      ) : (
+        <div className={styles.outerContainer}>
+          <div className={styles.innerContainer}>
+            <ImageCarousel
+              images={selectedCabin.images}
+              classNames={styles.carousel}
+              height={isMobile ? 200 : 300}
+            />
+            <CabinSummary {...selectedCabin} />
+          </div>
         </div>
-
-        <BottomRow />
-      </div>
+      )}
+      <BottomRow
+        showBedSelection={showBedSelection}
+        setShowBedSelection={setShowBedSelection}
+      />
     </Takeover>
   );
 }

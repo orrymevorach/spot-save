@@ -4,6 +4,7 @@
   margin-top: 50px;
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 
 div.overlay {
@@ -21,4 +22,8 @@ div.overlay {
 
 .loader {
   top: auto;
+}
+
+.viewBedSelectionButton {
+  margin-left: 20px;
 }

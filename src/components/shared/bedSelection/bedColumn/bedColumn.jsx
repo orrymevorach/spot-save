@@ -1,7 +1,7 @@
 import Bed from '../bed';
 import styles from './bedColumn.module.scss';
 
-export default function BedColumn({ beds, flip = false }) {
+export default function BedColumn({ beds, flip = false, readOnly, cabin }) {
   return (
     <div className={styles.column}>
       {beds.map((row, index) => {
@@ -14,6 +14,8 @@ export default function BedColumn({ beds, flip = false }) {
                   bedName={bed}
                   classNames={styles.bed}
                   flip={flip}
+                  readOnly={readOnly}
+                  cabin={cabin}
                 />
               );
             })}

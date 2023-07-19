@@ -3,21 +3,28 @@ import { useReservation } from '@/context/reservation-context';
 import Button from '@/components/shared/button/button';
 import { useState } from 'react';
 import Cabin from './cabin/cabin';
-import { useUser } from '@/context/user-context';
 import { clearCurrentBedSelection, reserveBed } from '@/lib/airtable';
 import Legend from './legend/legend';
 import { useWindowSize } from '@/context/window-size-context';
 import { sendConfirmationEmail } from '@/lib/mailgun';
 
-export default function BedSelection() {
+const HeadStaffCabinInformation = () => {
+  return (
+    <div>
+      <p>Bed selection for this cabin is not required.</p>
+    </div>
+  );
+};
+
+export default function BedSelection({ readOnly = false, cabin }) {
   const [isLoading, setIsLoading] = useState(false);
   const {
     selectedBeds,
     groupData: { members },
   } = useReservation();
   const { isMobile } = useWindowSize();
-  const { user } = useUser();
-  const cabin = user.cabin[0];
+
+  if (cabin.totalBeds === 3) return <HeadStaffCabinInformation />;
 
   const handleClick = async () => {
     setIsLoading(true);
@@ -58,12 +65,12 @@ export default function BedSelection() {
 
   return (
     <div className={styles.bedSelectionContainer}>
-      <Cabin />
+      <Cabin readOnly={readOnly} cabin={cabin} />
       <div className={styles.sidePanel}>
-        {!isMobile && <ConfirmButton />}
+        {!isMobile && !readOnly ? <ConfirmButton /> : ''}
         <Legend />
       </div>
-      {isMobile && <ConfirmButton />}
+      {isMobile && !readOnly ? <ConfirmButton /> : ''}
     </div>
   );
 }

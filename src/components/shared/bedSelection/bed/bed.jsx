@@ -37,7 +37,13 @@ const getIsBedOccupiedByMemberOfGroup = ({ members, bedName, cabin }) => {
   });
 };
 
-export default function Bed({ bedName, classNames = '', flip = false }) {
+export default function Bed({
+  bedName,
+  classNames = '',
+  flip = false,
+  readOnly,
+  cabin,
+}) {
   const {
     selectedBeds,
     dispatch,
@@ -47,7 +53,6 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
   const { user, dispatch: dispatchUser, actions: userActions } = useUser();
   const [currentUser, setCurrentUser] = useState('');
   const [placeOnHold, setPlaceOnHold] = useState(false);
-  const cabin = user?.cabin && user.cabin[0];
 
   // Filter out names with selected beds
   const usersWithoutSelectedBeds = filterOutUsersWithSelectedBeds({
@@ -115,6 +120,23 @@ export default function Bed({ bedName, classNames = '', flip = false }) {
       )}
     />
   );
+
+  if (readOnly)
+    return (
+      <div className={clsx(styles.bed, classNames, flip && styles.flip)}>
+        {flip && <BedIcon />}
+        <p
+          className={clsx(
+            styles.reservedText,
+            currentUser === 'Reserved' && styles.anonymous
+          )}
+        >
+          {currentUser}
+        </p>
+
+        {!flip && <BedIcon />}
+      </div>
+    );
 
   return (
     <div className={clsx(styles.bed, classNames, flip && styles.flip)}>

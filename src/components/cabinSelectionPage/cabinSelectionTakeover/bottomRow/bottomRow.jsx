@@ -7,8 +7,8 @@ import { useRouter } from 'next/router';
 import { ROUTES } from '@/utils/constants';
 import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
 
-export default function BottomRow() {
-  const { selectedCabin } = useCabinSelection();
+export default function BottomRow({ showBedSelection, setShowBedSelection }) {
+  const { selectedCabin, dispatch, actions } = useCabinSelection();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -36,11 +36,19 @@ export default function BottomRow() {
 
   return (
     <div className={styles.bottomRow}>
-      <Button
-        handleClick={() => dispatch({ type: actions.CLOSE_CABIN_SELECTION })}
-      >
-        Back
-      </Button>
+      <div>
+        <Button
+          handleClick={() => dispatch({ type: actions.CLOSE_CABIN_SELECTION })}
+        >
+          Back
+        </Button>
+        <Button
+          handleClick={() => setShowBedSelection(!showBedSelection)}
+          classNames={styles.viewBedSelectionButton}
+        >
+          {showBedSelection ? 'View cabin information' : 'View available beds'}
+        </Button>
+      </div>
       <Button handleClick={handleClick}>Continue</Button>
     </div>
   );
