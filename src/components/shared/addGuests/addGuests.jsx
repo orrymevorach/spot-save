@@ -10,9 +10,8 @@ const getErrorMessage = ({
   const isCabinFull = numberOfOpenBeds === 0;
   const noAdditionalBeds =
     numberOfMembersNotConfirmedInCurrentCabin >= numberOfOpenBeds;
-  if (isCabinFull)
-    return 'This cabin is full. Please select a different cabin.';
-  else if (noAdditionalBeds) return 'No additional beds available';
+  if (isCabinFull || noAdditionalBeds)
+    return 'No additional beds are available in this cabin.';
   else return;
 };
 
