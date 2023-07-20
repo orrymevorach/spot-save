@@ -55,7 +55,7 @@ export default function AddGuestsTakeover() {
         </div>
         <div className={styles.bottomRow}>
           <ReserveButton cabin={cabin} classNames={styles.button}>
-            {'Update Reservation'}
+            Update Reservation
           </ReserveButton>
           <Button isLoading={isLoading} handleClick={handleLeaveGroup}>
             Leave Group

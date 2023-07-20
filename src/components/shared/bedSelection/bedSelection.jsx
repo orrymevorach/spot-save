@@ -11,7 +11,11 @@ import { sendConfirmationEmail } from '@/lib/mailgun';
 const HeadStaffCabinInformation = () => {
   return (
     <div>
-      <p>Bed selection for this cabin is not required.</p>
+      <p>
+        Bed selection for this cabin is not available. There are three single
+        beds per room. If you have any questions please contact
+        info@highlandsmusicfestival.ca.
+      </p>
     </div>
   );
 };
