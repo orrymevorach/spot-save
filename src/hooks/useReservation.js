@@ -20,12 +20,12 @@ export const CABIN_SELECTION_STAGES = {
 
 const initialState = {
   currentStage: '',
-  selectedCabin: null,
   selectedBeds: [],
   groupData: {
     id: '',
     members: [],
   },
+  numberOfMembersNotConfirmedInCurrentCabin: 0,
 };
 
 const reducer = (state, action) => {
@@ -34,6 +34,8 @@ const reducer = (state, action) => {
       return {
         ...state,
         groupData: action.groupData,
+        numberOfMembersNotConfirmedInCurrentCabin:
+          action.numberOfMembersNotConfirmedInCurrentCabin,
       };
     case SET_SELECTION_STAGE:
       return {
@@ -119,19 +121,32 @@ export const useReservationReducer = () => {
   const { user } = useUser();
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // Add group data on page load
+  const cabinData = useGetCabinData();
   useEffect(() => {
-    if (user && !state.groupData.members.length) {
+    if (user && !state.groupData.members.length && cabinData.cabin) {
+      // Add group data on page load
       const hasGroup = user?.group && user.group[0];
       const groupData = hasGroup ? user.group[0] : { members: [user] };
+
+      // numberOfMembersNotConfirmedInCurrentCabin helps with add guest logic.
+      // Specfically in the scenario where members of the group are confirmed in a cabin, and others are added later to the same cabin as the rest of the group.
+      const numberOfMembersNotConfirmedInCurrentCabin =
+        groupData.members.filter(({ cabin }) => {
+          const hasCabin = cabin.length > 0;
+          const hasDifferentCabin = hasCabin
+            ? cabin[0].name !== cabinData.cabin.name
+            : false;
+          if (!hasCabin || hasDifferentCabin) return true;
+          return false;
+        }).length;
+
       dispatch({
         type: UPDATE_GROUP,
         groupData,
+        numberOfMembersNotConfirmedInCurrentCabin,
       });
     }
-  }, [user, state]);
-
-  const cabinData = useGetCabinData();
+  }, [user, state, cabinData]);
 
   useGetBeds({ cabinData, dispatch, actions });
 

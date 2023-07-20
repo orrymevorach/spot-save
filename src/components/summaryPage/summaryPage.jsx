@@ -49,7 +49,7 @@ export default function SummaryPage() {
           <p className={styles.title}>Summary</p>
         </div>
         <ReservationSummary cabinData={cabinData} showBedSelection />
-        {members?.length > 1 && <VerifiedUsers />}
+        {members?.length > 1 && <VerifiedUsers hideRemoveButton />}
       </div>
       <ModifyReservationButtons />
     </div>

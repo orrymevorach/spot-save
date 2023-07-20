@@ -38,7 +38,7 @@ export default function Sidebar({ cabinData }) {
       </div>
       <ReservationSummary cabinData={cabinData} />
       <VerifiedUsers
-        hideRemoveButton={currentStage === CABIN_SELECTION_STAGES.ADD_GUESTS}
+        hideRemoveButton={currentStage !== CABIN_SELECTION_STAGES.ADD_GUESTS}
       />
       {!cabinHasEnoughBeds && (
         <p>There are not enough beds in this cabin for your entire group.</p>

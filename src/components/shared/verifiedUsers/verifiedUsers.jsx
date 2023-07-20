@@ -9,7 +9,12 @@ import { useState } from 'react';
 import Loader from '../loader/loader';
 
 const VerifiedUser = ({ currentUser, index, hideRemoveButton }) => {
-  const { dispatch, actions, groupData } = useReservation();
+  const {
+    dispatch,
+    actions,
+    groupData,
+    numberOfMembersNotConfirmedInCurrentCabin,
+  } = useReservation();
   const { user } = useUser();
   const isLoggedInUser = currentUser.name === user.name;
   const [isLoading, setIsLoading] = useState(false);
@@ -26,6 +31,8 @@ const VerifiedUser = ({ currentUser, index, hideRemoveButton }) => {
     dispatch({
       type: actions.UPDATE_GROUP,
       groupData,
+      numberOfMembersNotConfirmedInCurrentCabin:
+        numberOfMembersNotConfirmedInCurrentCabin - 1,
     });
     setIsLoading(false);
   };
@@ -40,7 +47,7 @@ const VerifiedUser = ({ currentUser, index, hideRemoveButton }) => {
         <span className={styles.number}>{index + 1}.</span>
         {currentUser.name}
       </p>
-      {!isLoggedInUser && hideRemoveButton ? (
+      {!isLoggedInUser && !hideRemoveButton ? (
         <button
           className={styles.remove}
           onClick={() => handleRemoveUser({ currentUser })}

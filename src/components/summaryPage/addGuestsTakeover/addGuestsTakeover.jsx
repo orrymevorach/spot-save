@@ -51,7 +51,7 @@ export default function AddGuestsTakeover() {
             classNames={styles.addGuests}
             hideBackButton
           />
-          <VerifiedUsers />
+          <VerifiedUsers hideRemoveButton />
         </div>
         <div className={styles.bottomRow}>
           <ReserveButton cabin={cabin} classNames={styles.button}>

@@ -36,7 +36,12 @@ export default function InputVerify() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { groupData, dispatch, actions } = useReservation();
+  const {
+    groupData,
+    dispatch,
+    actions,
+    numberOfMembersNotConfirmedInCurrentCabin,
+  } = useReservation();
   const { user } = useUser();
 
   const handleChange = e => {
@@ -93,6 +98,8 @@ export default function InputVerify() {
     dispatch({
       type: actions.UPDATE_GROUP,
       groupData: updatedGroupData,
+      numberOfMembersNotConfirmedInCurrentCabin:
+        numberOfMembersNotConfirmedInCurrentCabin + 1,
     });
   };
 
