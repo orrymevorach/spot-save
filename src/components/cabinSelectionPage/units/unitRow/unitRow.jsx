@@ -23,16 +23,17 @@ const unitImages = {
 
 export default function UnitRow({ unitData }) {
   const [showTakeover, setShowTakeover] = useState(false);
-  const [unitName, { cabins = [] }] = unitData;
-  const hasCabinData = cabins.length;
+  const [hasAvailability, setHasAvailability] = useState(true);
+  const [unitName] = unitData;
   const unitImage = unitImages[unitName];
   const { isMobile } = useWindowSize();
+  const unitNameWithoutTrailingS = unitName.slice(0, -1);
 
   return (
     <div id={unitName} className={styles.outerContainer}>
       <div className={styles.innerContainer}>
         <div className={styles.unitTitleContainer}>
-          <p className={styles.unitName}>Unit: {unitName}</p>
+          <p className={styles.unitName}>{unitNameWithoutTrailingS} Unit</p>
           {isMobile && (
             <>
               <Button
@@ -55,17 +56,18 @@ export default function UnitRow({ unitData }) {
           )}
         </div>
         <div className={styles.unitContainer}>
-          {!hasCabinData ? (
-            <p>There are currently no cabins available in this unit</p>
-          ) : (
-            <CabinList unitData={unitData} />
-          )}
-          {!isMobile && (
+          <CabinList
+            unitData={unitData}
+            setHasAvailability={setHasAvailability}
+          />
+          {!isMobile && hasAvailability ? (
             <Image
               src={unitImage}
               alt={`${unitName} unit`}
               className={styles.unitImage}
             />
+          ) : (
+            ''
           )}
         </div>
       </div>

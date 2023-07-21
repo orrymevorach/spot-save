@@ -4,46 +4,16 @@ import { useCabinSelection } from '@/context/cabin-selection-context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronCircleDown } from '@fortawesome/free-solid-svg-icons';
 import { useRef, useState } from 'react';
+import { useFilters } from '../../../filters/filters-context';
+import clsx from 'clsx';
 import {
-  useFilters,
-  FILTERS,
-  GENDER_LABELS,
-} from '../../../filters/filters-context';
+  filterByAvailableBeds,
+  filterByGender,
+  filterOutClosedCabins,
+  sortByLeastAvailability,
+} from './filter-utils';
 
-const { AVAILABLE_BEDS, GENDER } = FILTERS;
-
-const filterByGender = ({ cabins, selectedFilters }) => {
-  const genderFilter = selectedFilters[GENDER];
-  const { MALE, FEMALE, MIXED } = GENDER_LABELS;
-  return cabins.filter(({ additionalInformation }) => {
-    if (!additionalInformation || !genderFilter || genderFilter === MIXED)
-      return true;
-    const isMaleCabin = additionalInformation.includes(MALE);
-    const isFemaleCabin = additionalInformation.includes(FEMALE);
-    if (isMaleCabin && genderFilter === MALE) return true;
-    if (isFemaleCabin && genderFilter === FEMALE) return true;
-    return false;
-  });
-};
-
-const filterByAvailableBeds = ({ cabins, selectedFilters }) => {
-  const availableBedsFilter = selectedFilters[AVAILABLE_BEDS];
-  return cabins.filter(({ openBeds }) => {
-    if (openBeds >= availableBedsFilter) return true;
-    return false;
-  });
-};
-
-const sortByLeastAvailability = ({ cabins }) => {
-  return cabins.sort((a, b) => {
-    const aOpenBeds = parseFloat(a.openBeds);
-    const bOpenBeds = parseFloat(b.openBeds);
-    if (aOpenBeds > bOpenBeds) return 1;
-    return -1;
-  });
-};
-
-export default function CabinList({ unitData }) {
+export default function CabinList({ unitData, setHasAvailability }) {
   const { dispatch, actions } = useCabinSelection();
   const [scrollValue, setScrollValue] = useState(0);
   const { selectedFilters } = useFilters();
@@ -66,27 +36,40 @@ export default function CabinList({ unitData }) {
   filteredCabins = filterByAvailableBeds({ cabins, selectedFilters });
   filteredCabins = filterByGender({ cabins: filteredCabins, selectedFilters });
   filteredCabins = sortByLeastAvailability({ cabins: filteredCabins });
+  filteredCabins = filterOutClosedCabins({ cabins: filteredCabins });
+
+  const hasCabins = !!filteredCabins.length;
+  setHasAvailability(hasCabins);
 
   return (
     <div className={styles.cabinListOuterContainer}>
       <ul
-        className={styles.cabinListInnerContainer}
+        className={clsx(
+          styles.cabinListInnerContainer,
+          !hasCabins && styles.noAvailability
+        )}
         ref={cabinListRef}
         onScroll={e => setScrollValue(e.target.scrollTop)}
       >
-        {filteredCabins.map(cabin => {
-          return (
-            <CabinSelectionTile
-              cabin={cabin}
-              key={`${cabin.unit}-${cabin.name}`}
-              handleSelectCabin={() => handleSubmit(cabin)}
-            />
-          );
-        })}
+        {hasCabins ? (
+          filteredCabins.map(cabin => {
+            return (
+              <CabinSelectionTile
+                cabin={cabin}
+                key={`${cabin.unit}-${cabin.name}`}
+                handleSelectCabin={() => handleSubmit(cabin)}
+              />
+            );
+          })
+        ) : (
+          <p>There are currently no cabins available in this unit</p>
+        )}
       </ul>
-      <button className={styles.scrollDownButton} onClick={handleScrollDown}>
-        <FontAwesomeIcon icon={faChevronCircleDown} size="3x" />
-      </button>
+      {hasCabins && (
+        <button className={styles.scrollDownButton} onClick={handleScrollDown}>
+          <FontAwesomeIcon icon={faChevronCircleDown} size="3x" />
+        </button>
+      )}
     </div>
   );
 }

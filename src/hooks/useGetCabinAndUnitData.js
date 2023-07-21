@@ -14,12 +14,12 @@ const initialUnitsData = {
   Seekers: {
     cabins: [],
   },
-  CITS: {
-    cabins: [],
-  },
-  'L-Team': {
-    cabins: [],
-  },
+  // CITS: {
+  //   cabins: [],
+  // },
+  // 'L-Team': {
+  //   cabins: [],
+  // },
 };
 
 const sortCabinsIntoUnits = (cabinList, initialUnitsData) => {

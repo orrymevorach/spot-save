@@ -7,6 +7,7 @@ export const CABIN_FRAGMENT = gql`
     name
     status
     totalBeds
+    availability
     unit
     additionalInformation
     images

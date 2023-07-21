@@ -10,6 +10,10 @@
   padding-top: 30px;
   border-radius: 3px;
   scroll-behavior: smooth;
+  &.noAvailability {
+    height: auto;
+    overflow-y: auto;
+  }
 }
 
 .scrollDownButton {
