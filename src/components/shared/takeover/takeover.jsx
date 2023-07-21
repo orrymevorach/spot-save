@@ -28,6 +28,7 @@ export default function Takeover({
       const body = document.getElementsByTagName('body')[0];
       body.style.overflow = 'hidden';
     }
+    () => (body.style.overflow = 'visible');
   }, []);
 
   const isOpen = showTakeover ? showTakeover : isModalOpen;

@@ -27,3 +27,16 @@ div.overlay {
 .viewBedSelectionButton {
   margin-left: 20px;
 }
+
+@media screen and (max-width: variables.$mobile) {
+  .bottomRow,
+  .leftContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .viewBedSelectionButton {
+    margin: 10px 0;
+  }
+}

@@ -36,7 +36,7 @@ export default function BottomRow({ showBedSelection, setShowBedSelection }) {
 
   return (
     <div className={styles.bottomRow}>
-      <div>
+      <div className={styles.leftContainer}>
         <Button
           handleClick={() => dispatch({ type: actions.CLOSE_CABIN_SELECTION })}
         >
