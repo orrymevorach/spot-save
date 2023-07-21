@@ -41,7 +41,9 @@ export default function Sidebar({ cabinData }) {
         hideRemoveButton={currentStage !== CABIN_SELECTION_STAGES.ADD_GUESTS}
       />
       {!cabinHasEnoughBeds && (
-        <p>There are not enough beds in this cabin for your entire group.</p>
+        <p className={styles.notEnoughBedsText}>
+          There are not enough beds in this cabin for your entire group.
+        </p>
       )}
       {showReservationButton && <ReserveButton cabin={cabinData?.cabin} />}
     </div>

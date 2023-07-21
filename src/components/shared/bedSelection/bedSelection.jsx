@@ -12,9 +12,9 @@ const HeadStaffCabinInformation = () => {
   return (
     <div>
       <p>
-        Bed selection for this cabin is not available. There are three single
-        beds per room. If you have any questions please contact
-        info@highlandsmusicfestival.ca.
+        Bed selection for head staff cabins is not available. Each head staff
+        cabin has three single beds per room. If you have any questions please
+        contact info@highlandsmusicfestival.ca.
       </p>
     </div>
   );
@@ -68,13 +68,20 @@ export default function BedSelection({ readOnly = false, cabin }) {
   );
 
   return (
-    <div className={styles.bedSelectionContainer}>
-      <Cabin readOnly={readOnly} cabin={cabin} />
-      <div className={styles.sidePanel}>
-        {!isMobile && !readOnly ? <ConfirmButton /> : ''}
-        <Legend />
+    <div>
+      {readOnly && (
+        <p className={styles.readOnlyText}>
+          You must reserve your spot in a cabin before you can reserve a bed .
+        </p>
+      )}
+      <div className={styles.bedSelectionContainer}>
+        <Cabin readOnly={readOnly} cabin={cabin} />
+        <div className={styles.sidePanel}>
+          {!isMobile && !readOnly ? <ConfirmButton /> : ''}
+          <Legend readOnly={readOnly} />
+        </div>
+        {isMobile && !readOnly ? <ConfirmButton /> : ''}
       </div>
-      {isMobile && !readOnly ? <ConfirmButton /> : ''}
     </div>
   );
 }

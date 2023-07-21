@@ -40,7 +40,7 @@ export default function BottomRow({ showBedSelection, setShowBedSelection }) {
         <Button
           handleClick={() => dispatch({ type: actions.CLOSE_CABIN_SELECTION })}
         >
-          Back
+          Close
         </Button>
         <Button
           handleClick={() => setShowBedSelection(!showBedSelection)}

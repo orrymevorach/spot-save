@@ -10,6 +10,7 @@ import clsx from 'clsx';
 import { useUser } from '@/context/user-context';
 import BedDropdown from './bed-dropdown/bed-dropdown';
 import { clearCurrentBedSelection, getUserByRecordId } from '@/lib/airtable';
+import Loader from '../../loader/loader';
 
 const filterOutUsersWithSelectedBeds = ({ members, selectedBeds }) => {
   return members
@@ -53,6 +54,7 @@ export default function Bed({
   const { user, dispatch: dispatchUser, actions: userActions } = useUser();
   const [currentUser, setCurrentUser] = useState('');
   const [placeOnHold, setPlaceOnHold] = useState(false);
+  const [isRemoveLoading, setIsRemoveLoading] = useState(false);
 
   // Filter out names with selected beds
   const usersWithoutSelectedBeds = filterOutUsersWithSelectedBeds({
@@ -95,18 +97,20 @@ export default function Bed({
   }, [currentBedOccupantInCurrentGroup, cabin, bedName]);
 
   const handleRemove = async () => {
+    setIsRemoveLoading(true);
     const currentUserData = members.find(({ name }) => currentUser === name);
     const updatedBeds = selectedBeds.filter(({ name }) => name !== currentUser);
+    await clearCurrentBedSelection({ userId: currentUserData.id });
+    // Getting user to have up to date cabin data
+    const userData = await getUserByRecordId({ id: user.id });
     setCurrentUser();
     setPlaceOnHold(false);
-    await clearCurrentBedSelection({ userId: currentUserData.id });
+    dispatchUser({ type: userActions.LOG_IN, userData });
     dispatch({
       type: actions.SELECT_BEDS,
       selectedBeds: updatedBeds,
     });
-    // Getting user to have up to date cabin data
-    const userData = await getUserByRecordId({ id: user.id });
-    dispatchUser({ type: userActions.LOG_IN, userData });
+    setIsRemoveLoading(false);
   };
 
   const BedIcon = () => (
@@ -125,13 +129,8 @@ export default function Bed({
     return (
       <div className={clsx(styles.bed, classNames, flip && styles.flip)}>
         {flip && <BedIcon />}
-        <p
-          className={clsx(
-            styles.reservedText,
-            currentUser === 'Reserved' && styles.anonymous
-          )}
-        >
-          {currentUser}
+        <p className={clsx(styles.reservedText, styles.anonymous)}>
+          {currentUser === 'Reserved' ? currentUser : 'Available'}
         </p>
 
         {!flip && <BedIcon />}
@@ -149,7 +148,7 @@ export default function Bed({
           label="Select Guest"
           value={currentUser}
         />
-      ) : (
+      ) : currentUser && !isRemoveLoading ? (
         <p
           className={clsx(
             styles.reservedText,
@@ -163,6 +162,10 @@ export default function Bed({
           )}
           {currentUser}
         </p>
+      ) : (
+        isRemoveLoading && (
+          <Loader isDotted classNames={styles.removeBedLoader} size="lg" />
+        )
       )}
 
       {!flip && <BedIcon />}

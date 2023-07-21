@@ -17,11 +17,12 @@ const legend = [
   },
 ];
 
-export default function Legend() {
+export default function Legend({ readOnly }) {
   return (
     <div className={styles.container}>
       <p className={styles.title}>Legend:</p>
       {legend.map(({ status, color }) => {
+        if (readOnly && color === 'blue') return;
         return (
           <div key={status} className={styles.statusContainer}>
             <FontAwesomeIcon icon={faMattressPillow} color={color} size="2x" />

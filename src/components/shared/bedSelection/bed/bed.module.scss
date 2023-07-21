@@ -56,3 +56,12 @@ div.dropdown {
   background: none;
   border: none;
 }
+
+div.removeBedLoader {
+  position: relative;
+  left: auto;
+  transform: translateX(0);
+  top: auto;
+  display: block;
+  margin: 0 auto;
+}
