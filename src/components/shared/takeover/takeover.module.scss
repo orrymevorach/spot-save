@@ -16,20 +16,10 @@
   z-index: 1000;
 }
 
-.overlay {
-  background-color: rgba(0, 0, 0, 0.4);
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  z-index: 100;
-  min-height: 100vh;
-}
-
 .modal {
   background-color: white;
   box-shadow: 0px 0px 20px 1px variables.$charcoal;
   position: relative;
-  z-index: 101;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,6 +27,15 @@
   padding: 50px;
   border-radius: variables.$borderRadius;
   margin: 0 25px;
+  &:before {
+    content: '';
+    background-color: rgba(0, 0, 0, 0.4);
+    min-height: 100vh;
+    height: 100%;
+    width: 100vw;
+    position: absolute;
+    z-index: -1;
+  }
 }
 
 .closeButton {
@@ -55,6 +54,10 @@
     width: 95%;
     padding: 25px;
     margin: 25px;
+    &:before {
+      top: -25px;
+      height: calc(100% + 50px);
+    }
   }
   .takeover {
     position: fixed;

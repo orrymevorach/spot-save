@@ -6,7 +6,6 @@ import clsx from 'clsx';
 export default function Takeover({
   children,
   styles,
-  disableOverlayClose,
   handleClose,
   showTakeover,
   classNames = '',
@@ -24,10 +23,13 @@ export default function Takeover({
   useEffect(() => {
     const windowHeight = window.innerHeight;
     const takeoverHeight = takeoverRef.current.clientHeight;
+    const body = document.getElementsByTagName('body')[0];
     if (windowHeight >= takeoverHeight) {
-      const body = document.getElementsByTagName('body')[0];
       body.style.overflow = 'hidden';
     }
+    return () => {
+      body.style.overflow = 'visible';
+    };
   }, []);
 
   const isOpen = showTakeover ? showTakeover : isModalOpen;
@@ -39,10 +41,6 @@ export default function Takeover({
           style={styles}
           ref={takeoverRef}
         >
-          <div
-            className={style.overlay}
-            onClick={disableOverlayClose ? () => {} : closeModal}
-          ></div>
           <div className={clsx(style.modal, modalClassNames)}>
             {children}
             <CloseButton handleClick={closeModal} />
