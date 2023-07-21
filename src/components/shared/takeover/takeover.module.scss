@@ -49,7 +49,7 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: variables.$mobile) {
+@media screen and (max-width: variables.$tablet) {
   .modal {
     width: 95%;
     padding: 25px;
@@ -61,7 +61,8 @@
   }
   .takeover {
     position: fixed;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     align-items: flex-start;
   }
 }

@@ -2,8 +2,6 @@
 @use '@variables' as variables;
 
 .summaryContainer {
-  width: 50%;
-  padding-left: 50px;
   p {
     @include mixins.fontPrimary;
   }
@@ -34,7 +32,7 @@ ul.additionalInformationList {
   @include mixins.fontPrimary;
 }
 
-@media screen and (max-width: variables.$mobile) {
+@media screen and (max-width: variables.$tablet) {
   .summaryContainer {
     width: 100%;
     padding-left: 0;

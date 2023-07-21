@@ -7,6 +7,8 @@ import Takeover from '@/components/shared/takeover/takeover';
 import { useWindowSize } from '@/context/window-size-context';
 import { useState } from 'react';
 import BedSelection from '@/components/shared/bedSelection/bedSelection';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 export default function CabinSelectionTakeover() {
   const { showTakeover, dispatch, actions, selectedCabin } =
@@ -30,7 +32,20 @@ export default function CabinSelectionTakeover() {
               classNames={styles.carousel}
               height={isMobile ? 200 : 300}
             />
-            <CabinSummary {...selectedCabin} />
+            <div className={styles.right}>
+              <CabinSummary {...selectedCabin} />
+              <div className={styles.overlayText}>
+                <FontAwesomeIcon
+                  icon={faInfoCircle}
+                  className={styles.infoIcon}
+                  size="xs"
+                />
+                <p>
+                  All cabins have the exact same layout, though each cabin may
+                  differ slightly from the images.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       )}

@@ -1,6 +1,6 @@
 import styles from './cabinSummary.module.scss';
 
-export default function CabinSelection({
+export default function CabinSummary({
   name,
   additionalInformation = [],
   unit,
