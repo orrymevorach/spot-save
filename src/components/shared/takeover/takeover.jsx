@@ -23,12 +23,11 @@ export default function Takeover({
   const takeoverRef = useRef();
   useEffect(() => {
     const windowHeight = window.innerHeight;
-    const modalHeight = takeoverRef.current.clientHeight;
-    if (windowHeight >= modalHeight) {
+    const takeoverHeight = takeoverRef.current.clientHeight;
+    if (windowHeight >= takeoverHeight) {
       const body = document.getElementsByTagName('body')[0];
       body.style.overflow = 'hidden';
     }
-    () => (body.style.overflow = 'visible');
   }, []);
 
   const isOpen = showTakeover ? showTakeover : isModalOpen;
