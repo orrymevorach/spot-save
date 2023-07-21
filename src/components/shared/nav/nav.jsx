@@ -39,6 +39,7 @@ export default function Nav({ hamburgerMenuColor = '', navData = [] }) {
                 isButton,
                 isShowing = true,
                 handleClick = () => {},
+                isAnchor,
               }) => {
                 if (!isShowing) return;
                 if (isButton) {
@@ -48,6 +49,7 @@ export default function Nav({ hamburgerMenuColor = '', navData = [] }) {
                         handleClick={handleClick}
                         classNames={styles.button}
                         href={url}
+                        isAnchor={isAnchor}
                       >
                         {label}
                       </Button>

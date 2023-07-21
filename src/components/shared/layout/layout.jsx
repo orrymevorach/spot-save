@@ -50,6 +50,7 @@ export default function Layout({ children }) {
               isButton: true,
               isShowing: !isSummaryPage && hasCabin,
               url: ROUTES.SUMMARY,
+              isAnchor: true,
             },
             {
               label: 'Log Out',
