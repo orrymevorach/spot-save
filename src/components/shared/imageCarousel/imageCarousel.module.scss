@@ -4,7 +4,17 @@
   position: relative;
 }
 
-.image {
+.mediaContainer {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.playIcon,
+.image,
+.video {
   width: 100%;
   object-fit: cover;
 }
@@ -70,23 +80,11 @@
   }
 }
 
-.thumbnailsContainer {
-  display: flex;
-  margin-top: 3px;
+.videoTakeover {
+  height: 90vh;
+  padding: 5px;
 }
 
-.thumbnailButton {
-  border: none;
-  background: none;
-  margin: 0;
-  padding: 0;
-}
-
-.thumbnailImage {
-  width: 150px;
-  height: 80px;
-}
-
-.activeThumbnail {
-  border: 3px solid white;
+.takeoverVideo {
+  height: 100%;
 }

@@ -7,34 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import Image from 'next/image';
 import styles from './imageCarousel.module.scss';
-
-const Thumbnails = ({ images = [], index, setIndex }) => {
-  return (
-    <div className={styles.thumbnailsContainer}>
-      {images.map(({ thumbnails }, thumbnailIndex) => {
-        const isActive = thumbnailIndex === index;
-        return (
-          <button
-            key={thumbnails.large.url}
-            className={styles.thumbnailButton}
-            onClick={() => setIndex(thumbnailIndex)}
-          >
-            <Image
-              src={thumbnails.large.url}
-              alt=""
-              width={thumbnails.large.width}
-              height={thumbnails.large.height}
-              className={clsx(
-                styles.thumbnailImage,
-                isActive && styles.activeThumbnail
-              )}
-            />
-          </button>
-        );
-      })}
-    </div>
-  );
-};
+import Takeover from '../takeover';
+import Thumbnails from './thumbnails';
+import Video from './video';
 
 export default function ImageCarousel({
   images = [],
@@ -43,6 +18,8 @@ export default function ImageCarousel({
   height = 300,
 }) {
   const [index, setIndex] = useState(0);
+  const [showVideoTakeover, setShowVideoTakeover] = useState(false);
+
   // fadeIn animation
   const imageRef = useRef();
   useEffect(() => {
@@ -72,33 +49,57 @@ export default function ImageCarousel({
         <button onClick={handleClickLeft} className={styles.chevronLeft}>
           <FontAwesomeIcon icon={faChevronLeft} color="white" size="2xl" />
         </button>
-        <Image
-          src={currentImage.url}
-          height={currentImage.height}
-          width={currentImage.width}
-          alt=""
-          className={styles.image}
-          ref={imageRef}
-          quality={50}
-          style={{ maxHeight: `${height}px` }}
-        />
-        <button onClick={handleClickRight} className={styles.chevronRight}>
-          <FontAwesomeIcon icon={faChevronRight} color="white" size="2xl" />
-        </button>
-        <div className={styles.dotContainer}>
-          {images.map((_, dotIndex) => {
-            const isActive = dotIndex === index;
-            return (
-              <div
-                className={clsx(styles.dot, isActive && styles.active)}
-                key={`dot-${dotIndex}`}
-              ></div>
-            );
-          })}
+        <div className={styles.mediaContainer}>
+          {currentImage.type === 'video/quicktime' ? (
+            <Video
+              videoSrc={currentImage.url}
+              showVideoTakeover={showVideoTakeover}
+              setShowVideoTakeover={setShowVideoTakeover}
+            />
+          ) : (
+            <Image
+              src={currentImage.url}
+              height={currentImage.height}
+              width={currentImage.width}
+              alt=""
+              className={styles.image}
+              ref={imageRef}
+              quality={50}
+              style={{ maxHeight: `${height}px` }}
+            />
+          )}
+          <button onClick={handleClickRight} className={styles.chevronRight}>
+            <FontAwesomeIcon icon={faChevronRight} color="white" size="2xl" />
+          </button>
+          <div className={styles.dotContainer}>
+            {images.map((_, dotIndex) => {
+              const isActive = dotIndex === index;
+              return (
+                <div
+                  className={clsx(styles.dot, isActive && styles.active)}
+                  key={`dot-${dotIndex}`}
+                ></div>
+              );
+            })}
+          </div>
         </div>
       </div>
       {!hideThumbnails && (
         <Thumbnails images={images} index={index} setIndex={setIndex} />
+      )}
+      {showVideoTakeover && (
+        <Takeover
+          modalClassNames={styles.videoTakeover}
+          handleClose={() => setShowVideoTakeover(false)}
+        >
+          <video
+            autoPlay
+            controls
+            src={currentImage.url}
+            className={styles.takeoverVideo}
+            muted
+          />
+        </Takeover>
       )}
     </div>
   );
