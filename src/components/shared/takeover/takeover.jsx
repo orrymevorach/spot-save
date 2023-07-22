@@ -33,15 +33,34 @@ export default function Takeover({
   }, []);
 
   const isOpen = showTakeover ? showTakeover : isModalOpen;
+
+  // If modal is shorter than window height, center it veritcally, otherwise align it near top of page
+  const modalRef = useRef();
+  const [alignCenter, setAlignCenter] = useState(true);
+  useEffect(() => {
+    if (modalRef?.current) {
+      const windowHeight = window.innerHeight;
+      const modalHeight = modalRef.current.clientHeight;
+      if (modalHeight > windowHeight) {
+        setAlignCenter(false);
+      } else {
+        setAlignCenter(true);
+      }
+    }
+  }, [modalRef]);
+
   return (
     <>
       {isOpen && (
         <div
           className={clsx(style.takeover, classNames)}
-          style={styles}
+          style={{
+            alignItems: alignCenter ? 'center' : 'flex-start',
+            ...styles,
+          }}
           ref={takeoverRef}
         >
-          <div className={clsx(style.modal, modalClassNames)}>
+          <div className={clsx(style.modal, modalClassNames)} ref={modalRef}>
             {children}
             <CloseButton handleClick={closeModal} />
           </div>

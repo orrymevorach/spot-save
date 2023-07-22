@@ -15,7 +15,6 @@
   z-index: 2002;
   overflow-y: scroll;
   overflow-x: hidden;
-  align-items: flex-start;
 }
 
 .modal {
@@ -28,17 +27,17 @@
   flex-direction: column;
   padding: 50px;
   border-radius: variables.$borderRadius;
-  margin: 5vh;
-  min-height: 90vh;
+  margin: 25px;
   &:before {
     content: '';
+    position: fixed;
     background-color: rgba(0, 0, 0, 0.4);
     min-height: 100vh;
     width: 100vw;
-    position: absolute;
+    left: 0;
     z-index: -1;
-    top: -5vh;
-    height: calc(100% + 10vh);
+    top: -25px;
+    height: calc(100% + 50px);
   }
 }
 
@@ -57,11 +56,5 @@
   .modal {
     width: 95%;
     padding: 25px;
-    margin: 25px;
-    min-height: auto;
-    &:before {
-      top: -25px;
-      height: calc(100% + 50px);
-    }
   }
 }

@@ -10,6 +10,24 @@ import BedSelection from '@/components/shared/bedSelection/bedSelection';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
+const BedSelectionTakeover = ({ showBedSelection, setShowBedSelection }) => {
+  const { showTakeover, dispatch, actions, selectedCabin } =
+    useCabinSelection();
+  return (
+    <Takeover
+      showTakeover={showTakeover}
+      handleClose={() => dispatch({ type: actions.CLOSE_CABIN_SELECTION })}
+      modalClassNames={styles.modal}
+    >
+      <BedSelection cabin={selectedCabin} readOnly />
+      <BottomRow
+        showBedSelection={showBedSelection}
+        setShowBedSelection={setShowBedSelection}
+      />
+    </Takeover>
+  );
+};
+
 export default function CabinSelectionTakeover() {
   const { showTakeover, dispatch, actions, selectedCabin } =
     useCabinSelection();
@@ -17,42 +35,52 @@ export default function CabinSelectionTakeover() {
   const [showBedSelection, setShowBedSelection] = useState(false);
 
   return (
-    <Takeover
-      showTakeover={showTakeover}
-      handleClose={() => dispatch({ type: actions.CLOSE_CABIN_SELECTION })}
-      modalClassNames={styles.modal}
-    >
+    <>
       {showBedSelection ? (
-        <BedSelection cabin={selectedCabin} readOnly />
+        <BedSelectionTakeover
+          showBedSelection={showBedSelection}
+          setShowBedSelection={setShowBedSelection}
+        />
       ) : (
-        <div className={styles.outerContainer}>
-          <div className={styles.innerContainer}>
-            <ImageCarousel
-              images={selectedCabin.images}
-              classNames={styles.carousel}
-              height={isMobile ? 200 : 300}
-            />
-            <div className={styles.right}>
-              <CabinSummary {...selectedCabin} />
-              <div className={styles.overlayText}>
-                <FontAwesomeIcon
-                  icon={faInfoCircle}
-                  className={styles.infoIcon}
-                  size="xs"
-                />
-                <p>
-                  All cabins have the exact same layout, though each cabin may
-                  differ slightly from the images.
-                </p>
+        <Takeover
+          showTakeover={showTakeover}
+          handleClose={() => dispatch({ type: actions.CLOSE_CABIN_SELECTION })}
+          modalClassNames={styles.modal}
+        >
+          <div className={styles.outerContainer}>
+            <div className={styles.innerContainer}>
+              <ImageCarousel
+                images={selectedCabin.images}
+                classNames={styles.carousel}
+                height={isMobile ? 200 : 300}
+              />
+              <div className={styles.right}>
+                <CabinSummary {...selectedCabin} />
+                <div className={styles.overlayText}>
+                  <FontAwesomeIcon
+                    icon={faInfoCircle}
+                    className={styles.infoIcon}
+                    size="xs"
+                  />
+                  <p>
+                    All cabins have the exact same layout, though each cabin may
+                    differ slightly from the images.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+          <BottomRow
+            showBedSelection={showBedSelection}
+            setShowBedSelection={setShowBedSelection}
+          />
+        </Takeover>
       )}
+
       <BottomRow
         showBedSelection={showBedSelection}
         setShowBedSelection={setShowBedSelection}
       />
-    </Takeover>
+    </>
   );
 }
