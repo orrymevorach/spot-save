@@ -28,7 +28,8 @@
   flex-direction: column;
   padding: 50px;
   border-radius: variables.$borderRadius;
-  margin: 25px;
+  margin: 5vh;
+  min-height: 90vh;
   &:before {
     content: '';
     background-color: rgba(0, 0, 0, 0.4);
@@ -36,8 +37,8 @@
     width: 100vw;
     position: absolute;
     z-index: -1;
-    top: -25px;
-    height: calc(100% + 50px);
+    top: -5vh;
+    height: calc(100% + 10vh);
   }
 }
 
@@ -56,5 +57,11 @@
   .modal {
     width: 95%;
     padding: 25px;
+    margin: 25px;
+    min-height: auto;
+    &:before {
+      top: -25px;
+      height: calc(100% + 50px);
+    }
   }
 }

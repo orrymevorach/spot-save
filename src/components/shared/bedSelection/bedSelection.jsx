@@ -71,7 +71,7 @@ export default function BedSelection({ readOnly = false, cabin }) {
     <div>
       {readOnly && (
         <p className={styles.readOnlyText}>
-          You must reserve your spot in a cabin before you can reserve a bed .
+          You must reserve your spot in a cabin before you can reserve a bed.
         </p>
       )}
       <div className={styles.bedSelectionContainer}>
