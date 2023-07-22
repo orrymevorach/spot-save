@@ -10,6 +10,7 @@ import Button from '@/components/shared/button/button';
 import { useRef, useState } from 'react';
 import useShowOnScroll from '@/hooks/useShowOnScroll';
 import { useWindowSize } from '@/context/window-size-context';
+import MapOfCamp from '../mapOfCamp/mapOfCamp';
 
 export default function CabinSelectionContainer() {
   const [showBackToTopButton, setShowBackToTopButton] = useState(false);
@@ -47,6 +48,7 @@ export default function CabinSelectionContainer() {
             <li>hey</li>
           </ol> */}
           <Filters />
+          <MapOfCamp />
           {!isMobile && <UnitLinks />}
         </div>
       </div>
