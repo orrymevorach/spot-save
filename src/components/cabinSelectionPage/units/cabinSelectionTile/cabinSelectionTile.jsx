@@ -25,16 +25,6 @@ export default function CabinSelectionTile({ cabin, handleSelectCabin }) {
           <p className={clsx(styles.button, styles.full)}>Full</p>
         )}
       </div>
-      {/* {additionalInformation?.length ? (
-        <ul>
-          Additional Information:
-          {additionalInformation.map(info => (
-            <p key={info}>{info}</p>
-          ))}
-        </ul>
-      ) : (
-        ''
-      )} */}
     </li>
   );
 }

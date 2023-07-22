@@ -26,7 +26,7 @@ export default function UnitRow({ unitData }) {
   const [hasAvailability, setHasAvailability] = useState(true);
   const [unitName] = unitData;
   const unitImage = unitImages[unitName];
-  const { isMobile } = useWindowSize();
+  const { isDesktop } = useWindowSize();
   const unitNameWithoutTrailingS = unitName.slice(0, -1);
 
   return (
@@ -34,7 +34,7 @@ export default function UnitRow({ unitData }) {
       <div className={styles.innerContainer}>
         <div className={styles.unitTitleContainer}>
           <p className={styles.unitName}>{unitNameWithoutTrailingS} Unit</p>
-          {isMobile && (
+          {!isDesktop && (
             <>
               <Button
                 classNames={styles.showMapButton}
@@ -60,7 +60,7 @@ export default function UnitRow({ unitData }) {
             unitData={unitData}
             setHasAvailability={setHasAvailability}
           />
-          {!isMobile && hasAvailability ? (
+          {isDesktop && hasAvailability ? (
             <Image
               src={unitImage}
               alt={`${unitName} unit`}

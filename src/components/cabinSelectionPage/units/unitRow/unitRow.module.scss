@@ -26,17 +26,11 @@
 
 @media screen and (max-width: variables.$tablet) {
   .innerContainer {
-    width: 80%;
+    width: 320px;
+    padding: 50px 20px;
   }
   .unitImage {
     align-self: flex-start;
-  }
-}
-
-@media screen and (max-width: variables.$mobile) {
-  .innerContainer {
-    width: 320px;
-    padding: 50px 20px;
   }
   button.showMapButton {
     margin-left: 20px;
