@@ -14,8 +14,8 @@ const FILTERS = {
 };
 
 const GENDER_LABELS = {
-  MALE: 'Male Only',
-  FEMALE: 'Female Only',
+  MALE: 'Male only',
+  FEMALE: 'Female only',
   MIXED: 'Mixed',
 };
 
