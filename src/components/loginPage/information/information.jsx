@@ -16,7 +16,7 @@ export default function Information() {
         <li>Your email address</li>
         <li>
           Your password, which you have received in an email once you purchased
-          a ticket.
+          a&nbsp;ticket.
         </li>
         <li>
           The email address(es) for each person you wish to reserve a spot for

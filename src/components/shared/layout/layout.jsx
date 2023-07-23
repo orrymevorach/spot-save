@@ -2,12 +2,10 @@ import styles from './layout.module.scss';
 import Image from 'next/image';
 import logo from 'public/Logo-1200px-No-Bkgd-min.png';
 import clsx from 'clsx';
-import { useState } from 'react';
 import Cookies from 'js-cookie';
 import { COOKIES, ROUTES } from '@/utils/constants';
 import { useRouter } from 'next/router';
 import { useUser } from '@/context/user-context';
-import { useWindowSize } from '@/context/window-size-context';
 import Nav from '../nav/nav';
 
 export const Logo = ({ classNames = ' ' }) => {
@@ -15,26 +13,13 @@ export const Logo = ({ classNames = ' ' }) => {
 };
 
 export default function Layout({ children }) {
-  const [isLogoutLoading, setIsLogoutLoading] = useState(false);
-  const [isPageLoading, setIsPageLoading] = useState(false);
   const router = useRouter();
   const { user, dispatch } = useUser();
-  const { isMobile } = useWindowSize();
 
   const handleLogout = () => {
-    setIsLogoutLoading(true);
     Cookies.remove(COOKIES.USER_RECORD);
-    setTimeout(() => {
-      dispatch({ type: 'LOG_OUT' });
-      window.location = '/';
-    }, 300);
-  };
-
-  const handleViewReservation = () => {
-    setIsPageLoading(true);
-    setTimeout(() => {
-      router.push(ROUTES.SUMMARY);
-    }, 300);
+    dispatch({ type: 'LOG_OUT' });
+    window.location = '/';
   };
 
   const isSummaryPage = router.pathname === ROUTES.SUMMARY;
@@ -61,7 +46,7 @@ export default function Layout({ children }) {
         />
       )}
 
-      <Image src={logo} className={styles.image} alt="" />
+      <Image src={logo} className={styles.image} alt="" quality={50} />
       {children}
     </div>
   );
