@@ -39,7 +39,7 @@ export default function Login() {
   const handleSubmit = async e => {
     e.preventDefault();
     setIsLoading(true);
-    const user = await getUserByEmail({ email });
+    const user = await getUserByEmail({ email: email.toLowerCase() });
 
     const userNotFound = !user?.id;
     const passwordDoesNotMatch = user?.id && user?.paymentIntent !== password;
