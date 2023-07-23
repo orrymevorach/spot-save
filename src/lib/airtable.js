@@ -45,7 +45,7 @@ export const reserveSpotInCabin = async ({ cabinId = '', attendeeId }) => {
         attendeeId,
       },
     });
-    return data.update_tickets;
+    return data.update_ticketPurchases;
   } catch (error) {
     console.log(error);
   }
@@ -58,7 +58,7 @@ export const getUserByEmail = async ({ email }) => {
       variables: { email },
       fetchPolicy: 'no-cache',
     });
-    return data.tickets[0];
+    return data.ticketPurchases[0];
   } catch (error) {
     console.log(error);
   }
@@ -71,7 +71,7 @@ export const getUserByRecordId = async ({ id }) => {
       variables: { id },
       fetchPolicy: 'no-cache',
     });
-    return data.tickets[0];
+    return data.ticketPurchases[0];
   } catch (error) {
     console.log(error);
   }

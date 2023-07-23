@@ -97,7 +97,7 @@ export const GROUP_FRAGMENT = gql`
 `;
 
 export const USER_FRAGMENT = gql`
-  fragment UserFields on tickets {
+  fragment UserFields on ticketPurchases {
     id
     name
     emailAddress

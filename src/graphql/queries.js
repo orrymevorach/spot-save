@@ -21,7 +21,7 @@ export const GET_CABIN = gql`
 
 export const RESERVE_SPOT_IN_CABIN = gql`
   mutation ReserveSpot($cabinId: String, $attendeeId: String) {
-    update_tickets(
+    update_ticketPurchases(
       id: $attendeeId
       cabin: [$cabinId]
       frontBunkLeft: []
@@ -44,7 +44,7 @@ export const RESERVE_SPOT_IN_CABIN = gql`
 
 export const GET_USER_BY_EMAIL = gql`
   query GetUserByEmail($email: String) {
-    tickets(emailAddress: $email) {
+    ticketPurchases(emailAddress: $email) {
       id
       paymentIntent
       name
@@ -59,7 +59,7 @@ export const GET_USER_BY_EMAIL = gql`
 
 export const GET_USER_BY_ID = gql`
   query GetUser($id: String) {
-    tickets(id: $id) {
+    ticketPurchases(id: $id) {
       ...UserFields
     }
   }
@@ -82,7 +82,7 @@ export const RESERVE_BED = gql`
     $backLoftRight: [String]
     $backBunkRight: [String]
   ) {
-    update_tickets(
+    update_ticketPurchases(
       id: $userId
       frontBunkLeft: $frontBunkLeft
       frontCotLeft: $frontCotLeft
@@ -104,7 +104,7 @@ export const RESERVE_BED = gql`
 
 export const CLEAR_CURRENT_BED_SELECTION = gql`
   mutation ReserveBed($userId: String) {
-    update_tickets(
+    update_ticketPurchases(
       id: $userId
       frontBunkLeft: []
       frontCotLeft: []
