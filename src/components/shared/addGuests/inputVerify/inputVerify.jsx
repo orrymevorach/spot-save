@@ -45,7 +45,7 @@ export default function InputVerify() {
   const { user } = useUser();
 
   const handleChange = e => {
-    setEmail(e.target.value);
+    setEmail(e.target.value.toLowerCase());
     setError('');
   };
 

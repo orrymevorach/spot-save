@@ -39,7 +39,7 @@ export default function Login() {
   const handleSubmit = async e => {
     e.preventDefault();
     setIsLoading(true);
-    const user = await getUserByEmail({ email: email.toLowerCase() });
+    const user = await getUserByEmail({ email });
 
     const userNotFound = !user?.id;
     const passwordDoesNotMatch = user?.id && user?.paymentIntent !== password;
@@ -67,7 +67,7 @@ export default function Login() {
 
   const handleChange = (e, setInput) => {
     setError('');
-    setInput(e.target.value);
+    setInput(e.target.value.toLowerCase());
   };
 
   return (
@@ -83,12 +83,14 @@ export default function Login() {
         classNames={styles.emailInput}
         label="Email"
         error={error}
+        value={email}
       />
       <Input
         type="password"
         id="password"
         handleChange={e => handleChange(e, setPassword)}
         label="Password"
+        value={password}
       />
       <Button isLoading={isLoading} classNames={styles.submit}>
         Log in
