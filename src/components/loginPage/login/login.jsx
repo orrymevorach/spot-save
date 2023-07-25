@@ -65,9 +65,14 @@ export default function Login() {
     }
   };
 
-  const handleChange = (e, setInput) => {
+  const handleChangeEmail = e => {
     setError('');
-    setInput(e.target.value.toLowerCase());
+    setEmail(e.target.value.toLowerCase());
+  };
+
+  const handleChangePassword = e => {
+    setError('');
+    setPassword(e.target.value);
   };
 
   return (
@@ -79,7 +84,7 @@ export default function Login() {
       <Input
         type="email"
         id="email"
-        handleChange={e => handleChange(e, setEmail)}
+        handleChange={e => handleChangeEmail(e)}
         classNames={styles.emailInput}
         label="Email"
         error={error}
@@ -88,7 +93,7 @@ export default function Login() {
       <Input
         type="password"
         id="password"
-        handleChange={e => handleChange(e, setPassword)}
+        handleChange={e => handleChangePassword(e)}
         label="Password"
         value={password}
       />
