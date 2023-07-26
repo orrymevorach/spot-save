@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import style from './takeover.module.scss';
 import CloseButton from '@/components/shared/closeButton';
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 
 export default function Takeover({
   children,
@@ -10,6 +11,7 @@ export default function Takeover({
   showTakeover,
   classNames = '',
   modalClassNames = '',
+  queryParam = '',
 }) {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const closeModal = () => {
@@ -48,6 +50,36 @@ export default function Takeover({
       }
     }
   }, [modalRef]);
+
+  // Add query param when takeover opens if prop exists
+  const router = useRouter();
+  useEffect(() => {
+    if (queryParam) {
+      router.push(
+        {
+          query: {
+            [queryParam]: true,
+          },
+        },
+        undefined,
+        {
+          shallow: true,
+        }
+      );
+    }
+    // Remove query param when takeover closes
+    return () => {
+      router.push(
+        {
+          query: {},
+        },
+        undefined,
+        {
+          shallow: true,
+        }
+      );
+    };
+  }, []);
 
   return (
     <>

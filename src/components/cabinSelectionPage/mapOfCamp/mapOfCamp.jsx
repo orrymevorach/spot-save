@@ -8,39 +8,11 @@ import { useRouter } from 'next/router';
 
 const MapOfCampTakeover = ({ setShowMapTakeover }) => {
   const [isZoom, setIsZoom] = useState(false);
-  const router = useRouter();
-
-  // Add query param when takeover opens
-  useEffect(() => {
-    router.push(
-      {
-        query: {
-          showMap: true,
-        },
-      },
-      undefined,
-      {
-        shallow: true,
-      }
-    );
-    // Remove query param when takeover closes
-    return () => {
-      router.push(
-        {
-          query: {},
-        },
-        undefined,
-        {
-          shallow: true,
-        }
-      );
-    };
-  }, []);
-
   return (
     <Takeover
       handleClose={() => setShowMapTakeover(false)}
       modalClassNames={styles.takeover}
+      queryParam="showMap"
     >
       <Image
         src={fullCamp}

@@ -31,35 +31,11 @@ const unitDescriptions = [
 ];
 
 const UnitsDescriptionTakeover = ({ setShowUnitDescriptions }) => {
-  const router = useRouter();
-  // Add query param when takeover opens
-  useEffect(() => {
-    router.push(
-      {
-        query: {
-          unitDescriptions: true,
-        },
-      },
-      undefined,
-      {
-        shallow: true,
-      }
-    );
-    // Remove query param when takeover closes
-    return () => {
-      router.push(
-        {
-          query: {},
-        },
-        undefined,
-        {
-          shallow: true,
-        }
-      );
-    };
-  }, []);
   return (
-    <Takeover handleClose={() => setShowUnitDescriptions(false)}>
+    <Takeover
+      handleClose={() => setShowUnitDescriptions(false)}
+      queryParam="unitDescriptions"
+    >
       <ul className={styles.instructions}>
         {unitDescriptions.map(({ unit, description, anchor }) => {
           return (
