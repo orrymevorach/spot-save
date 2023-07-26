@@ -1,6 +1,7 @@
 import Takeover from '@/components/shared/takeover';
 import styles from './unitDescriptions.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 const unitDescriptions = [
   {
@@ -30,6 +31,33 @@ const unitDescriptions = [
 ];
 
 const UnitsDescriptionTakeover = ({ setShowUnitDescriptions }) => {
+  const router = useRouter();
+  // Add query param when takeover opens
+  useEffect(() => {
+    router.push(
+      {
+        query: {
+          unitDescriptions: true,
+        },
+      },
+      undefined,
+      {
+        shallow: true,
+      }
+    );
+    // Remove query param when takeover closes
+    return () => {
+      router.push(
+        {
+          query: {},
+        },
+        undefined,
+        {
+          shallow: true,
+        }
+      );
+    };
+  }, []);
   return (
     <Takeover handleClose={() => setShowUnitDescriptions(false)}>
       <ul className={styles.instructions}>
@@ -61,6 +89,13 @@ const UnitsDescriptionTakeover = ({ setShowUnitDescriptions }) => {
 
 export default function UnitDescriptions() {
   const [showUnitDescriptions, setShowUnitDescriptions] = useState(false);
+  const router = useRouter();
+  // Show unit description takeover if unitDescriptions query param is true
+  useEffect(() => {
+    if (router?.query?.unitDescriptions === 'true') {
+      setShowUnitDescriptions(true);
+    }
+  }, [router, setShowUnitDescriptions]);
   return (
     <>
       {showUnitDescriptions && (
