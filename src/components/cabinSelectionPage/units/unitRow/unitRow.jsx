@@ -1,11 +1,11 @@
 import styles from './unitRow.module.scss';
 import Image from 'next/image';
-import Colours from 'public/colours.jpg';
-import Comics from 'public/comics.jpg';
-import Zodiacs from 'public/zodiacs.jpg';
-import Seekers from 'public/seekers.jpg';
+import Colours from 'public/Colours-NoBkgd.jpg';
+import Comics from 'public/Comics-NoBkgd.jpg';
+import Zodiacs from 'public/Zodiacs-NoBkgd.jpg';
+import Seekers from 'public/Seekers-NoBkgd.jpg';
 import CITS from 'public/cits.jpg';
-import lteam from 'public/l-team.jpg';
+import lteam from 'public/l-team-NoBkgd.jpg';
 import CabinList from './cabinList/cabinList';
 import { useWindowSize } from '@/context/window-size-context';
 import Takeover from '@/components/shared/takeover/takeover';
