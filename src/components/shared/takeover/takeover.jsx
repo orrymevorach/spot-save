@@ -52,34 +52,34 @@ export default function Takeover({
   }, [modalRef]);
 
   // Add query param when takeover opens if prop exists
-  const router = useRouter();
-  useEffect(() => {
-    if (queryParam) {
-      router.push(
-        {
-          query: {
-            [queryParam]: true,
-          },
-        },
-        undefined,
-        {
-          shallow: true,
-        }
-      );
-    }
-    // Remove query param when takeover closes
-    return () => {
-      router.push(
-        {
-          query: {},
-        },
-        undefined,
-        {
-          shallow: true,
-        }
-      );
-    };
-  }, []);
+  // const router = useRouter();
+  // useEffect(() => {
+  //   if (queryParam) {
+  //     router.push(
+  //       {
+  //         query: {
+  //           [queryParam]: true,
+  //         },
+  //       },
+  //       undefined,
+  //       {
+  //         shallow: true,
+  //       }
+  //     );
+  //   }
+  //   // Remove query param when takeover closes
+  //   return () => {
+  //     router.push(
+  //       {
+  //         query: {},
+  //       },
+  //       undefined,
+  //       {
+  //         shallow: true,
+  //       }
+  //     );
+  //   };
+  // }, []);
 
   return (
     <>
