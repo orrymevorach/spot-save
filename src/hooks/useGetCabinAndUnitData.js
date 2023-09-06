@@ -25,7 +25,10 @@ const initialUnitsData = {
 const sortCabinsIntoUnits = (cabinList, initialUnitsData) => {
   for (let cabin of cabinList) {
     const currentUnit = cabin.unit;
-    if (!initialUnitsData[currentUnit].cabins.includes(cabin)) {
+    // Some units, such as "Other" in the Airtable DB, are not included in the initial unit data
+    const hasUnitData =
+      initialUnitsData[currentUnit] && initialUnitsData[currentUnit].cabins;
+    if (hasUnitData && !initialUnitsData[currentUnit].cabins.includes(cabin)) {
       initialUnitsData[currentUnit].cabins.push(cabin);
     }
   }
