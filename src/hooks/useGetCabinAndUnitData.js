@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getCabins } from '@/lib/airtable';
+import { getOffices } from '@/lib/airtable';
 
 const initialUnitsData = {
   Colours: {
@@ -41,7 +41,7 @@ export default function useGetCabinAndUnitData() {
   useEffect(() => {
     setIsLoading(true);
     const getData = async () => {
-      const cabinResponse = await getCabins({});
+      const cabinResponse = await getOffices({});
       if (!units.length) {
         const unitsWithAllCabins = sortCabinsIntoUnits(
           cabinResponse,

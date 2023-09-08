@@ -10,9 +10,9 @@ import {
   filterByAvailableBeds,
   filterByGender,
   filterOutClosedCabins,
-  removeDuplicatesByProperty,
   sortByLeastAvailability,
 } from './filter-utils';
+import { removeDuplicatesByProperty } from '@/utils/airtable-utils';
 
 export default function CabinList({ unitData, setHasAvailability }) {
   const { dispatch, actions } = useCabinSelection();

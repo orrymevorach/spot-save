@@ -20,6 +20,7 @@ export default function BottomRow({ showBedSelection, setShowBedSelection }) {
         pathname: ROUTES.RESERVE,
         query: {
           cabin: selectedCabin.name,
+          id: selectedCabin.id,
           stage: CABIN_SELECTION_STAGES.ADD_GUESTS,
         },
       });

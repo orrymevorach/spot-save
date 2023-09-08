@@ -9,26 +9,35 @@ import {
   UPDATE_GROUP,
 } from '@/graphql/queries';
 import { client } from '@/graphql/apollo-config';
+import { AIRTABLE_TABLES } from '@/utils/constants';
 
-export const getCabins = async () => {
-  const response = await fetch('/api/airtable/get-cabins', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).then(res => res.json());
-  return response.offices;
+export const getOffices = async () => {
+  try {
+    const { response } = await fetch('/api/airtable/get-table', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        tableId: AIRTABLE_TABLES.OFFICES,
+      }),
+    }).then(res => res.json());
+    return response;
+  } catch (err) {
+    console.log('err', err);
+  }
 };
 
-export const getCabin = async ({ cabinName }) => {
+export const getRecordById = async ({ tableId, recordId }) => {
   try {
-    const { data } = await client.query({
-      query: GET_CABIN,
-      variables: {
-        cabinName,
+    const { response } = await fetch('/api/airtable/get-record-by-id', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    });
-    return data.cabins[0];
+      body: JSON.stringify({ tableId, recordId }),
+    }).then(res => res.json());
+    return response;
   } catch (error) {
     console.log(error);
   }
@@ -51,12 +60,15 @@ export const reserveSpotInCabin = async ({ cabinId = '', attendeeId }) => {
 
 export const getUserByEmail = async ({ email }) => {
   try {
-    const { data } = await client.query({
-      query: GET_USER_BY_EMAIL,
-      variables: { email },
-      fetchPolicy: 'no-cache',
-    });
-    return data.ticketPurchases[0];
+    const { response } = await fetch('/api/airtable/get-table', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ tableId: AIRTABLE_TABLES.USERS }),
+    }).then(res => res.json());
+    const user = response.find(({ emailAddress }) => emailAddress === email);
+    return user;
   } catch (error) {
     console.log(error);
   }
@@ -64,49 +76,27 @@ export const getUserByEmail = async ({ email }) => {
 
 export const getUserByRecordId = async ({ id }) => {
   try {
-    const { data } = await client.query({
-      query: GET_USER_BY_ID,
-      variables: { id },
-      fetchPolicy: 'no-cache',
-    });
-    return data.ticketPurchases[0];
+    const { response } = await fetch('/api/airtable/get-record-by-id', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ tableId: AIRTABLE_TABLES.USERS, recordId: id }),
+    }).then(res => res.json());
+    return response;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const reserveBed = async ({
-  userId,
-  frontBunkLeft,
-  frontCotLeft,
-  backCotLeft,
-  frontLoftLeft,
-  backLoftLeft,
-  backBunkLeft,
-  frontBunkRight,
-  frontCotRight,
-  backCotRight,
-  frontLoftRight,
-  backLoftRight,
-  backBunkRight,
-}) => {
+export const reserveBed = async ({ userId, deskOne, deskTwo }) => {
   try {
     const { data } = await client.mutate({
       mutation: RESERVE_BED,
       variables: {
         userId,
-        frontBunkLeft,
-        frontCotLeft,
-        backCotLeft,
-        frontLoftLeft,
-        backLoftLeft,
-        backBunkLeft,
-        frontBunkRight,
-        frontCotRight,
-        backCotRight,
-        frontLoftRight,
-        backLoftRight,
-        backBunkRight,
+        deskOne,
+        deskTwo,
       },
     });
     return data;

@@ -2,34 +2,11 @@ import { useWindowSize } from '@/context/window-size-context';
 import BedColumn from '../bedColumn/bedColumn';
 import styles from './cabin.module.scss';
 
-const leftBeds = [
-  ['backBunkLeft'],
-  ['backLoftLeft', 'frontLoftLeft'],
-  ['backCotLeft', 'frontCotLeft'],
-  ['frontBunkLeft'],
-];
+const leftBeds = [['deskOne']];
 
-const rightBeds = [
-  ['backBunkRight'],
-  ['backLoftRight', 'frontLoftRight'],
-  ['backCotRight', 'frontCotRight'],
-  ['frontBunkRight'],
-];
+const rightBeds = [['deskTwo']];
 
-export const bedList = [
-  'backBunkLeft',
-  'backLoftLeft',
-  'frontLoftLeft',
-  'backCotLeft',
-  'frontCotLeft',
-  'frontBunkLeft',
-  'backBunkRight',
-  'backLoftRight',
-  'frontLoftRight',
-  'backCotRight',
-  'frontCotRight',
-  'frontBunkRight',
-];
+export const bedList = ['deskOne', 'deskTwo'];
 
 export default function Cabin({ readOnly, cabin }) {
   const { isMobile } = useWindowSize();

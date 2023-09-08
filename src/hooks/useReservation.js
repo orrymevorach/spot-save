@@ -1,6 +1,7 @@
 import { bedList } from '@/components/shared/bedSelection/cabin/cabin';
 import { useUser } from '@/context/user-context';
-import { getCabin } from '@/lib/airtable';
+import { getRecordById } from '@/lib/airtable';
+import { AIRTABLE_TABLES } from '@/utils/constants';
 import { useRouter } from 'next/router';
 import { useReducer, useEffect, useState } from 'react';
 
@@ -56,12 +57,15 @@ const useGetCabinData = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useUser();
 
-  const cabinQuery = router.query.cabin;
+  const cabinQuery = router.query.id;
 
   // Used on reservation page
   useEffect(() => {
     const getCabinData = async () => {
-      const cabinData = await getCabin({ cabinName: cabinQuery });
+      const cabinData = await getRecordById({
+        recordId: cabinQuery,
+        tableId: AIRTABLE_TABLES.OFFICES,
+      });
       setCabin(cabinData);
       setIsLoading(false);
       return;
@@ -74,7 +78,10 @@ const useGetCabinData = () => {
   // Used on summary page
   useEffect(() => {
     const getCabinData = async () => {
-      const cabinData = await getCabin({ cabinName: user.cabin[0].name });
+      const cabinData = await getRecordById({
+        recordId: user.cabin[0].id,
+        tableId: AIRTABLE_TABLES.OFFICES,
+      });
       setCabin(cabinData);
       setIsLoading(false);
       return;
@@ -100,7 +107,7 @@ const useGetBeds = ({ cabinData, dispatch, actions }) => {
       for (let i = 0; i < bedList.length; i++) {
         const bedName = bedList[i];
         const cabinBed = cabinData.cabin[bedName];
-        if (cabinBed.length) {
+        if (cabinBed?.length) {
           const bedData = cabinBed[0];
           selectedBeds.push({
             bedName,
@@ -132,7 +139,7 @@ export const useReservationReducer = () => {
       // Specfically in the scenario where members of the group are confirmed in a cabin, and others are added later to the same cabin as the rest of the group.
       const numberOfMembersNotConfirmedInCurrentCabin =
         groupData.members.filter(({ cabin }) => {
-          const hasCabin = cabin.length > 0;
+          const hasCabin = cabin?.length > 0;
           const hasDifferentCabin = hasCabin
             ? cabin[0].name !== cabinData.cabin.name
             : false;

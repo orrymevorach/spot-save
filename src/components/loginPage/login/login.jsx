@@ -42,9 +42,9 @@ export default function Login() {
     const user = await getUserByEmail({ email });
 
     const userNotFound = !user?.id;
-    const passwordDoesNotMatch = user?.id && user?.paymentIntent !== password;
+    const passwordDoesNotMatch = user?.id && user?.password !== password;
     const userExistsAndPasswordMatches =
-      user?.id && user?.paymentIntent === password;
+      user?.id && user?.password === password;
     if (userExistsAndPasswordMatches) {
       Cookies.set(COOKIES.USER_RECORD, user.id);
       const hasCabin = user.cabin && user.cabin[0];

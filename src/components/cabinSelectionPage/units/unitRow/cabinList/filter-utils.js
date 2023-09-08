@@ -39,7 +39,3 @@ export const filterOutClosedCabins = ({ cabins }) => {
     return true;
   });
 };
-
-export const removeDuplicatesByProperty = ({ array, property }) => [
-  ...new Map(array.map(m => [m[property], m])).values(),
-];

@@ -1,32 +1,13 @@
 import { gql } from '@apollo/client';
 import { CABIN_FRAGMENT, USER_FRAGMENT } from './fragments';
 
-export const GET_CABIN = gql`
-  query GetCabin($cabinName: String) {
-    cabins(name: $cabinName) {
-      ...CabinFields
-    }
-  }
-  ${CABIN_FRAGMENT}
-`;
-
 export const RESERVE_SPOT_IN_CABIN = gql`
   mutation ReserveSpot($cabinId: String, $attendeeId: String) {
     update_ticketPurchases(
       id: $attendeeId
       cabin: [$cabinId]
-      frontBunkLeft: []
-      frontCotLeft: []
-      backCotLeft: []
-      frontLoftLeft: []
-      backLoftLeft: []
-      backBunkLeft: []
-      frontBunkRight: []
-      frontCotRight: []
-      backCotRight: []
-      frontLoftRight: []
-      backLoftRight: []
-      backBunkRight: []
+      deskOne: []
+      deskTwo: []
     ) {
       id
     }
@@ -58,36 +39,8 @@ export const GET_USER_BY_ID = gql`
 `;
 
 export const RESERVE_BED = gql`
-  mutation ReserveBed(
-    $userId: String
-    $frontBunkLeft: [String]
-    $frontCotLeft: [String]
-    $backCotLeft: [String]
-    $frontLoftLeft: [String]
-    $backLoftLeft: [String]
-    $backBunkLeft: [String]
-    $frontBunkRight: [String]
-    $frontCotRight: [String]
-    $backCotRight: [String]
-    $frontLoftRight: [String]
-    $backLoftRight: [String]
-    $backBunkRight: [String]
-  ) {
-    update_ticketPurchases(
-      id: $userId
-      frontBunkLeft: $frontBunkLeft
-      frontCotLeft: $frontCotLeft
-      backCotLeft: $backCotLeft
-      frontLoftLeft: $frontLoftLeft
-      backLoftLeft: $backLoftLeft
-      backBunkLeft: $backBunkLeft
-      frontBunkRight: $frontBunkRight
-      frontCotRight: $frontCotRight
-      backCotRight: $backCotRight
-      frontLoftRight: $frontLoftRight
-      backLoftRight: $backLoftRight
-      backBunkRight: $backBunkRight
-    ) {
+  mutation ReserveBed($userId: String, $deskOne: [String], $deskTwo: [String]) {
+    update_ticketPurchases(id: $userId, deskOne: $deskOne, deskTwo: $deskTwo) {
       id
     }
   }
@@ -95,21 +48,7 @@ export const RESERVE_BED = gql`
 
 export const CLEAR_CURRENT_BED_SELECTION = gql`
   mutation ReserveBed($userId: String) {
-    update_ticketPurchases(
-      id: $userId
-      frontBunkLeft: []
-      frontCotLeft: []
-      backCotLeft: []
-      frontLoftLeft: []
-      backLoftLeft: []
-      backBunkLeft: []
-      frontBunkRight: []
-      frontCotRight: []
-      backCotRight: []
-      frontLoftRight: []
-      backLoftRight: []
-      backBunkRight: []
-    ) {
+    update_ticketPurchases(id: $userId, deskOne: [], deskTwo: []) {
       id
     }
   }
