@@ -1,5 +1,4 @@
 import {
-  GET_CABINS,
   GET_USER_BY_EMAIL,
   RESERVE_SPOT_IN_CABIN,
   GET_USER_BY_ID,
@@ -12,14 +11,13 @@ import {
 import { client } from '@/graphql/apollo-config';
 
 export const getCabins = async () => {
-  try {
-    const { data } = await client.query({
-      query: GET_CABINS,
-    });
-    return data.cabins;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await fetch('/api/airtable/get-cabins', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then(res => res.json());
+  return response.offices;
 };
 
 export const getCabin = async ({ cabinName }) => {

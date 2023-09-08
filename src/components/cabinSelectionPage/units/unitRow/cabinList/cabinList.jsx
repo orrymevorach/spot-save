@@ -10,6 +10,7 @@ import {
   filterByAvailableBeds,
   filterByGender,
   filterOutClosedCabins,
+  removeDuplicatesByProperty,
   sortByLeastAvailability,
 } from './filter-utils';
 
@@ -33,13 +34,21 @@ export default function CabinList({ unitData, setHasAvailability }) {
   };
 
   let filteredCabins = [];
-  filteredCabins = filterByAvailableBeds({ cabins, selectedFilters });
-  filteredCabins = filterByGender({ cabins: filteredCabins, selectedFilters });
+  filteredCabins = filterByAvailableBeds({
+    cabins,
+    selectedFilters,
+  });
+  filteredCabins = filterByGender({ cabins, selectedFilters });
   filteredCabins = sortByLeastAvailability({ cabins: filteredCabins });
   filteredCabins = filterOutClosedCabins({ cabins: filteredCabins });
 
   const hasCabins = !!filteredCabins.length;
   setHasAvailability(hasCabins);
+
+  filteredCabins = removeDuplicatesByProperty({
+    array: filteredCabins,
+    property: 'name',
+  });
 
   return (
     <div className={styles.cabinListOuterContainer}>

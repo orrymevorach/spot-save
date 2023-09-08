@@ -1,15 +1,6 @@
 import { gql } from '@apollo/client';
 import { CABIN_FRAGMENT, USER_FRAGMENT } from './fragments';
 
-export const GET_CABINS = gql`
-  query GetCabins {
-    cabins {
-      ...CabinFields
-    }
-  }
-  ${CABIN_FRAGMENT}
-`;
-
 export const GET_CABIN = gql`
   query GetCabin($cabinName: String) {
     cabins(name: $cabinName) {
