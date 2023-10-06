@@ -2,6 +2,7 @@ import Takeover from '@/components/shared/takeover';
 import styles from './unitDescriptions.module.scss';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useConfig } from '@/context/config-context';
 
 const unitDescriptions = [
   {
@@ -66,12 +67,15 @@ const UnitsDescriptionTakeover = ({ setShowUnitDescriptions }) => {
 export default function UnitDescriptions() {
   const [showUnitDescriptions, setShowUnitDescriptions] = useState(false);
   const router = useRouter();
+  const config = useConfig();
   // Show unit description takeover if unitDescriptions query param is true
   useEffect(() => {
     if (router?.query?.unitDescriptions === 'true') {
       setShowUnitDescriptions(true);
     }
   }, [router, setShowUnitDescriptions]);
+
+  if (!config) return;
   return (
     <>
       {showUnitDescriptions && (
@@ -80,13 +84,18 @@ export default function UnitDescriptions() {
         />
       )}
       <div className={styles.textContainer}>
-        <p className={styles.lineOne}>
-          Welcome to the Highlands Music Festival Reservation Platform!
-        </p>
-        <p className={styles.text}>
-          At Highlands, the small villages of cabins around camp are called
-          Units.
-        </p>
+        {config.campName && (
+          <>
+            <p className={styles.lineOne}>
+              Welcome to the Camp {config.campName} Reservation Platform!
+            </p>
+            <p className={styles.text}>
+              At {config.campName}, the small villages of cabins around camp are
+              called Units.
+            </p>
+          </>
+        )}
+
         <p className={styles.text}>
           Below you will see available cabins within each unit. Please follow
           the prompts to select the cabin you desire to book, and eventually a

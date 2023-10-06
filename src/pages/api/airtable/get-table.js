@@ -1,5 +1,4 @@
 import { transformFields } from '@/utils/airtable-utils';
-import { AIRTABLE_TABLES, transformedFields } from '@/utils/constants';
 
 const Airtable = require('airtable');
 
@@ -17,8 +16,8 @@ export default async function handler(req, res) {
           const allRecords = records.map(record => {
             // Transforming keys to snake case
             const fields = transformFields({
-              transformedFields: transformedFields[tableId],
               record,
+              // fields,
             });
             return fields;
           }, []);

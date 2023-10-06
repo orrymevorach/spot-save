@@ -1,38 +1,20 @@
 import { useEffect, useState } from 'react';
-import { getOffices } from '@/lib/airtable';
+import { getTableData } from '@/lib/airtable';
+import { AIRTABLE_TABLES } from '@/utils/constants';
 
-const initialUnitsData = {
-  Colours: {
-    cabins: [],
-  },
-  Comics: {
-    cabins: [],
-  },
-  Zodiacs: {
-    cabins: [],
-  },
-  Seekers: {
-    cabins: [],
-  },
-  // CITS: {
-  //   cabins: [],
-  // },
-  // 'L-Team': {
-  //   cabins: [],
-  // },
-};
-
-const sortCabinsIntoUnits = (cabinList, initialUnitsData) => {
-  for (let cabin of cabinList) {
-    const currentUnit = cabin.unit;
-    // Some units, such as "Other" in the Airtable DB, are not included in the initial unit data
-    const hasUnitData =
-      initialUnitsData[currentUnit] && initialUnitsData[currentUnit].cabins;
-    if (hasUnitData && !initialUnitsData[currentUnit].cabins.includes(cabin)) {
-      initialUnitsData[currentUnit].cabins.push(cabin);
+const sortCabinsIntoUnits = cabinList => {
+  return cabinList.reduce((acc, curr) => {
+    const currentUnit = curr.unit;
+    const currentUnitExistsInData = !!acc[currentUnit];
+    if (currentUnitExistsInData) {
+      acc[currentUnit].cabins.push(curr);
+    } else {
+      acc[currentUnit] = {
+        cabins: [curr],
+      };
     }
-  }
-  return initialUnitsData;
+    return acc;
+  }, {});
 };
 
 export default function useGetCabinAndUnitData() {
@@ -41,12 +23,11 @@ export default function useGetCabinAndUnitData() {
   useEffect(() => {
     setIsLoading(true);
     const getData = async () => {
-      const cabinResponse = await getOffices({});
+      const cabinResponse = await getTableData({
+        tableId: AIRTABLE_TABLES.CABINS,
+      });
       if (!units.length) {
-        const unitsWithAllCabins = sortCabinsIntoUnits(
-          cabinResponse,
-          initialUnitsData
-        );
+        const unitsWithAllCabins = sortCabinsIntoUnits(cabinResponse);
         setUnits(Object.entries(unitsWithAllCabins));
       }
       setIsLoading(false);

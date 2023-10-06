@@ -64,7 +64,7 @@ const useGetCabinData = () => {
     const getCabinData = async () => {
       const cabinData = await getRecordById({
         recordId: cabinQuery,
-        tableId: AIRTABLE_TABLES.OFFICES,
+        tableId: AIRTABLE_TABLES.CABINS,
       });
       setCabin(cabinData);
       setIsLoading(false);
@@ -80,7 +80,7 @@ const useGetCabinData = () => {
     const getCabinData = async () => {
       const cabinData = await getRecordById({
         recordId: user.cabin[0].id,
-        tableId: AIRTABLE_TABLES.OFFICES,
+        tableId: AIRTABLE_TABLES.CABINS,
       });
       setCabin(cabinData);
       setIsLoading(false);

@@ -6,6 +6,7 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import { WindowSizeProvider } from '@/context/window-size-context';
 import { useGoogleAnalytics } from '@/hooks/google-analytics-lib';
 import Script from 'next/script';
+import { ConfigProvider } from '@/context/config-context';
 config.autoAddCss = false;
 
 export default function App({ Component, pageProps }) {
@@ -38,10 +39,12 @@ export default function App({ Component, pageProps }) {
           `,
         }}
       />
-      <UserProvider>
-        <Head />
-        <Component {...pageProps} />
-      </UserProvider>
+      <ConfigProvider>
+        <UserProvider>
+          <Head />
+          <Component {...pageProps} />
+        </UserProvider>
+      </ConfigProvider>
     </WindowSizeProvider>
   );
 }

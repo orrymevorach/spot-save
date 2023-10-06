@@ -7,14 +7,25 @@ import { COOKIES, ROUTES } from '@/utils/constants';
 import { useRouter } from 'next/router';
 import { useUser } from '@/context/user-context';
 import Nav from '../nav/nav';
+import { useConfig } from '@/context/config-context';
 
-export const Logo = ({ classNames = ' ' }) => {
-  return <Image src={logo} className={clsx(styles.image, classNames)} alt="" />;
+export const Logo = ({ classNames = '', url, height, width, quality }) => {
+  return (
+    <Image
+      src={url}
+      className={clsx(styles.image, classNames)}
+      alt="Logo"
+      height={height}
+      width={width}
+      quality={quality || 60}
+    />
+  );
 };
 
 export default function Layout({ children }) {
   const router = useRouter();
   const { user, dispatch } = useUser();
+  const config = useConfig();
 
   const handleLogout = () => {
     Cookies.remove(COOKIES.USER_RECORD);
@@ -46,7 +57,15 @@ export default function Layout({ children }) {
         />
       )}
 
-      <Image src={logo} className={styles.image} alt="" quality={50} />
+      {config && (
+        <Logo
+          {...config.logo[0]}
+          className={styles.image}
+          alt=""
+          quality={50}
+        />
+      )}
+
       {children}
     </div>
   );

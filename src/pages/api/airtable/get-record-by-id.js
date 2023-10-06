@@ -1,5 +1,4 @@
 import { transformFields } from '@/utils/airtable-utils';
-import { transformedFields } from '@/utils/constants';
 
 const Airtable = require('airtable');
 
@@ -13,7 +12,6 @@ export default async function handler(req, res) {
     try {
       const record = await base(tableId).find(recordId);
       const recordFields = transformFields({
-        transformedFields: transformedFields[tableId],
         record,
       });
       res.status(200).json({ response: recordFields });

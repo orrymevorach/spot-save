@@ -1,8 +1,5 @@
 import {
-  GET_USER_BY_EMAIL,
   RESERVE_SPOT_IN_CABIN,
-  GET_USER_BY_ID,
-  GET_CABIN,
   RESERVE_BED,
   CLEAR_CURRENT_BED_SELECTION,
   CREATE_GROUP,
@@ -11,21 +8,17 @@ import {
 import { client } from '@/graphql/apollo-config';
 import { AIRTABLE_TABLES } from '@/utils/constants';
 
-export const getOffices = async () => {
-  try {
-    const { response } = await fetch('/api/airtable/get-table', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        tableId: AIRTABLE_TABLES.OFFICES,
-      }),
-    }).then(res => res.json());
-    return response;
-  } catch (err) {
-    console.log('err', err);
-  }
+export const getTableData = async ({ tableId }) => {
+  const { response } = await fetch('/api/airtable/get-table', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      tableId,
+    }),
+  }).then(res => res.json());
+  return response;
 };
 
 export const getRecordById = async ({ tableId, recordId }) => {
@@ -60,13 +53,7 @@ export const reserveSpotInCabin = async ({ cabinId = '', attendeeId }) => {
 
 export const getUserByEmail = async ({ email }) => {
   try {
-    const { response } = await fetch('/api/airtable/get-table', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ tableId: AIRTABLE_TABLES.USERS }),
-    }).then(res => res.json());
+    const response = await getTableData({ tableId: AIRTABLE_TABLES.USERS });
     const user = response.find(({ emailAddress }) => emailAddress === email);
     return user;
   } catch (error) {
@@ -76,27 +63,24 @@ export const getUserByEmail = async ({ email }) => {
 
 export const getUserByRecordId = async ({ id }) => {
   try {
-    const { response } = await fetch('/api/airtable/get-record-by-id', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ tableId: AIRTABLE_TABLES.USERS, recordId: id }),
-    }).then(res => res.json());
+    const { response } = await getRecordById({
+      tableId: AIRTABLE_TABLES.USERS,
+      recordId: id,
+    });
     return response;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const reserveBed = async ({ userId, deskOne, deskTwo }) => {
+export const reserveBed = async ({ userId, bedOne, bedTwo }) => {
   try {
     const { data } = await client.mutate({
       mutation: RESERVE_BED,
       variables: {
         userId,
-        deskOne,
-        deskTwo,
+        bedOne,
+        bedTwo,
       },
     });
     return data;
