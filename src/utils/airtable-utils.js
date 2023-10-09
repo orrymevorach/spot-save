@@ -7,7 +7,7 @@ export const transformFields = ({ record }) => {
     const [key, value] = entries[i];
     const transformedKey = toCamelCase(key);
     transformedFieldsObj[transformedKey] = value;
-    transformedFieldsObj.id = record.getId();
+    transformedFieldsObj.id = record.id;
   }
   return transformedFieldsObj;
 };

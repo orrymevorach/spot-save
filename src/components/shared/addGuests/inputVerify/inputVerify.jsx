@@ -1,4 +1,4 @@
-import { createGroup, getUserByEmail, updateGroup } from '@/lib/airtable';
+import { createRecord, getUserByEmail, updateGroup } from '@/lib/airtable';
 import { useState } from 'react';
 import styles from './inputVerify.module.scss';
 import Button from '@/components/shared/button/button';
@@ -7,14 +7,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Input from '@/components/shared/input/input';
 import { useReservation } from '@/context/reservation-context';
 import { useUser } from '@/context/user-context';
+import { AIRTABLE_TABLES } from '@/utils/constants';
 
 const createOrUpdateGroup = async ({ user, groupData }) => {
   const hasExistingGroup = !!groupData.id;
   const groupRecordIds = groupData.members.map(({ id }) => id);
   if (!hasExistingGroup) {
-    const response = await createGroup({
-      groupName: user.name,
-      members: groupRecordIds,
+    const response = await createRecord({
+      tableId: AIRTABLE_TABLES.GROUPS,
+      newFields: {
+        'Group Name': user.name,
+        Members: groupRecordIds,
+      },
     });
     return {
       id: response.id,

@@ -36,6 +36,21 @@ export const getRecordById = async ({ tableId, recordId }) => {
   }
 };
 
+export const createRecord = async ({ tableId, newFields }) => {
+  try {
+    const { response } = await fetch('/api/airtable/create-record', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ tableId, newFields }),
+    }).then(res => res.json());
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const updateRecord = async ({ tableId, recordId, newFields }) => {
   try {
     const { response } = await fetch('/api/airtable/update-record', {
@@ -98,21 +113,6 @@ export const clearCurrentBedSelection = async ({ userId }) => {
       },
     });
     return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const createGroup = async ({ groupName, members }) => {
-  try {
-    const { data } = await client.mutate({
-      mutation: CREATE_GROUP,
-      variables: {
-        groupName,
-        members,
-      },
-    });
-    return data.insert_groups[0];
   } catch (error) {
     console.log(error);
   }

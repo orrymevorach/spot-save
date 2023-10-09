@@ -59,6 +59,7 @@ export default function ReserveButton({ children, cabin, classNames = '' }) {
       router.push({
         query: {
           stage: CABIN_SELECTION_STAGES.CONFIRMATION,
+          cabinId,
         },
       });
     } catch (error) {

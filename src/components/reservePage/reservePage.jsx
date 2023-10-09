@@ -18,7 +18,7 @@ const useSetStageBasedOnQuery = () => {
   useEffect(() => {
     if (
       router.isReady &&
-      !router.query.cabin &&
+      !router.query.cabinId &&
       router.query.stage === ADD_GUESTS
     ) {
       router.push(ROUTES.CABIN_SELECTION);

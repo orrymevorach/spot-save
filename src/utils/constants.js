@@ -13,4 +13,5 @@ export const AIRTABLE_TABLES = {
   CABINS: 'Cabins',
   USERS: 'Users',
   CONFIG: 'Config',
+  GROUPS: 'Groups',
 };

@@ -57,7 +57,7 @@ const useGetCabinData = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useUser();
 
-  const cabinQuery = router.query.id;
+  const cabinQuery = router.query.cabinId;
 
   // Used on reservation page
   useEffect(() => {
