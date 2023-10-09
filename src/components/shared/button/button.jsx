@@ -3,6 +3,8 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import styles from './button.module.scss';
 import Link from 'next/link';
 import clsx from 'clsx';
+import { useConfig } from '@/context/config-context';
+import styled from 'styled-components';
 
 const ButtonContents = ({ isLoading, children }) => {
   return (
@@ -28,6 +30,9 @@ export default function Button({
   isSmall = false,
   isInverted = false,
 }) {
+  const config = useConfig();
+  if (!config) return;
+  const { primaryColour } = config;
   const classnames = clsx(
     styles.button,
     classNames,
@@ -35,6 +40,15 @@ export default function Button({
     isSmall && styles.small,
     isInverted && styles.inverted
   );
+
+  const Button = styled.button`
+    background-color: ${primaryColour};
+    border: 2px solid ${primaryColour};
+    &.light,
+    &:hover {
+      color: ${primaryColour};
+    }
+  `;
 
   if (isAnchor) {
     return (
@@ -52,18 +66,18 @@ export default function Button({
   }
   if (handleClick) {
     return (
-      <button
+      <Button
         className={classnames}
         disabled={isDisabled}
         onClick={handleClick}
       >
         <ButtonContents isLoading={isLoading}>{children}</ButtonContents>
-      </button>
+      </Button>
     );
   }
   return (
-    <button className={classnames} type="submit" disabled={isDisabled}>
+    <Button className={classnames} type="submit" disabled={isDisabled}>
       <ButtonContents isLoading={isLoading}>{children}</ButtonContents>
-    </button>
+    </Button>
   );
 }

@@ -1,11 +1,9 @@
 @use '@mixins' as mixins;
 @use '@variables' as variables;
 
-$primaryColor: variables.$darkGreen;
-
 .button {
   @include mixins.fontPrimary;
-  background-color: $primaryColor;
+  // background-color: $primaryColor;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -15,19 +13,19 @@ $primaryColor: variables.$darkGreen;
   min-width: 100px;
   cursor: pointer;
   transition: 0.1s;
-  border: 2px solid $primaryColor;
+  // border: 2px solid $primaryColor;
   text-align: center;
   .spinnerIcon {
     animation: rotate 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   }
   &:hover {
-    color: $primaryColor;
+    // color: $primaryColor;
     background-color: white;
     transition: 0.1s;
   }
   &.light {
     background-color: white;
-    color: $primaryColor;
+    // color: $primaryColor;
     padding: 10px 0;
     min-width: 0;
   }
@@ -39,7 +37,7 @@ $primaryColor: variables.$darkGreen;
   }
   &.inverted {
     background-color: white;
-    color: variables.$darkGreen;
+    // color: variables.$darkGreen;
   }
 }
 

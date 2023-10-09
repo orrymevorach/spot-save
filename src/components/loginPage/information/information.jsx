@@ -1,9 +1,12 @@
+import { useConfig } from '@/context/config-context';
 import styles from './information.module.scss';
 
 export default function Information() {
+  const config = useConfig();
+  if (!config) return;
   return (
     <div className={styles.container}>
-      <p>Welcome to the reservation platform for Highlands Music Festival.</p>
+      <p>Welcome to the reservation platform for {config.campName}.</p>
       <p>Here you are able to:</p>
       <ol className={styles.list}>
         <li>Book a cabin you would like to sleep in</li>

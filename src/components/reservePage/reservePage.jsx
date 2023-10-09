@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import Loader from '../shared/loader/loader';
 import AddGuestsReservePage from './addGuestsReservePage/addGuestsReservePage';
 import { ROUTES } from '@/utils/constants';
+import { useConfig } from '@/context/config-context';
 
 const useSetStageBasedOnQuery = () => {
   const { actions, dispatch } = useReservation();
@@ -32,10 +33,12 @@ export default function ReservePage() {
   const { currentStage, cabinData } = useReservation();
   const { ADD_GUESTS, CONFIRMATION } = CABIN_SELECTION_STAGES;
   useSetStageBasedOnQuery();
-  if (!currentStage) return <Loader isDotted />;
+  const config = useConfig();
+  if (!currentStage || !config) return <Loader isDotted />;
+  const logo = config.logo[0];
   return (
     <div className={styles.sideMargins}>
-      <Logo classNames={styles.logo} />
+      <Logo classNames={styles.logo} {...logo} />
       <div className={styles.container}>
         {currentStage === ADD_GUESTS && <AddGuestsReservePage />}
         {currentStage === CONFIRMATION && <Confirmation />}

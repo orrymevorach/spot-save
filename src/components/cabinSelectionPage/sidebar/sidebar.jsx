@@ -2,8 +2,6 @@ import styles from './sidebar.module.scss';
 import { useReservation } from '@/context/reservation-context';
 import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
 import ReserveButton from '@/components/shared/reserveButton';
-import rainbow from 'public/rainbow-min.png';
-import Image from 'next/image';
 import ReservationSummary from '@/components/shared/reservationSummary';
 import VerifiedUsers from '@/components/shared/verifiedUsers/verifiedUsers';
 import { useUser } from '@/context/user-context';
@@ -34,7 +32,6 @@ export default function Sidebar({ cabinData }) {
     <div className={styles.sidebar}>
       <div className={styles.titleContainer}>
         <p className={styles.title}>Summary</p>
-        <Image src={rainbow} alt="" className={styles.image} />
       </div>
       <ReservationSummary cabinData={cabinData} />
       <VerifiedUsers

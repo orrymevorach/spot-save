@@ -36,16 +36,16 @@ export const getRecordById = async ({ tableId, recordId }) => {
   }
 };
 
-export const reserveSpotInCabin = async ({ cabinId = '', attendeeId }) => {
+export const updateRecord = async ({ tableId, recordId, newFields }) => {
   try {
-    const { data } = await client.mutate({
-      mutation: RESERVE_SPOT_IN_CABIN,
-      variables: {
-        cabinId,
-        attendeeId,
+    const { response } = await fetch('/api/airtable/update-record', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    });
-    return data.update_ticketPurchases;
+      body: JSON.stringify({ tableId, recordId, newFields }),
+    }).then(res => res.json());
+    return response;
   } catch (error) {
     console.log(error);
   }
@@ -63,7 +63,7 @@ export const getUserByEmail = async ({ email }) => {
 
 export const getUserByRecordId = async ({ id }) => {
   try {
-    const { response } = await getRecordById({
+    const response = await getRecordById({
       tableId: AIRTABLE_TABLES.USERS,
       recordId: id,
     });

@@ -3,11 +3,12 @@ import Button from '@/components/shared/button/button';
 import { useReservation } from '@/context/reservation-context';
 import { useUser } from '@/context/user-context';
 import { CABIN_SELECTION_STAGES } from '@/hooks/useReservation';
-import { getUserByRecordId, reserveSpotInCabin } from '@/lib/airtable';
+import { getUserByRecordId, updateRecord } from '@/lib/airtable';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import clsx from 'clsx';
 import { sendConfirmationEmail } from '@/lib/mailgun';
+import { AIRTABLE_TABLES } from '@/utils/constants';
 
 export default function ReserveButton({ children, cabin, classNames = '' }) {
   const { groupData, dispatch, actions, selectedBeds } = useReservation();
@@ -22,20 +23,24 @@ export default function ReserveButton({ children, cabin, classNames = '' }) {
     try {
       for (let i = 0; i < groupMembers.length; i++) {
         const groupMember = groupMembers[i];
-        const userHasNoPrevioulsyReservedCabin = groupMember.cabin.length === 0;
+        const userHasNoPrevioulsyReservedCabin =
+          !groupMember.cabin || groupMember.cabin.length === 0;
         const usersExistingCabinIsDifferentThenCurrentCabin =
           groupMember.cabin &&
           groupMember.cabin.length &&
-          groupMember.cabin[0].id !== cabinId;
+          groupMember.cabin[0] !== cabinId;
         // Reserving a spot in a cabin clears your existing bed selection.
         // Setting these conditions so as not to affect the reservation of people already in this cabin.
         if (
           userHasNoPrevioulsyReservedCabin ||
           usersExistingCabinIsDifferentThenCurrentCabin
         ) {
-          const response = await reserveSpotInCabin({
-            cabinId,
-            attendeeId: groupMember.id,
+          const res = await updateRecord({
+            tableId: AIRTABLE_TABLES.USERS,
+            recordId: groupMember.id,
+            newFields: {
+              Cabin: [cabinId],
+            },
           });
         }
       }
@@ -49,7 +54,7 @@ export default function ReserveButton({ children, cabin, classNames = '' }) {
         type: actions.SET_SELECTION_STAGE,
         currentStage: CABIN_SELECTION_STAGES.CONFIRMATION,
       });
-      await sendConfirmationEmail({ groupMembers, cabin, selectedBeds });
+      // await sendConfirmationEmail({ groupMembers, cabin, selectedBeds });
 
       router.push({
         query: {
