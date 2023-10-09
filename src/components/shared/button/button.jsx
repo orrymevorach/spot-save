@@ -41,7 +41,16 @@ export default function Button({
     isInverted && styles.inverted
   );
 
-  const Button = styled.button`
+  const StyledButton = styled.button`
+    background-color: ${primaryColour};
+    border: 2px solid ${primaryColour};
+    &.light,
+    &:hover {
+      color: ${primaryColour};
+    }
+  `;
+
+  const NextLink = styled(Link)`
     background-color: ${primaryColour};
     border: 2px solid ${primaryColour};
     &.light,
@@ -52,32 +61,32 @@ export default function Button({
 
   if (isAnchor) {
     return (
-      <a href={href} className={classnames}>
+      <StyledButton as="a" href={href} className={classnames}>
         {children}
-      </a>
+      </StyledButton>
     );
   }
   if (href) {
     return (
-      <Link href={href} className={classnames}>
+      <NextLink href={href} className={classnames}>
         {children}
-      </Link>
+      </NextLink>
     );
   }
   if (handleClick) {
     return (
-      <Button
+      <StyledButton
         className={classnames}
         disabled={isDisabled}
         onClick={handleClick}
       >
         <ButtonContents isLoading={isLoading}>{children}</ButtonContents>
-      </Button>
+      </StyledButton>
     );
   }
   return (
-    <Button className={classnames} type="submit" disabled={isDisabled}>
+    <StyledButton className={classnames} type="submit" disabled={isDisabled}>
       <ButtonContents isLoading={isLoading}>{children}</ButtonContents>
-    </Button>
+    </StyledButton>
   );
 }

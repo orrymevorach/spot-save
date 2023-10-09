@@ -26,6 +26,7 @@ export default function Layout({ children }) {
   const router = useRouter();
   const { user, dispatch } = useUser();
   const config = useConfig();
+  if (!config) return;
 
   const handleLogout = () => {
     Cookies.remove(COOKIES.USER_RECORD);
@@ -35,9 +36,11 @@ export default function Layout({ children }) {
 
   const isSummaryPage = router.pathname === ROUTES.SUMMARY;
   const hasCabin = user?.cabin && user.cabin.length > 0;
-
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      style={{ backgroundColor: config.backgroundColour }}
+    >
       {user && (
         <Nav
           navData={[
@@ -57,14 +60,7 @@ export default function Layout({ children }) {
         />
       )}
 
-      {config && (
-        <Logo
-          {...config.logo[0]}
-          className={styles.image}
-          alt=""
-          quality={50}
-        />
-      )}
+      <Logo {...config.logo[0]} className={styles.image} alt="" quality={50} />
 
       {children}
     </div>

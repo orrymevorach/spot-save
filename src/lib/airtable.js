@@ -1,10 +1,4 @@
-import {
-  RESERVE_SPOT_IN_CABIN,
-  RESERVE_BED,
-  CLEAR_CURRENT_BED_SELECTION,
-  CREATE_GROUP,
-  UPDATE_GROUP,
-} from '@/graphql/queries';
+import { RESERVE_BED, CLEAR_CURRENT_BED_SELECTION } from '@/graphql/queries';
 import { client } from '@/graphql/apollo-config';
 import { AIRTABLE_TABLES } from '@/utils/constants';
 
@@ -113,21 +107,6 @@ export const clearCurrentBedSelection = async ({ userId }) => {
       },
     });
     return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const updateGroup = async ({ groupId, members }) => {
-  try {
-    const { data } = await client.mutate({
-      mutation: UPDATE_GROUP,
-      variables: {
-        id: groupId,
-        members,
-      },
-    });
-    return data.update_groups[0];
   } catch (error) {
     console.log(error);
   }

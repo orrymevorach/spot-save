@@ -25,7 +25,7 @@
 }
 
 .videoThumbnail {
-  border: 1px dotted variables.$darkGreen;
+  border: 1px dotted variables.$charcoal;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,7 +34,7 @@
 
 .playIconThumbnail {
   display: block;
-  color: variables.$darkGreen;
+  color: variables.$charcoal;
 }
 
 .activeThumbnail {

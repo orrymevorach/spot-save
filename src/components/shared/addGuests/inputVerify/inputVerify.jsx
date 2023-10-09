@@ -1,4 +1,4 @@
-import { createRecord, getUserByEmail, updateGroup } from '@/lib/airtable';
+import { createRecord, getUserByEmail, updateRecord } from '@/lib/airtable';
 import { useState } from 'react';
 import styles from './inputVerify.module.scss';
 import Button from '@/components/shared/button/button';
@@ -25,9 +25,12 @@ const createOrUpdateGroup = async ({ user, groupData }) => {
       members: groupData.members,
     };
   } else {
-    const response = await updateGroup({
-      groupId: groupData.id,
-      members: groupRecordIds,
+    const response = await updateRecord({
+      tableId: AIRTABLE_TABLES.GROUPS,
+      recordId: groupData.id,
+      newFields: {
+        Members: groupRecordIds,
+      },
     });
     return {
       id: response.id,

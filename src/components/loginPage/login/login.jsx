@@ -96,6 +96,7 @@ export default function Login() {
         handleChange={e => handleChangePassword(e)}
         label="Password"
         value={password}
+        classNames={styles.passwordInput}
       />
       <Button isLoading={isLoading} classNames={styles.submit}>
         Log in
