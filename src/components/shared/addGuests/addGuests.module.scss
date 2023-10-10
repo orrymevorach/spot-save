@@ -1,4 +1,5 @@
 @use '@mixins' as mixins;
+@use '@variables' as variables;
 
 .container {
   margin-top: 50px;
@@ -18,4 +19,10 @@
 
 .input {
   margin-top: 10px;
+}
+
+@media screen and (max-width: variables.$mobile) {
+  .container {
+    max-width: 100%;
+  }
 }

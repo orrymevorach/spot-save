@@ -1,5 +1,3 @@
-import { RESERVE_BED, CLEAR_CURRENT_BED_SELECTION } from '@/graphql/queries';
-import { client } from '@/graphql/apollo-config';
 import { AIRTABLE_TABLES } from '@/utils/constants';
 
 export const getTableData = async ({ tableId }) => {
@@ -77,36 +75,6 @@ export const getUserByRecordId = async ({ id }) => {
       recordId: id,
     });
     return response;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const reserveBed = async ({ userId, bedOne, bedTwo }) => {
-  try {
-    const { data } = await client.mutate({
-      mutation: RESERVE_BED,
-      variables: {
-        userId,
-        bedOne,
-        bedTwo,
-      },
-    });
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const clearCurrentBedSelection = async ({ userId }) => {
-  try {
-    const { data } = await client.mutate({
-      mutation: CLEAR_CURRENT_BED_SELECTION,
-      variables: {
-        userId,
-      },
-    });
-    return data;
   } catch (error) {
     console.log(error);
   }

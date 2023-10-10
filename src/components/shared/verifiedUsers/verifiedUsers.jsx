@@ -4,9 +4,10 @@ import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { useUser } from '@/context/user-context';
 import { useReservation } from '@/context/reservation-context';
 import clsx from 'clsx';
-import { updateGroup } from '@/lib/airtable';
+import { updateRecord } from '@/lib/airtable';
 import { useState } from 'react';
 import Loader from '../loader/loader';
+import { AIRTABLE_TABLES } from '@/utils/constants';
 
 const VerifiedUser = ({ currentUser, index, hideRemoveButton }) => {
   const {
@@ -26,7 +27,14 @@ const VerifiedUser = ({ currentUser, index, hideRemoveButton }) => {
     );
     const memberRecordIds = remainingMembers.map(({ id }) => id);
 
-    await updateGroup({ groupId: groupData.id, members: memberRecordIds });
+    await updateRecord({
+      tableId: AIRTABLE_TABLES.GROUPS,
+      recordId: groupData.id,
+      newFields: {
+        Members: memberRecordIds,
+      },
+    });
+
     groupData.members = remainingMembers;
     dispatch({
       type: actions.UPDATE_GROUP,

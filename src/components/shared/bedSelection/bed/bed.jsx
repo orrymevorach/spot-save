@@ -9,8 +9,9 @@ import { useReservation } from '@/context/reservation-context';
 import clsx from 'clsx';
 import { useUser } from '@/context/user-context';
 import BedDropdown from './bed-dropdown/bed-dropdown';
-import { clearCurrentBedSelection, getUserByRecordId } from '@/lib/airtable';
+import { getUserByRecordId, updateRecord } from '@/lib/airtable';
 import Loader from '../../loader/loader';
+import { AIRTABLE_TABLES } from '@/utils/constants';
 
 const filterOutUsersWithSelectedBeds = ({ members, selectedBeds }) => {
   return members
@@ -86,7 +87,7 @@ export default function Bed({
 
   // Set bed status on page load
   useEffect(() => {
-    const isBedSelected = cabin[bedName].length > 0;
+    const isBedSelected = cabin[bedName]?.length > 0;
     if (currentBedOccupantInCurrentGroup) {
       // If bed is selected by a person in this group
       setCurrentUser(currentBedOccupantInCurrentGroup.name);
@@ -100,7 +101,14 @@ export default function Bed({
     setIsRemoveLoading(true);
     const currentUserData = members.find(({ name }) => currentUser === name);
     const updatedBeds = selectedBeds.filter(({ name }) => name !== currentUser);
-    await clearCurrentBedSelection({ userId: currentUserData.id });
+    await updateRecord({
+      tableId: AIRTABLE_TABLES.USERS,
+      recordId: currentUserData.id,
+      newFields: {
+        'Bed One': [],
+        'Bed Two': [],
+      },
+    });
     // Getting user to have up to date cabin data
     const userData = await getUserByRecordId({ id: user.id });
     setCurrentUser();

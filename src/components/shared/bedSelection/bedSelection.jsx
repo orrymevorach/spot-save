@@ -3,10 +3,12 @@ import { useReservation } from '@/context/reservation-context';
 import Button from '@/components/shared/button/button';
 import { useState } from 'react';
 import Cabin from './cabin/cabin';
-import { clearCurrentBedSelection, reserveBed } from '@/lib/airtable';
+import { updateRecord } from '@/lib/airtable';
 import Legend from './legend/legend';
 import { useWindowSize } from '@/context/window-size-context';
 import { sendConfirmationEmail } from '@/lib/mailgun';
+import { AIRTABLE_TABLES } from '@/utils/constants';
+import { camelToFlat } from '@/utils/string-utils';
 
 const HeadStaffCabinInformation = () => {
   return (
@@ -42,17 +44,29 @@ export default function BedSelection({ readOnly = false, cabin }) {
     });
     for (let i = 0; i < usersToBeUpdated.length; i++) {
       const { bedName, id } = usersToBeUpdated[i];
-      await clearCurrentBedSelection({ userId: id });
-      const response = await reserveBed({
-        userId: id,
-        [bedName]: cabin.id,
+
+      await updateRecord({
+        tableId: AIRTABLE_TABLES.USERS,
+        recordId: id,
+        newFields: {
+          'Bed One': [],
+          'Bed Two': [],
+        },
+      });
+      const transformBedName = camelToFlat(bedName);
+      const response = await updateRecord({
+        tableId: AIRTABLE_TABLES.USERS,
+        recordId: id,
+        newFields: {
+          [transformBedName]: [cabin.id],
+        },
       });
     }
-    await sendConfirmationEmail({
-      groupMembers: usersToBeUpdated,
-      cabin,
-      selectedBeds,
-    });
+    // await sendConfirmationEmail({
+    //   groupMembers: usersToBeUpdated,
+    //   cabin,
+    //   selectedBeds,
+    // });
     setIsLoading(false);
     window.location = '/summary?stage=BED_SELECTION';
   };
