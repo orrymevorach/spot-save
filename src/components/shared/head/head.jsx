@@ -1,16 +1,13 @@
 import Head from 'next/head';
 
 export default function Meta({ title = '' }) {
-  const tabTitle = `Highlands | Cabin Reservation`;
+  const tabTitle = `Reserved`;
   return (
     <Head>
       <meta charSet="utf-8" />
-      <meta
-        name="description"
-        content="Cabin & bed reservations for Highlands Music Festival."
-      />
+      <meta name="description" content="Reserved" />
       <title>{tabTitle}</title>
-      <link rel="icon" href="/rainbow-min.png" />
+      <link rel="icon" href="/reserved.png" />
       {/* <meta
         name="keywords"
         content="Highlands Music Festival, music festival, festival, Bancroft, Ontario, Toronto, Palmer Rapids, summer camp, 2023"

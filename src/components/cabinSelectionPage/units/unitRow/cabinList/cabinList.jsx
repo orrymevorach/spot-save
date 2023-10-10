@@ -19,7 +19,7 @@ export default function CabinList({ unitData, setHasAvailability }) {
   const [scrollValue, setScrollValue] = useState(0);
   const { selectedFilters } = useFilters();
 
-  const [_, { cabins = [] }] = unitData;
+  const { cabins } = unitData;
 
   const handleSubmit = selectedCabin => {
     dispatch({

@@ -11,7 +11,7 @@ export default function Filters({ classNames = '' }) {
 
   const gender = [MALE, FEMALE, MIXED];
   const numberOfGuests = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  const unitNames = units.map(([unitName]) => unitName);
+  const unitNames = units.map(({ name }) => name);
 
   const handleChange = ({ event, label }) => {
     const selectedFiltersCopy = Object.assign({}, selectedFilters);

@@ -7,7 +7,7 @@ export default function UnitLinks({ classNames = '' }) {
   return (
     <div className={clsx(styles.container, classNames)}>
       <p className={styles.title}>Skip to:</p>
-      {units.map(([unitName]) => {
+      {units.map(({ name: unitName }) => {
         const unitNameWithoutTrailingS = unitName.slice(0, -1);
         return (
           <a

@@ -17,6 +17,7 @@ export default function ReservationSummary({
     : '--';
 
   const { name, unit, additionalInformation } = cabin;
+  const { name: unitName } = unit[0];
   const hasAdditionalInformation =
     additionalInformation && additionalInformation.length > 0;
 
@@ -32,7 +33,7 @@ export default function ReservationSummary({
       </p>
       <p>
         <span className={styles.left}>Unit:</span>
-        <span className={styles.right}>{unit}</span>
+        <span className={styles.right}>{unitName}</span>
       </p>
       {showBedSelection && (
         <p>

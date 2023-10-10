@@ -3,6 +3,7 @@ import { GENDER_LABELS, FILTERS } from '../../../filters/filters-context';
 const { AVAILABLE_BEDS, GENDER } = FILTERS;
 
 export const filterByGender = ({ cabins, selectedFilters }) => {
+  if (!cabins) return [];
   const genderFilter = selectedFilters[GENDER];
   const { MALE, FEMALE, MIXED } = GENDER_LABELS;
   return cabins.filter(({ additionalInformation }) => {
@@ -18,6 +19,7 @@ export const filterByGender = ({ cabins, selectedFilters }) => {
 
 export const filterByAvailableBeds = ({ cabins, selectedFilters }) => {
   const availableBedsFilter = selectedFilters[AVAILABLE_BEDS];
+  if (!cabins) return [];
   return cabins.filter(({ openBeds }) => {
     if (openBeds >= availableBedsFilter) return true;
     return false;
@@ -25,6 +27,7 @@ export const filterByAvailableBeds = ({ cabins, selectedFilters }) => {
 };
 
 export const sortByLeastAvailability = ({ cabins }) => {
+  if (!cabins) return [];
   return cabins.sort((a, b) => {
     const aOpenBeds = parseFloat(a.openBeds);
     const bOpenBeds = parseFloat(b.openBeds);
@@ -34,6 +37,7 @@ export const sortByLeastAvailability = ({ cabins }) => {
 };
 
 export const filterOutClosedCabins = ({ cabins }) => {
+  if (!cabins) return [];
   return cabins.filter(({ availability }) => {
     if (availability === 'Closed') return false;
     return true;

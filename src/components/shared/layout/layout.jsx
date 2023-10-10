@@ -1,6 +1,5 @@
 import styles from './layout.module.scss';
 import Image from 'next/image';
-import logo from 'public/Logo-1200px-No-Bkgd-min.png';
 import clsx from 'clsx';
 import Cookies from 'js-cookie';
 import { COOKIES, ROUTES } from '@/utils/constants';

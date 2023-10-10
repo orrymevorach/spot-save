@@ -1,16 +1,10 @@
-import { transformFields } from '@/utils/airtable-utils';
-
-const Airtable = require('airtable');
-
-var base = new Airtable({
-  apiKey: process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN,
-}).base(process.env.AIRTABLE_BASE);
+import { airtableBase, transformFields } from '@/utils/airtable-utils';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { tableId, recordId, newFields } = req.body;
     try {
-      const response = await base(tableId).update([
+      const response = await airtableBase(tableId).update([
         {
           id: recordId,
           fields: {

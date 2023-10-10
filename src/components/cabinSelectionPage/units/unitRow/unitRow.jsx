@@ -1,31 +1,16 @@
 import styles from './unitRow.module.scss';
 import Image from 'next/image';
-import Colours from 'public/Colours-NoBkgd.jpg';
-import Comics from 'public/Comics-NoBkgd.jpg';
-import Zodiacs from 'public/Zodiacs-NoBkgd.jpg';
-import Seekers from 'public/Seekers-NoBkgd.jpg';
-import CITS from 'public/cits.jpg';
-import lteam from 'public/l-team-NoBkgd.jpg';
 import CabinList from './cabinList/cabinList';
 import { useWindowSize } from '@/context/window-size-context';
 import Takeover from '@/components/shared/takeover/takeover';
 import { useState } from 'react';
 import Button from '@/components/shared/button/button';
 
-const unitImages = {
-  Colours,
-  Comics,
-  Zodiacs,
-  Seekers,
-  CITS,
-  ['L-Team']: lteam,
-};
-
 export default function UnitRow({ unitData }) {
   const [showTakeover, setShowTakeover] = useState(false);
   const [hasAvailability, setHasAvailability] = useState(true);
-  const [unitName] = unitData;
-  const unitImage = unitImages[unitName];
+  const { name: unitName, image } = unitData;
+  const { url, width, height } = image[0];
   const { isDesktop } = useWindowSize();
   const unitNameWithoutTrailingS = unitName.slice(0, -1);
 
@@ -46,9 +31,11 @@ export default function UnitRow({ unitData }) {
               {showTakeover && (
                 <Takeover handleClose={() => setShowTakeover(false)}>
                   <Image
-                    src={unitImage}
+                    src={url}
                     alt={`${unitName} unit`}
                     className={styles.takeoverUnitImage}
+                    width={width}
+                    height={height}
                   />
                 </Takeover>
               )}
@@ -62,9 +49,11 @@ export default function UnitRow({ unitData }) {
           />
           {isDesktop && hasAvailability ? (
             <Image
-              src={unitImage}
+              src={url}
               alt={`${unitName} unit`}
               className={styles.unitImage}
+              width={width}
+              height={height}
             />
           ) : (
             ''

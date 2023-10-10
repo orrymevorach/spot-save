@@ -6,12 +6,13 @@ export default function CabinSummary({
   unit,
 }) {
   const hasAdditionalInformation = additionalInformation?.length > 0;
+  const { name: unitName } = unit[0];
   return (
     <div className={styles.summaryContainer}>
       <p className={styles.name}>Cabin {name}</p>
       <p className={styles.description}>
         Cabin {name} is located in the{' '}
-        <span className={styles.unit}>{unit}</span> unit.
+        <span className={styles.unit}>{unitName}</span> unit.
       </p>
       {hasAdditionalInformation && (
         <div className={styles.additionalInformationContainer}>

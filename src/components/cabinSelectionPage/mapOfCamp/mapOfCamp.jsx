@@ -2,7 +2,6 @@ import Takeover from '@/components/shared/takeover/takeover';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import styles from './mapOfCamp.module.scss';
-import fullCamp from 'public/fullCampNoBkgdNoLegend.jpg';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 
@@ -14,12 +13,12 @@ const MapOfCampTakeover = ({ setShowMapTakeover }) => {
       modalClassNames={styles.takeover}
       queryParam="showMap"
     >
-      <Image
+      {/* <Image
         src={fullCamp}
         alt=""
         className={clsx(styles.map, isZoom && styles.isZoom)}
         onClick={() => setIsZoom(!isZoom)}
-      />
+      /> */}
     </Takeover>
   );
 };

@@ -40,6 +40,8 @@ export default function ReserveButton({ children, cabin, classNames = '' }) {
             recordId: groupMember.id,
             newFields: {
               Cabin: [cabinId],
+              'Bed One': [],
+              'Bed Two': [],
             },
           });
         }
