@@ -10,13 +10,15 @@ export default function useGetCabinAndUnitData() {
     const getData = async () => {
       const cabinResponse = await getTableData({
         tableId: AIRTABLE_TABLES.UNITS,
+        queryName: 'getUnits',
       });
       setUnits(cabinResponse);
       setIsLoading(false);
     };
-
-    getData();
-  }, [units.length]);
+    if (units.length === 0) {
+      getData();
+    }
+  }, []);
 
   return {
     units,

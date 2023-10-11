@@ -55,7 +55,6 @@ const useGetCabinData = () => {
   const [cabin, setCabin] = useState();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const { user } = useUser();
 
   const cabinQuery = router.query.cabinId;
 
@@ -65,6 +64,7 @@ const useGetCabinData = () => {
       const cabinData = await getRecordById({
         recordId: cabinQuery,
         tableId: AIRTABLE_TABLES.CABINS,
+        queryName: 'getCabins',
       });
       setCabin(cabinData);
       setIsLoading(false);
@@ -74,23 +74,6 @@ const useGetCabinData = () => {
       getCabinData();
     }
   }, [cabinQuery, cabin]);
-
-  // Used on summary page
-  useEffect(() => {
-    const getCabinData = async () => {
-      const cabinData = await getRecordById({
-        recordId: user.cabin[0].id,
-        tableId: AIRTABLE_TABLES.CABINS,
-      });
-      setCabin(cabinData);
-      setIsLoading(false);
-      return;
-    };
-    const hasCabin = user?.cabin && user?.cabin[0];
-    if (!cabinQuery && !cabin && hasCabin) {
-      getCabinData();
-    }
-  }, [user, cabin, cabinQuery]);
 
   return {
     cabin,

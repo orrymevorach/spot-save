@@ -1,7 +1,7 @@
 import { AIRTABLE_TABLES } from '@/utils/constants';
 
-export const getTableData = async ({ tableId }) => {
-  const { response } = await fetch('/api/airtable/get-table', {
+export const getTableData = async ({ tableId, queryName }) => {
+  const { response } = await fetch(`/api/airtable/get-table?${queryName}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -13,15 +13,18 @@ export const getTableData = async ({ tableId }) => {
   return response;
 };
 
-export const getRecordById = async ({ tableId, recordId }) => {
+export const getRecordById = async ({ tableId, recordId, queryName }) => {
   try {
-    const { response } = await fetch('/api/airtable/get-record-by-id', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ tableId, recordId }),
-    }).then(res => res.json());
+    const { response } = await fetch(
+      `/api/airtable/get-record-by-id?${queryName}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ tableId, recordId }),
+      }
+    ).then(res => res.json());
     return response;
   } catch (error) {
     console.log(error);
@@ -60,7 +63,10 @@ export const updateRecord = async ({ tableId, recordId, newFields }) => {
 
 export const getUserByEmail = async ({ email }) => {
   try {
-    const response = await getTableData({ tableId: AIRTABLE_TABLES.USERS });
+    const response = await getTableData({
+      tableId: AIRTABLE_TABLES.USERS,
+      queryName: 'getUsers',
+    });
     const user = response.find(({ emailAddress }) => emailAddress === email);
     return user;
   } catch (error) {
@@ -73,6 +79,7 @@ export const getUserByRecordId = async ({ id }) => {
     const response = await getRecordById({
       tableId: AIRTABLE_TABLES.USERS,
       recordId: id,
+      queryName: 'getUserByRecordId',
     });
     return response;
   } catch (error) {
