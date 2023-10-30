@@ -3,8 +3,6 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import styles from './button.module.scss';
 import Link from 'next/link';
 import clsx from 'clsx';
-import styled from 'styled-components';
-import { COLOURS } from '@/utils/constants';
 
 const ButtonContents = ({ isLoading, children }) => {
   return (
@@ -38,54 +36,34 @@ export default function Button({
     isInverted && styles.inverted
   );
 
-  const { PRIMARY_COLOUR } = COLOURS;
-
-  const StyledButton = styled.button`
-    background-color: ${PRIMARY_COLOUR};
-    border: 2px solid ${PRIMARY_COLOUR};
-    &.light,
-    &:hover {
-      color: ${PRIMARY_COLOUR};
-    }
-  `;
-
-  const NextLink = styled(Link)`
-    background-color: ${PRIMARY_COLOUR};
-    border: 2px solid ${PRIMARY_COLOUR};
-    &.light,
-    &:hover {
-      color: ${PRIMARY_COLOUR};
-    }
-  `;
-
   if (isAnchor) {
     return (
-      <StyledButton as="a" href={href} className={classnames}>
+      <a href={href} className={classnames}>
         {children}
-      </StyledButton>
+      </a>
     );
   }
   if (href) {
     return (
-      <NextLink href={href} className={classnames}>
+      <Link href={href} className={classnames}>
         {children}
-      </NextLink>
+      </Link>
     );
   }
   if (handleClick) {
     return (
-      <StyledButton
+      <Button
         className={classnames}
         disabled={isDisabled}
         onClick={handleClick}
       >
         <ButtonContents isLoading={isLoading}>{children}</ButtonContents>
-      </StyledButton>
+      </Button>
     );
   }
   return (
-    <StyledButton className={classnames} type="submit" disabled={isDisabled}>
+    <Button className={classnames} type="submit" disabled={isDisabled}>
       <ButtonContents isLoading={isLoading}>{children}</ButtonContents>
-    </StyledButton>
+    </Button>
   );
 }

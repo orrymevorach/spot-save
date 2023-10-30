@@ -7,5 +7,5 @@ export const ROUTES = {
 export const AIRTABLE_TABLES = {};
 
 export const COLOURS = {
-  PRIMARY_COLOUR: '#2f2f2f',
+  PRIMARY_COLOUR: '#a1e4d7',
 };

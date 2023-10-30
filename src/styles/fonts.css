@@ -1,4 +1,19 @@
 @font-face {
-  font-family: 'Tan Aesop';
-  src: url('../../asset/TAN-AESOP/TAN-AESOP.ttf');
+  font-family: 'Inter Regular';
+  src: url('../../asset/Inter/Inter-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Inter Bold';
+  src: url('../../asset/Inter/Inter-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Inter Light';
+  src: url('../../asset/Inter/Inter-Light.ttf');
+}
+
+@font-face {
+  font-family: 'Inter Medium';
+  src: url('../../asset/Inter/Inter-Medium.ttf');
 }

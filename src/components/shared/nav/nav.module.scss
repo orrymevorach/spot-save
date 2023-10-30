@@ -1,13 +1,16 @@
 @import '@variables';
 
 .nav {
-  position: absolute;
-  right: 20px;
-  top: 20px;
+  // position: absolute;
+  // right: 20px;
+  // top: 20px;
 }
 .navList {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 80px;
+  border-bottom: 1px solid rgba(19, 19, 19, 0.08);
 }
 
 .link {
