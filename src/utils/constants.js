@@ -1,18 +1,11 @@
-export const COOKIES = {
-  USER_RECORD: 'userRecord',
-};
+export const COOKIES = {};
 
 export const ROUTES = {
   HOME: '/',
-  CABIN_SELECTION: '/cabin-selection',
-  RESERVE: '/reserve',
-  SUMMARY: '/summary',
 };
 
-export const AIRTABLE_TABLES = {
-  CABINS: 'Cabins',
-  USERS: 'Users',
-  CONFIG: 'Config',
-  GROUPS: 'Groups',
-  UNITS: 'Units',
+export const AIRTABLE_TABLES = {};
+
+export const COLOURS = {
+  PRIMARY_COLOUR: '#2f2f2f',
 };

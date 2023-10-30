@@ -60,29 +60,3 @@ export const updateRecord = async ({ tableId, recordId, newFields }) => {
     console.log(error);
   }
 };
-
-export const getUserByEmail = async ({ email }) => {
-  try {
-    const response = await getTableData({
-      tableId: AIRTABLE_TABLES.USERS,
-      queryName: 'getUsers',
-    });
-    const user = response.find(({ emailAddress }) => emailAddress === email);
-    return user;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const getUserByRecordId = async ({ id }) => {
-  try {
-    const response = await getRecordById({
-      tableId: AIRTABLE_TABLES.USERS,
-      recordId: id,
-      queryName: 'getUserByRecordId',
-    });
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
-};

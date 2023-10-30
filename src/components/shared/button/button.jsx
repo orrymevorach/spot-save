@@ -3,8 +3,8 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import styles from './button.module.scss';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { useConfig } from '@/context/config-context';
 import styled from 'styled-components';
+import { COLOURS } from '@/utils/constants';
 
 const ButtonContents = ({ isLoading, children }) => {
   return (
@@ -30,9 +30,6 @@ export default function Button({
   isSmall = false,
   isInverted = false,
 }) {
-  const config = useConfig();
-  if (!config) return;
-  const { primaryColour } = config;
   const classnames = clsx(
     styles.button,
     classNames,
@@ -41,21 +38,23 @@ export default function Button({
     isInverted && styles.inverted
   );
 
+  const { PRIMARY_COLOUR } = COLOURS;
+
   const StyledButton = styled.button`
-    background-color: ${primaryColour};
-    border: 2px solid ${primaryColour};
+    background-color: ${PRIMARY_COLOUR};
+    border: 2px solid ${PRIMARY_COLOUR};
     &.light,
     &:hover {
-      color: ${primaryColour};
+      color: ${PRIMARY_COLOUR};
     }
   `;
 
   const NextLink = styled(Link)`
-    background-color: ${primaryColour};
-    border: 2px solid ${primaryColour};
+    background-color: ${PRIMARY_COLOUR};
+    border: 2px solid ${PRIMARY_COLOUR};
     &.light,
     &:hover {
-      color: ${primaryColour};
+      color: ${PRIMARY_COLOUR};
     }
   `;
 
