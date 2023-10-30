@@ -23,7 +23,7 @@ export default function Button({
   href = null,
   handleClick = null,
   classNames = '',
-  isLight = false,
+  isSecondary = false,
   isAnchor = false,
   isSmall = false,
   isInverted = false,
@@ -31,7 +31,7 @@ export default function Button({
   const classnames = clsx(
     styles.button,
     classNames,
-    isLight && styles.light,
+    isSecondary && styles.secondary,
     isSmall && styles.small,
     isInverted && styles.inverted
   );

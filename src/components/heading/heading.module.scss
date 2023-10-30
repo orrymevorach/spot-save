@@ -1,0 +1,35 @@
+@use '@mixins' as mixins;
+
+.container {
+  width: 100%;
+  text-align: center;
+  margin-top: 150px;
+}
+
+.text {
+  font-size: 48px;
+  @include mixins.fontPrimaryMedium;
+  line-height: 1.1;
+  font-weight: bold;
+  letter-spacing: -1px;
+}
+
+.animationContainer {
+  overflow: hidden;
+  height: 60px;
+}
+.slideUp {
+  transform: translateY(50px);
+  animation: slideUp 0.2s forwards;
+  padding-bottom: 10px;
+}
+
+@keyframes slideUp {
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.button {
+  margin-top: 80px;
+}
