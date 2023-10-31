@@ -1,0 +1,12 @@
+@use '@mixins' as mixins;
+
+.text {
+  font-size: 56px;
+  @include mixins.fontPrimaryMedium;
+  line-height: 1.1;
+  font-weight: bold;
+  letter-spacing: -1px;
+  &.medium {
+    font-size: 32px;
+  }
+}

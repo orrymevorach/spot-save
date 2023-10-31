@@ -1,0 +1,25 @@
+@use '@variables' as variables;
+@use '@mixins' as mixins;
+
+.informationContainer {
+  width: 500px;
+  background-color: white;
+  border-radius: 20px;
+  border: 1px solid variables.$grey;
+  padding: 60px;
+  &:nth-child(odd) {
+    margin: 20px 10px 0 0;
+  }
+  &:nth-child(even) {
+    margin: 20px 0 0 10px;
+  }
+}
+.heading {
+  @include mixins.fontPrimary;
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.description {
+  @include mixins.fontPrimaryLight;
+}

@@ -1,34 +1,33 @@
 import { useState } from 'react';
 import styles from './heading.module.scss';
-import clsx from 'clsx';
 import Button from '@/components/shared/button/button';
 import { ROUTES } from '@/utils/constants';
+import HeadingText from '../shared/heading-text/heading-text';
+import useInterval from '@/hooks/useInterval';
 
 export default function Heading() {
-  const data = ['Managing beds', 'Inputting payments', 'More stuff'];
+  const data = ['managing beds', 'inputting payments', 'more stuff'];
   const [currentIndex, setIndex] = useState(0);
-  setInterval(() => {
+  useInterval(() => {
     if (currentIndex !== data.length - 1) {
       setIndex(currentIndex + 1);
       return;
-    }
-    if (currentIndex === data.length - 1) {
+    } else if (currentIndex === data.length - 1) {
       setIndex(0);
       return;
     }
   }, 2500);
-
   return (
     <div className={styles.container}>
-      <p className={styles.text}>Spend more time growing</p>
-      <p className={styles.text}>your sales and less time</p>
+      <HeadingText>Spend more time growing</HeadingText>
+      <HeadingText>your sales and less time</HeadingText>
       <div className={styles.animationContainer}>
         {data.map((line, index) => {
           if (currentIndex === index)
             return (
-              <p className={clsx(styles.text, styles.slideUp)} key={line}>
+              <HeadingText key={line} classNames={styles.slideUp}>
                 {line}
-              </p>
+              </HeadingText>
             );
         })}
       </div>

@@ -1,0 +1,17 @@
+@use '@mixins' as mixins;
+
+.container {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.text {
+  margin-right: 10px;
+  text-transform: uppercase;
+  @include mixins.fontPrimary;
+  font-size: 12px;
+  letter-spacing: 0.9px;
+}
