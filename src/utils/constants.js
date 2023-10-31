@@ -2,6 +2,7 @@ export const COOKIES = {};
 
 export const ROUTES = {
   HOME: '/',
+  CONTACT: '/contact',
 };
 
 export const AIRTABLE_TABLES = {};

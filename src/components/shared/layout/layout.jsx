@@ -1,5 +1,6 @@
 import styles from './layout.module.scss';
 import Nav from '../nav/nav';
+import Footer from '../footer/footer';
 
 export default function Layout({ children }) {
   return (
@@ -15,6 +16,7 @@ export default function Layout({ children }) {
       />
 
       {children}
+      <Footer />
     </div>
   );
 }

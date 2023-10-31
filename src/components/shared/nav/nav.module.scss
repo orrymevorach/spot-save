@@ -6,12 +6,14 @@
   top: 0;
   background-color: white;
   z-index: 100;
+  opacity: 0;
+  animation: fadeIn 0.5s linear forwards;
 }
 .navList {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 80px;
+  padding: 10px 60px 15px;
   border-bottom: 1px solid variables.$grey;
 }
 
