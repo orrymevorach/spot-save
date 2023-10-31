@@ -1,0 +1,7 @@
+@use '@variables' as variables;
+@use '@mixins' as mixins;
+
+.contactContainer {
+  display: flex;
+  min-height: 100vh;
+}

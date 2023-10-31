@@ -14,7 +14,7 @@ export default function Hero() {
           ultimate flexibility for your guests.
         </HeadingText>
 
-        <Button isInverted href={ROUTES.HOME} classNames={styles.button}>
+        <Button isInverted href={ROUTES.CONTACT} classNames={styles.button}>
           Get a demo
         </Button>
       </div>

@@ -38,7 +38,7 @@ export default function Heading() {
             );
         })}
       </div>
-      <Button isSecondary href={ROUTES.HOME} classNames={styles.button}>
+      <Button isSecondary href={ROUTES.CONTACT} classNames={styles.button}>
         Get a demo
       </Button>
     </div>
