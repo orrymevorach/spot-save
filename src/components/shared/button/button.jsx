@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import styles from './button.module.scss';
 import Link from 'next/link';
 import clsx from 'clsx';
@@ -10,7 +10,14 @@ const ButtonContents = ({ isLoading, children }) => {
       {isLoading ? (
         <FontAwesomeIcon icon={faSpinner} className={styles.spinnerIcon} />
       ) : (
-        children
+        <>
+          {children}
+          <FontAwesomeIcon
+            icon={faChevronRight}
+            className={styles.chevron}
+            size="sm"
+          />
+        </>
       )}
     </>
   );
@@ -39,14 +46,14 @@ export default function Button({
   if (isAnchor) {
     return (
       <a href={href} className={classnames}>
-        {children}
+        <ButtonContents isLoading={isLoading}>{children}</ButtonContents>
       </a>
     );
   }
   if (href) {
     return (
       <Link href={href} className={classnames}>
-        {children}
+        <ButtonContents isLoading={isLoading}>{children}</ButtonContents>
       </Link>
     );
   }

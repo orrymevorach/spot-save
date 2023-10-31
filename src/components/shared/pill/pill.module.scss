@@ -1,11 +1,13 @@
 @use '@mixins' as mixins;
+@use '@variables' as variables;
 
 .container {
   display: flex;
   align-items: center;
   background-color: white;
-  padding: 4px 12px;
-  border-radius: 20px;
+  padding: 6px 14px;
+  border-radius: variables.$borderRadius;
+  border: 1px solid variables.$grey;
 }
 
 .text {

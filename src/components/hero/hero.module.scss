@@ -1,0 +1,32 @@
+@use '@variables' as variables;
+
+.outerContainer {
+  background-color: variables.$lightGrey;
+  display: flex;
+  justify-content: center;
+}
+
+.innerContainer {
+  background-color: variables.$darkGreen;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 100px 0;
+  border-radius: variables.$borderRadius;
+  max-width: 1300px;
+  width: 90%;
+  background-image: url('https://uploads-ssl.webflow.com/63cf0ce6fd80557a7132ca30/63cf3dfba658295203ff0e39_background%20illustration.svg');
+  background-position: 80% 20%;
+  background-attachment: fixed;
+  background-size: 200%;
+  height: 400px;
+}
+
+.text {
+  color: white;
+}
+
+.button {
+  margin-top: 60px;
+}
